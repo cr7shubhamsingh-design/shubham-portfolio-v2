@@ -42,6 +42,7 @@
   --menu-bg: #202020;
   --menu-border: #454545;
   --menu-shadow: 0 0 0 1px rgba(22, 22, 22, 1);
+  --icon-filter: brightness(0) invert(1);
 
   color-scheme: dark;
 }
