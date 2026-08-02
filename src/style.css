@@ -27,13 +27,13 @@
 
 :root[data-theme='dark'] {
   --bg: #1e1e1e;
-  --ink: #fff;
-  --ink-70: rgba(255, 255, 255, 0.7);
+  --ink: #f8f8dd;
+  --ink-70: rgba(248, 248, 221, 0.7);
   --accent: #f97020;
   --accent-border: #bf4c0a;
   --btn-text: #f8f8dd;
-  --headline-dim: rgba(255, 255, 255, 0.7);
-  --headline-strong: #fff;
+  --headline-dim: rgba(248, 248, 221, 0.7);
+  --headline-strong: #f8f8dd;
   --social-bg: #202020;
   --social-border: #454545;
   --panel-shadow: 0 0 0 1px rgba(22, 22, 22, 1);
@@ -42,7 +42,6 @@
   --menu-bg: #202020;
   --menu-border: #454545;
   --menu-shadow: 0 0 0 1px rgba(22, 22, 22, 1);
-  --icon-filter: brightness(0) invert(1);
 
   color-scheme: dark;
 }
@@ -121,7 +120,6 @@ body {
 
 .hero__logo {
   display: block;
-  filter: var(--icon-filter);
 }
 
 .hero__headline {
@@ -303,7 +301,6 @@ body {
 .site-nav__logo {
   display: block;
   margin-left: 9px;
-  filter: var(--icon-filter);
 }
 
 .site-nav__menu {
