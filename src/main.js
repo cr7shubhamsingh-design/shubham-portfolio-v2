@@ -71,3 +71,31 @@ if (cycleImg) {
     showFrame(DESIGNER_FRAMES[frameIndex]);
   }, DESIGNER_CYCLE_INTERVAL_MS);
 }
+
+const THEME_ICONS = {
+  light: '/icons/moon.svg',
+  dark: '/icons/moon-dark.svg',
+};
+
+const themeToggle = document.getElementById('theme-toggle');
+const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+if (themeToggle && themeToggleIcon) {
+  const applyTheme = (theme) => {
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    themeToggleIcon.src = THEME_ICONS[theme];
+  };
+
+  const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  applyTheme(currentTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+  });
+}

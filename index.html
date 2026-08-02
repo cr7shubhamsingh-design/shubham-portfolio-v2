@@ -11,6 +11,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/src/style.css" />
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        if (stored === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="loading-screen" class="loading-screen">
@@ -23,9 +31,15 @@
           <img class="hero__logo" src="/logo.svg" alt="shubham." width="167" height="30" />
 
           <h1 class="hero__headline">
-            <span class="hero__line">hi! i am shubham</span>
+            <span class="hero__line">
+              <span class="headline-text"
+                ><span class="text-dim">hi! i am </span><span class="text-strong">shubham</span></span
+              >
+            </span>
             <span class="hero__line hero__line--accent">
-              a product
+              <span class="headline-text"
+                ><span class="text-dim">a</span> <span class="text-strong">product</span></span
+              >
               <span class="glitch">
                 <img
                   id="designer-cycle"
@@ -68,8 +82,8 @@
             <img src="/icons/menu.svg" alt="" width="13" height="11" />
           </button>
         </div>
-        <button class="site-nav__theme" type="button" aria-label="Toggle dark mode">
-          <img src="/icons/moon.svg" alt="" width="20" height="20" />
+        <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle dark mode">
+          <img id="theme-toggle-icon" src="/icons/moon.svg" alt="" width="20" height="20" />
         </button>
       </nav>
     </main>
