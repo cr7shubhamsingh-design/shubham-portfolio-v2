@@ -79,8 +79,7 @@ if (cycleImg) {
 
   setDesignerTheme = (theme) => {
     activeFrames = theme === 'dark' ? DESIGNER_FRAMES_DARK : DESIGNER_FRAMES_LIGHT;
-    frameIndex = 0;
-    showFrame(activeFrames[frameIndex]);
+    cycleImg.src = activeFrames[frameIndex];
   };
 
   setInterval(() => {
