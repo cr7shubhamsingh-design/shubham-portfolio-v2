@@ -79,6 +79,7 @@ const THEME_ICONS = {
 
 const themeToggle = document.getElementById('theme-toggle');
 const themeToggleIcon = document.getElementById('theme-toggle-icon');
+const themedIcons = document.querySelectorAll('[data-icon-light]');
 
 if (themeToggle && themeToggleIcon) {
   const applyTheme = (theme) => {
@@ -88,6 +89,9 @@ if (themeToggle && themeToggleIcon) {
       document.documentElement.removeAttribute('data-theme');
     }
     themeToggleIcon.src = THEME_ICONS[theme];
+    themedIcons.forEach((img) => {
+      img.src = theme === 'dark' ? img.dataset.iconDark : img.dataset.iconLight;
+    });
   };
 
   const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
