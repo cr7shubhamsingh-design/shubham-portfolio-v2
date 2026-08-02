@@ -66,8 +66,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 23px;
-  width: 600px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px;
 }
 
 .hero__header {
@@ -226,6 +226,8 @@ body {
   align-items: center;
   gap: 18px;
   z-index: 20;
+  width: calc(100% - 32px);
+  max-width: 600px;
 }
 
 .site-nav__pill {
@@ -233,8 +235,8 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  width: 600px;
-  max-width: calc(100vw - 32px);
+  flex: 1;
+  min-width: 0;
   padding: 10px 8px;
   border-radius: 14px;
   background: rgba(247, 247, 248, 0.95);
@@ -272,6 +274,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 24px;
   height: 24px;
   padding: 0;
