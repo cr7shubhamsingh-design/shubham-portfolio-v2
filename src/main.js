@@ -37,13 +37,6 @@ if (loadingScreen && loadingImg && mainScreen) {
   }, LOADING_TOTAL_MS);
 }
 
-const heroLogo = document.getElementById('hero-logo');
-
-if (heroLogo) {
-  const randomFrame = LOADING_FRAMES[Math.floor(Math.random() * LOADING_FRAMES.length)];
-  heroLogo.src = randomFrame;
-}
-
 const DESIGNER_FRAMES = [
   '/designer-frames/frame-1-flat.svg',
   '/designer-frames/frame-2-rainbow.svg',
