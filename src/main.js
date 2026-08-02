@@ -8,7 +8,7 @@ const LOADING_FRAMES = [
 ];
 
 const LOADING_FRAME_INTERVAL_MS = 300;
-const LOADING_TOTAL_MS = 1100;
+const LOADING_TOTAL_MS = 1700;
 
 const loadingScreen = document.getElementById('loading-screen');
 const loadingImg = document.getElementById('loading-cycle');
@@ -23,7 +23,11 @@ if (loadingScreen && loadingImg && mainScreen) {
   let loadingFrameIndex = 0;
   const loadingCycleId = setInterval(() => {
     loadingFrameIndex = (loadingFrameIndex + 1) % LOADING_FRAMES.length;
-    loadingImg.src = LOADING_FRAMES[loadingFrameIndex];
+    loadingImg.classList.add('is-fading');
+    setTimeout(() => {
+      loadingImg.src = LOADING_FRAMES[loadingFrameIndex];
+      loadingImg.classList.remove('is-fading');
+    }, 100);
   }, LOADING_FRAME_INTERVAL_MS);
 
   setTimeout(() => {

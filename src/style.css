@@ -38,6 +38,12 @@ body {
 
 .loading-screen__frame {
   display: block;
+  opacity: 1;
+  transition: opacity 150ms ease;
+}
+
+.loading-screen__frame.is-fading {
+  opacity: 0.4;
 }
 
 .hero {
