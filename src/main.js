@@ -99,25 +99,41 @@ const themeToggleIcon = document.getElementById('theme-toggle-icon');
 const themedIcons = document.querySelectorAll('[data-icon-light]');
 
 if (themeToggle && themeToggleIcon) {
-  const applyTheme = (theme) => {
+  const swappableIcons = [themeToggleIcon, ...themedIcons];
+
+  const applyTheme = (theme, animate) => {
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
       document.documentElement.removeAttribute('data-theme');
     }
-    themeToggleIcon.src = THEME_ICONS[theme];
-    themedIcons.forEach((img) => {
-      img.src = theme === 'dark' ? img.dataset.iconDark : img.dataset.iconLight;
-    });
+
+    const swap = () => {
+      themeToggleIcon.src = THEME_ICONS[theme];
+      themedIcons.forEach((img) => {
+        img.src = theme === 'dark' ? img.dataset.iconDark : img.dataset.iconLight;
+      });
+    };
+
+    if (animate) {
+      swappableIcons.forEach((img) => img.classList.add('is-swapping'));
+      setTimeout(() => {
+        swap();
+        swappableIcons.forEach((img) => img.classList.remove('is-swapping'));
+      }, 220);
+    } else {
+      swap();
+    }
+
     setDesignerTheme(theme);
   };
 
   const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-  applyTheme(currentTheme);
+  applyTheme(currentTheme, false);
 
   themeToggle.addEventListener('click', () => {
     const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     localStorage.setItem('theme', next);
-    applyTheme(next);
+    applyTheme(next, true);
   });
 }
