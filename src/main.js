@@ -1,3 +1,38 @@
+const LOADING_FRAMES = [
+  '/loading-frames/frame-1.svg',
+  '/loading-frames/frame-2.svg',
+  '/loading-frames/frame-3.svg',
+  '/loading-frames/frame-4.svg',
+  '/loading-frames/frame-5.svg',
+  '/loading-frames/frame-6.svg',
+];
+
+const LOADING_FRAME_INTERVAL_MS = 600;
+const LOADING_TOTAL_MS = 2000;
+
+const loadingScreen = document.getElementById('loading-screen');
+const loadingImg = document.getElementById('loading-cycle');
+const mainScreen = document.getElementById('main-screen');
+
+if (loadingScreen && loadingImg && mainScreen) {
+  LOADING_FRAMES.forEach((src) => {
+    const preload = new Image();
+    preload.src = src;
+  });
+
+  let loadingFrameIndex = 0;
+  const loadingCycleId = setInterval(() => {
+    loadingFrameIndex = (loadingFrameIndex + 1) % LOADING_FRAMES.length;
+    loadingImg.src = LOADING_FRAMES[loadingFrameIndex];
+  }, LOADING_FRAME_INTERVAL_MS);
+
+  setTimeout(() => {
+    clearInterval(loadingCycleId);
+    loadingScreen.classList.add('is-hidden');
+    mainScreen.classList.add('is-visible');
+  }, LOADING_TOTAL_MS);
+}
+
 const DESIGNER_FRAMES = [
   '/designer-frames/frame-1-flat.svg',
   '/designer-frames/frame-2-rainbow.svg',
@@ -5,6 +40,8 @@ const DESIGNER_FRAMES = [
   '/designer-frames/frame-4-navy.svg',
   '/designer-frames/frame-5-cream.svg',
 ];
+
+const DESIGNER_CYCLE_INTERVAL_MS = 1500;
 
 const cycleImg = document.getElementById('designer-cycle');
 
@@ -28,5 +65,5 @@ if (cycleImg) {
   setInterval(() => {
     frameIndex = (frameIndex + 1) % DESIGNER_FRAMES.length;
     showFrame(DESIGNER_FRAMES[frameIndex]);
-  }, 2000);
+  }, DESIGNER_CYCLE_INTERVAL_MS);
 }
