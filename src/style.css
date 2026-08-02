@@ -202,6 +202,12 @@ body {
   border-radius: 10px;
   background: var(--bg);
   border: 1px solid #fff;
+  box-shadow:
+    0 0 0 1px rgba(222, 222, 222, 1),
+    0 1px 1px rgba(150, 150, 150, 0.1),
+    0 2px 2px rgba(150, 150, 150, 0.09),
+    0 5px 3px rgba(173, 173, 173, 0.05),
+    0 8px 3px rgba(150, 150, 150, 0.01);
 }
 
 .social-link img {
