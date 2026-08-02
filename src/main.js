@@ -16,12 +16,17 @@ if (cycleImg) {
 
   let frameIndex = 0;
 
+  const showFrame = (src) => {
+    cycleImg.classList.add('is-entering');
+    cycleImg.style.transitionDuration = '0ms';
+    cycleImg.src = src;
+    void cycleImg.offsetWidth;
+    cycleImg.style.transitionDuration = '';
+    cycleImg.classList.remove('is-entering');
+  };
+
   setInterval(() => {
     frameIndex = (frameIndex + 1) % DESIGNER_FRAMES.length;
-    cycleImg.classList.add('is-fading');
-    setTimeout(() => {
-      cycleImg.src = DESIGNER_FRAMES[frameIndex];
-      cycleImg.classList.remove('is-fading');
-    }, 150);
-  }, 1000);
+    showFrame(DESIGNER_FRAMES[frameIndex]);
+  }, 2000);
 }
