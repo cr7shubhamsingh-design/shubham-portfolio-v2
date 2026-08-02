@@ -37,7 +37,7 @@ if (loadingScreen && loadingImg && mainScreen) {
   }, LOADING_TOTAL_MS);
 }
 
-const DESIGNER_FRAMES = [
+const DESIGNER_FRAMES_LIGHT = [
   '/designer-frames/frame-1-flat.svg',
   '/designer-frames/frame-2-rainbow.svg',
   '/designer-frames/frame-3-outline.svg',
@@ -45,16 +45,27 @@ const DESIGNER_FRAMES = [
   '/designer-frames/frame-5-cream.svg',
 ];
 
+const DESIGNER_FRAMES_DARK = [
+  '/designer-frames-dark/frame-1-flat.svg',
+  '/designer-frames-dark/frame-2-rainbow.svg',
+  '/designer-frames-dark/frame-3-outline.svg',
+  '/designer-frames-dark/frame-4-orange.svg',
+  '/designer-frames-dark/frame-5-cream-outline.svg',
+];
+
 const DESIGNER_CYCLE_INTERVAL_MS = 1500;
 
 const cycleImg = document.getElementById('designer-cycle');
 
+let setDesignerTheme = () => {};
+
 if (cycleImg) {
-  DESIGNER_FRAMES.forEach((src) => {
+  [...DESIGNER_FRAMES_LIGHT, ...DESIGNER_FRAMES_DARK].forEach((src) => {
     const preload = new Image();
     preload.src = src;
   });
 
+  let activeFrames = DESIGNER_FRAMES_LIGHT;
   let frameIndex = 0;
 
   const showFrame = (src) => {
@@ -66,9 +77,15 @@ if (cycleImg) {
     cycleImg.classList.remove('is-entering');
   };
 
+  setDesignerTheme = (theme) => {
+    activeFrames = theme === 'dark' ? DESIGNER_FRAMES_DARK : DESIGNER_FRAMES_LIGHT;
+    frameIndex = 0;
+    showFrame(activeFrames[frameIndex]);
+  };
+
   setInterval(() => {
-    frameIndex = (frameIndex + 1) % DESIGNER_FRAMES.length;
-    showFrame(DESIGNER_FRAMES[frameIndex]);
+    frameIndex = (frameIndex + 1) % activeFrames.length;
+    showFrame(activeFrames[frameIndex]);
   }, DESIGNER_CYCLE_INTERVAL_MS);
 }
 
@@ -92,6 +109,7 @@ if (themeToggle && themeToggleIcon) {
     themedIcons.forEach((img) => {
       img.src = theme === 'dark' ? img.dataset.iconDark : img.dataset.iconLight;
     });
+    setDesignerTheme(theme);
   };
 
   const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
