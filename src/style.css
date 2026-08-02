@@ -4,8 +4,6 @@
   --ink-70: rgba(42, 42, 42, 0.7);
   --blue: #206cf9;
   --blue-border: #0048ca;
-  --blue-dark: #063795;
-  --blue-light: #53baff;
 }
 
 * {
@@ -19,15 +17,6 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: 'Inter', 'Inter Tight', system-ui, sans-serif;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
 }
 
 .hero {
@@ -82,43 +71,20 @@ body {
   position: relative;
   display: inline-block;
   width: 280px;
-  height: 81px;
+  height: 90px;
+  overflow: visible;
 }
 
-.glitch__layer {
+.glitch__frame {
   position: absolute;
-  left: 0;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  letter-spacing: inherit;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.glitch__layer--1 {
-  top: 3px;
+  bottom: -18px;
   left: 5px;
-  color: var(--blue-dark);
+  display: block;
+  transition: opacity 150ms ease;
 }
 
-.glitch__layer--2 {
-  top: 0;
-  left: 7px;
-  color: var(--blue-dark);
-}
-
-.glitch__layer--3 {
-  top: 6px;
-  left: 3px;
-  color: var(--blue-dark);
-}
-
-.glitch__layer--4 {
-  top: 9px;
-  left: 0;
-  color: var(--blue-light);
-  -webkit-text-stroke: 1px var(--blue-dark);
+.glitch__frame.is-fading {
+  opacity: 0;
 }
 
 .hero__footer {
@@ -131,7 +97,7 @@ body {
   margin: 0;
   width: 600px;
   max-width: 100%;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.01em;
