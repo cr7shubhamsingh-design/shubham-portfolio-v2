@@ -7,8 +7,8 @@ const LOADING_FRAMES = [
   '/loading-frames/frame-6.svg',
 ];
 
-const LOADING_FRAME_INTERVAL_MS = 600;
-const LOADING_TOTAL_MS = 2000;
+const LOADING_FRAME_INTERVAL_MS = 300;
+const LOADING_TOTAL_MS = 1100;
 
 const loadingScreen = document.getElementById('loading-screen');
 const loadingImg = document.getElementById('loading-cycle');

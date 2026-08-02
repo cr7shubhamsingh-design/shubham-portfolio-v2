@@ -108,11 +108,13 @@ body {
   left: 5px;
   display: block;
   transform: translateY(0);
-  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glitch__frame.is-entering {
-  transform: translateY(28px);
+  transform: translateY(20px);
+  opacity: 0;
 }
 
 .hero__footer {
