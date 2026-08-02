@@ -17,6 +17,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: 'Inter', 'Inter Tight', system-ui, sans-serif;
+  text-transform: lowercase;
 }
 
 .loading-screen {
@@ -232,7 +233,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  width: 451px;
+  width: 600px;
   max-width: calc(100vw - 32px);
   padding: 10px 8px;
   border-radius: 14px;
