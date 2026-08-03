@@ -343,7 +343,7 @@ body {
 .site-nav__icons {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
