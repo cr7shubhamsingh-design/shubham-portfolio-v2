@@ -348,8 +348,8 @@ body {
 }
 
 .site-nav__theme img {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 @media (max-width: 680px) {
