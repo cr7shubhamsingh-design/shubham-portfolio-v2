@@ -338,13 +338,20 @@ body {
   transition: background-color var(--theme-duration) var(--theme-ease), border-color var(--theme-duration) var(--theme-ease), box-shadow var(--theme-duration) var(--theme-ease);
 }
 
+.site-nav__icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 .site-nav__theme {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   padding: 0;
   border: none;
   background: none;
@@ -352,8 +359,8 @@ body {
 }
 
 .site-nav__theme img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 @media (max-width: 680px) {
