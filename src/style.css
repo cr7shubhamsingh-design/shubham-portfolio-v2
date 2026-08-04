@@ -397,10 +397,10 @@ body {
 }
 
 .case-studies__info {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 24px;
   width: min(640px, 74vw);
   margin: 24px auto 0;
 }
@@ -455,10 +455,6 @@ body {
 }
 
 .case-studies__link {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
