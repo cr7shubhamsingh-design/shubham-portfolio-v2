@@ -409,8 +409,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 24px;
-  width: calc(100% - 32px);
-  max-width: 600px;
+  width: min(640px, 74vw);
   margin: 24px auto 0;
 }
 
@@ -512,6 +511,10 @@ body {
   }
 
   .case-card {
+    width: 82vw;
+  }
+
+  .case-studies__info {
     width: 82vw;
   }
 }
