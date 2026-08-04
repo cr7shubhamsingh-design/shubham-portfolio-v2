@@ -397,9 +397,10 @@ body {
 }
 
 .case-studies__info {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: min(640px, 74vw);
   margin: 24px auto 0;
 }
@@ -414,6 +415,10 @@ body {
   display: block;
   width: 50px;
   height: auto;
+  /* the icon's SVG viewBox reserves ~11px below the artwork for its drop shadow,
+     so its optical center sits above the bounding-box center; nudge up to align
+     with the text block's true center */
+  transform: translateY(-5.5px);
 }
 
 .case-studies__text {
@@ -450,6 +455,10 @@ body {
 }
 
 .case-studies__link {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;

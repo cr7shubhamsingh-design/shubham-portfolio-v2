@@ -148,13 +148,27 @@ const caseViewport = document.getElementById('case-viewport');
 const caseTrack = document.getElementById('case-track');
 
 if (caseViewport && caseTrack) {
+  const realCards = Array.from(caseTrack.children);
+  const cardCount = realCards.length;
+
+  const leadingClone = realCards[cardCount - 1].cloneNode(true);
+  const trailingClone = realCards[0].cloneNode(true);
+  leadingClone.setAttribute('aria-hidden', 'true');
+  trailingClone.setAttribute('aria-hidden', 'true');
+  caseTrack.insertBefore(leadingClone, realCards[0]);
+  caseTrack.appendChild(trailingClone);
+
   const cards = Array.from(caseTrack.children);
+
   const caseIcon = document.getElementById('case-icon');
   const caseTitle = document.getElementById('case-title');
   const caseSubtitle = document.getElementById('case-subtitle');
   const caseText = document.querySelector('.case-studies__text');
   const caseLink = document.getElementById('case-link');
 
+  const realIndexForPos = (pos) => ((pos - 1) % cardCount + cardCount) % cardCount;
+
+  let visualPos = 1;
   let activeIndex = 0;
   let dragging = false;
   let dragStartX = 0;
@@ -167,11 +181,11 @@ if (caseViewport && caseTrack) {
     return { cardWidth, gap };
   };
 
-  const offsetForIndex = (index) => {
+  const offsetForPos = (pos) => {
     const { cardWidth, gap } = getCardMetrics();
     const viewportWidth = caseViewport.getBoundingClientRect().width;
     const paddingLeft = parseFloat(getComputedStyle(caseViewport).paddingLeft) || 0;
-    return viewportWidth / 2 - cardWidth / 2 - paddingLeft - index * (cardWidth + gap);
+    return viewportWidth / 2 - cardWidth / 2 - paddingLeft - pos * (cardWidth + gap);
   };
 
   const applyTransform = (offset, animate) => {
@@ -201,23 +215,41 @@ if (caseViewport && caseTrack) {
     }, 220);
   };
 
-  const goTo = (index, animate = true) => {
-    const next = Math.min(Math.max(index, 0), cards.length - 1);
-    const changed = next !== activeIndex;
-    activeIndex = next;
-    applyTransform(offsetForIndex(activeIndex), animate);
-    updateInfo(animate && changed);
+  // After sliding onto a cloned end card, jump instantly (no transition) to the
+  // matching real card at the opposite end so the loop reads as continuous.
+  const settleLoopBoundary = () => {
+    if (visualPos === 0) {
+      visualPos = cardCount;
+      applyTransform(offsetForPos(visualPos), false);
+    } else if (visualPos === cards.length - 1) {
+      visualPos = 1;
+      applyTransform(offsetForPos(visualPos), false);
+    }
   };
 
-  goTo(0, false);
-  window.addEventListener('load', () => goTo(activeIndex, false));
-  window.addEventListener('resize', () => goTo(activeIndex, false));
+  const goToPos = (pos, animate = true) => {
+    const previousRealIndex = activeIndex;
+    visualPos = pos;
+    activeIndex = realIndexForPos(visualPos);
+    applyTransform(offsetForPos(visualPos), animate);
+    const changed = activeIndex !== previousRealIndex;
+    updateInfo(animate && changed);
+    if (animate) {
+      setTimeout(settleLoopBoundary, 460);
+    } else {
+      settleLoopBoundary();
+    }
+  };
+
+  goToPos(1, false);
+  window.addEventListener('load', () => goToPos(visualPos, false));
+  window.addEventListener('resize', () => goToPos(visualPos, false));
 
   caseViewport.addEventListener('pointerdown', (event) => {
     dragging = true;
     dragOffset = 0;
     dragStartX = event.clientX;
-    baseOffset = offsetForIndex(activeIndex);
+    baseOffset = offsetForPos(visualPos);
     caseTrack.style.transition = 'none';
     caseViewport.setPointerCapture(event.pointerId);
   });
@@ -233,11 +265,11 @@ if (caseViewport && caseTrack) {
     dragging = false;
     const SWIPE_THRESHOLD = 60;
     if (dragOffset < -SWIPE_THRESHOLD) {
-      goTo(activeIndex + 1);
+      goToPos(visualPos + 1);
     } else if (dragOffset > SWIPE_THRESHOLD) {
-      goTo(activeIndex - 1);
+      goToPos(visualPos - 1);
     } else {
-      goTo(activeIndex);
+      goToPos(visualPos);
     }
   };
 
