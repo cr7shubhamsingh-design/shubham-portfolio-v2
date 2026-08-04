@@ -397,11 +397,13 @@ body {
 }
 
 .case-studies__info {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 24px;
-  width: min(640px, 74vw);
+  width: calc(100% - 32px);
+  max-width: 600px;
   margin: 24px auto 0;
 }
 
@@ -503,10 +505,6 @@ body {
   }
 
   .case-card {
-    width: 82vw;
-  }
-
-  .case-studies__info {
     width: 82vw;
   }
 }
