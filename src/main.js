@@ -175,17 +175,23 @@ if (caseViewport && caseTrack) {
   let baseOffset = 0;
   let dragOffset = 0;
 
+  // Measured from actual rendered positions (not parsed from computed CSS strings)
+  // so this can't break on browsers that report gap/columnGap inconsistently.
   const getCardMetrics = () => {
-    const cardWidth = cards[0].getBoundingClientRect().width;
-    const gap = parseFloat(getComputedStyle(caseTrack).columnGap || '16');
-    return { cardWidth, gap };
+    const rect0 = cards[0].getBoundingClientRect();
+    const rect1 = cards[1].getBoundingClientRect();
+    const cardWidth = rect0.width;
+    const step = rect1.left - rect0.left;
+    const gap = step - cardWidth;
+    return { cardWidth, gap: Number.isFinite(gap) ? gap : 16 };
   };
 
   const offsetForPos = (pos) => {
     const { cardWidth, gap } = getCardMetrics();
     const viewportWidth = caseViewport.getBoundingClientRect().width;
     const paddingLeft = parseFloat(getComputedStyle(caseViewport).paddingLeft) || 0;
-    return viewportWidth / 2 - cardWidth / 2 - paddingLeft - pos * (cardWidth + gap);
+    const offset = viewportWidth / 2 - cardWidth / 2 - paddingLeft - pos * (cardWidth + gap);
+    return Number.isFinite(offset) ? offset : 0;
   };
 
   const applyTransform = (offset, animate) => {
@@ -251,7 +257,12 @@ if (caseViewport && caseTrack) {
     dragStartX = event.clientX;
     baseOffset = offsetForPos(visualPos);
     caseTrack.style.transition = 'none';
-    caseViewport.setPointerCapture(event.pointerId);
+    try {
+      caseViewport.setPointerCapture(event.pointerId);
+    } catch (error) {
+      // Some browsers reject capture for certain pointer types; the window-level
+      // fallback listeners still guarantee the drag resolves correctly.
+    }
   });
 
   caseViewport.addEventListener('pointermove', (event) => {
@@ -278,4 +289,12 @@ if (caseViewport && caseTrack) {
   caseViewport.addEventListener('pointerleave', () => {
     if (dragging) endDrag();
   });
+
+  // Safety net: if a pointerup/cancel is ever missed on the viewport itself
+  // (seen on some touch browsers when capture is lost mid-gesture), this
+  // guarantees the drag still resolves instead of leaving the track stuck
+  // at a mid-drag, uncentered offset.
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  window.addEventListener('blur', endDrag);
 }
