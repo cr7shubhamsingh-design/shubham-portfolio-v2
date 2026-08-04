@@ -360,7 +360,6 @@ body {
 
 .case-studies__viewport {
   overflow: hidden;
-  padding: 0 80px;
   touch-action: pan-y;
   cursor: grab;
 }
@@ -392,7 +391,15 @@ body {
   background-position: center;
 }
 
-.case-card__thumb--placeholder {
+.case-card__thumb--camb {
+  background-image: linear-gradient(135deg, #ec5512, #ec8e12);
+}
+
+.case-card__thumb--hobbes {
+  background-color: #292929;
+}
+
+.case-card__thumb--digit {
   background-image: linear-gradient(135deg, #24d6dc, #4994fb);
 }
 

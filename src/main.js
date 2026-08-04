@@ -139,9 +139,9 @@ if (themeToggle && themeToggleIcon) {
 
 const CASE_STUDIES = [
   { title: 'Thrust', subtitle: 'Mobile & Web Design', icon: '/case-icons/thrust.svg', href: '#' },
-  { title: 'Camb', subtitle: 'Mobile & Web Design', icon: '/case-icons/camb.svg', href: '#' },
-  { title: 'Hobbes', subtitle: 'Mobile & Web Design', icon: '/case-icons/hobbes.svg', href: '#' },
-  { title: 'Digit', subtitle: 'Mobile & Web Design', icon: '/case-icons/digit.svg', href: '#' },
+  { title: 'Camb', subtitle: 'Brand & Product Design', icon: '/case-icons/camb.svg', href: '#' },
+  { title: 'Hobbes', subtitle: 'Web Design', icon: '/case-icons/hobbes.svg', href: '#' },
+  { title: 'Digit', subtitle: 'Product Design', icon: '/case-icons/digit.svg', href: '#' },
 ];
 
 const caseViewport = document.getElementById('case-viewport');
