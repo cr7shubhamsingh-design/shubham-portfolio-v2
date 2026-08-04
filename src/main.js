@@ -136,3 +136,114 @@ if (themeToggle && themeToggleIcon) {
     applyTheme(next, true);
   });
 }
+
+const CASE_STUDIES = [
+  { title: 'Thrust', subtitle: 'Mobile & Web Design', icon: '/case-icons/thrust.svg', href: '#' },
+  { title: 'Camb', subtitle: 'Mobile & Web Design', icon: '/case-icons/camb.svg', href: '#' },
+  { title: 'Hobbes', subtitle: 'Mobile & Web Design', icon: '/case-icons/hobbes.svg', href: '#' },
+  { title: 'Digit', subtitle: 'Mobile & Web Design', icon: '/case-icons/digit.svg', href: '#' },
+];
+
+const caseViewport = document.getElementById('case-viewport');
+const caseTrack = document.getElementById('case-track');
+
+if (caseViewport && caseTrack) {
+  const cards = Array.from(caseTrack.children);
+  const caseIcon = document.getElementById('case-icon');
+  const caseTitle = document.getElementById('case-title');
+  const caseSubtitle = document.getElementById('case-subtitle');
+  const caseText = document.querySelector('.case-studies__text');
+  const caseLink = document.getElementById('case-link');
+
+  let activeIndex = 0;
+  let dragging = false;
+  let dragStartX = 0;
+  let baseOffset = 0;
+  let dragOffset = 0;
+
+  const getCardMetrics = () => {
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(caseTrack).columnGap || '16');
+    return { cardWidth, gap };
+  };
+
+  const offsetForIndex = (index) => {
+    const { cardWidth, gap } = getCardMetrics();
+    const viewportWidth = caseViewport.getBoundingClientRect().width;
+    const paddingLeft = parseFloat(getComputedStyle(caseViewport).paddingLeft) || 0;
+    return viewportWidth / 2 - cardWidth / 2 - paddingLeft - index * (cardWidth + gap);
+  };
+
+  const applyTransform = (offset, animate) => {
+    caseTrack.style.transition = animate ? 'transform 450ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+    caseTrack.style.transform = `translateX(${offset}px)`;
+  };
+
+  const updateInfo = (animate) => {
+    const study = CASE_STUDIES[activeIndex];
+    if (!study) return;
+    const apply = () => {
+      if (caseIcon) caseIcon.src = study.icon;
+      if (caseTitle) caseTitle.textContent = study.title;
+      if (caseSubtitle) caseSubtitle.textContent = study.subtitle;
+      if (caseLink) caseLink.href = study.href;
+    };
+    if (!animate) {
+      apply();
+      return;
+    }
+    caseText?.classList.add('is-swapping');
+    caseIcon?.classList.add('is-swapping');
+    setTimeout(() => {
+      apply();
+      caseText?.classList.remove('is-swapping');
+      caseIcon?.classList.remove('is-swapping');
+    }, 220);
+  };
+
+  const goTo = (index, animate = true) => {
+    const next = Math.min(Math.max(index, 0), cards.length - 1);
+    const changed = next !== activeIndex;
+    activeIndex = next;
+    applyTransform(offsetForIndex(activeIndex), animate);
+    updateInfo(animate && changed);
+  };
+
+  goTo(0, false);
+  window.addEventListener('load', () => goTo(activeIndex, false));
+  window.addEventListener('resize', () => goTo(activeIndex, false));
+
+  caseViewport.addEventListener('pointerdown', (event) => {
+    dragging = true;
+    dragOffset = 0;
+    dragStartX = event.clientX;
+    baseOffset = offsetForIndex(activeIndex);
+    caseTrack.style.transition = 'none';
+    caseViewport.setPointerCapture(event.pointerId);
+  });
+
+  caseViewport.addEventListener('pointermove', (event) => {
+    if (!dragging) return;
+    dragOffset = event.clientX - dragStartX;
+    caseTrack.style.transform = `translateX(${baseOffset + dragOffset}px)`;
+  });
+
+  const endDrag = () => {
+    if (!dragging) return;
+    dragging = false;
+    const SWIPE_THRESHOLD = 60;
+    if (dragOffset < -SWIPE_THRESHOLD) {
+      goTo(activeIndex + 1);
+    } else if (dragOffset > SWIPE_THRESHOLD) {
+      goTo(activeIndex - 1);
+    } else {
+      goTo(activeIndex);
+    }
+  };
+
+  caseViewport.addEventListener('pointerup', endDrag);
+  caseViewport.addEventListener('pointercancel', endDrag);
+  caseViewport.addEventListener('pointerleave', () => {
+    if (dragging) endDrag();
+  });
+}
