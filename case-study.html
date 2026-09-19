@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" class="case-page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>case study — shubham.</title>
+    <meta name="description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="shubham." />
+    <meta property="og:title" content="case study — shubham." />
+    <meta property="og:description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <meta property="og:image" content="https://shubhamdesign.com/og.png" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1260" />
+    <meta property="og:image:alt" content="hi! i am shubham, a product designer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="case study — shubham." />
+    <meta name="twitter:description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <meta name="twitter:image" content="https://shubhamdesign.com/og.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Inter+Tight:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script>
+      (function () {
+        // A study whose Figma design exists in only one theme opens in that
+        // theme, whatever the visitor's site-wide preference is — Camb is drawn
+        // dark-only (296:25231 is #121212), so a light page would frame dark
+        // artwork in light chrome. Kept inline and pre-paint so there's no
+        // flash; the map is small enough not to be worth a module round-trip.
+        var PINNED = { camb: 'dark', hobbes: 'light' };
+        var match = location.pathname.match(/\/work\/([\w-]+)\/?$/);
+        var slug = match ? match[1] : new URLSearchParams(location.search).get('slug');
+        var pinned = slug && PINNED[slug];
+        var theme = pinned || localStorage.getItem('theme');
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        // A pinned study has nothing to toggle between, so the nav drops its
+        // theme button. Set here rather than in JS so it never flashes in.
+        if (pinned) {
+          document.documentElement.classList.add('theme-locked');
+        }
+        // Lets a study override page tokens where its frame differs from the
+        // shared palette — Camb is drawn on #121212, not the usual #131416.
+        if (slug) {
+          document.documentElement.setAttribute('data-study', slug);
+        }
+      })();
+    </script>
+  </head>
+  <body class="case-page">
+    <main class="case">
+      <header class="case__header">
+        <a class="case__back" href="/#work">back</a>
+
+        <div class="case__intro">
+          <h1 class="case__heading" id="case-heading">Overview</h1>
+          <div class="case__intro-body">
+            <div class="case__overview" id="case-overview"></div>
+            <ul class="case__tags" id="case-tags"></ul>
+          </div>
+        </div>
+      </header>
+
+      <section class="case__media" id="case-media" aria-label="Project imagery"></section>
+
+      <!-- Figma 212:1232 — the header block again, without the back control, so
+           the text column sits centred on the page. -->
+      <section class="case__header case__header--outcome" id="case-outcome" hidden>
+        <div class="case__intro">
+          <h2 class="case__heading" id="case-outcome-heading">Outcome</h2>
+          <div class="case__intro-body">
+            <div class="case__overview" id="case-outcome-body"></div>
+            <ul class="case__tags" id="case-outcome-tags"></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <nav class="footer__links" aria-label="Footer">
+        <a class="footer__link" href="/#work">work</a>
+        <a class="footer__link" href="/#about">about me</a>
+        <a class="footer__link" href="https://docs.google.com/document/d/1upMsiiMyAIBHP1014bbuEauBmQThHTaqQiRgDY_yHC8/edit?usp=sharing" target="_blank" rel="noopener">resume</a>
+        <a class="footer__link" href="/playground">playground</a>
+        <a
+          class="btn-primary footer__cta"
+          href="https://cal.com/shubham-singh-chauhan-cqypt4/30min"
+          target="_blank"
+          rel="noopener"
+          >Get in touch</a
+        >
+        <div class="social-links footer__social">
+          <a class="social-link" href="https://x.com/aritated" target="_blank" rel="noopener">
+            <img
+              data-icon-light="/icons/x.svg"
+              data-icon-dark="/icons/x-dark.svg"
+              src="/icons/x.svg"
+              alt="X (Twitter)"
+              width="16"
+              height="16"
+            />
+          </a>
+          <a class="social-link" href="https://www.linkedin.com/in/shubhamsingh0711" target="_blank" rel="noopener">
+            <img
+              data-icon-light="/icons/linkedin.svg"
+              data-icon-dark="/icons/linkedin-dark.svg"
+              src="/icons/linkedin.svg"
+              alt="LinkedIn"
+              width="16"
+              height="16"
+            />
+          </a>
+          <a class="social-link" href="https://www.instagram.com/ishubhaam/" target="_blank" rel="noopener">
+            <img
+              data-icon-light="/icons/instagram.svg"
+              data-icon-dark="/icons/instagram-dark.svg"
+              src="/icons/instagram.svg"
+              alt="Instagram"
+              width="16"
+              height="16"
+            />
+          </a>
+        </div>
+      </nav>
+
+      <p class="footer__copyright">shubham, 2026. All rights reserved.</p>
+    </footer>
+
+    <!-- Figma 179:2315 — three pills: jump to top, the standard nav pill, and
+         the next case study. -->
+    <nav class="site-nav site-nav--case" aria-label="Primary">
+      <a class="site-nav__jump" id="case-jump" href="/#work" data-mode="back">back</a>
+      <div class="site-nav__pill">
+        <a class="site-nav__home" href="/" aria-label="Home">
+          <img
+            class="site-nav__logo"
+            data-icon-light="/logo.svg"
+            data-icon-dark="/logo-dark.svg"
+            src="/logo.svg"
+            alt="shubham."
+            width="84"
+            height="15"
+          />
+        </a>
+        <div class="site-nav__icons">
+          <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle dark mode">
+            <img id="theme-toggle-icon" src="/icons/moon.svg" alt="" width="16" height="16" />
+          </button>
+        </div>
+
+          <img
+            class="site-nav__cat"
+            data-icon-light="/icons/cat.svg"
+            data-icon-dark="/icons/cat-dark.svg"
+            src="/icons/cat.svg"
+            alt=""
+            aria-hidden="true"
+            width="48"
+            height="36"
+          />
+      </div>
+      <a class="site-nav__jump site-nav__next" href="/work/camb" id="case-next">Next</a>
+    </nav>
+
+    <script type="module" src="/src/case-study.js"></script>
+  </body>
+</html>

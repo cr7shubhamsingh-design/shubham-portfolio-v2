@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" class="playground-page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>playground — shubham.</title>
+    <meta name="description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="shubham." />
+    <meta property="og:title" content="playground — shubham." />
+    <meta property="og:description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <meta property="og:url" content="https://shubhamdesign.com/playground" />
+    <meta property="og:image" content="https://shubhamdesign.com/og.png" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1260" />
+    <meta property="og:image:alt" content="hi! i am shubham, a product designer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="playground — shubham." />
+    <meta name="twitter:description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <meta name="twitter:image" content="https://shubhamdesign.com/og.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Inter+Tight:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        if (stored === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="playground-page">
+    <main class="playground" id="playground" aria-label="Playground"></main>
+
+    <nav class="site-nav site-nav--playground" aria-label="Primary">
+      <a class="site-nav__jump" id="playground-back" href="/">back</a>
+      <div class="site-nav__pill">
+        <a class="site-nav__home" href="/" aria-label="Home">
+          <img
+            class="site-nav__logo"
+            data-icon-light="/logo.svg"
+            data-icon-dark="/logo-dark.svg"
+            src="/logo.svg"
+            alt="shubham."
+            width="84"
+            height="15"
+          />
+        </a>
+        <div class="site-nav__icons">
+          <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle dark mode">
+            <img id="theme-toggle-icon" src="/icons/moon.svg" alt="" width="16" height="16" />
+          </button>
+        </div>
+
+        <img
+          class="site-nav__cat"
+          data-icon-light="/icons/cat.svg"
+          data-icon-dark="/icons/cat-dark.svg"
+          src="/icons/cat.svg"
+          alt=""
+          aria-hidden="true"
+          width="48"
+          height="36"
+        />
+      </div>
+    </nav>
+
+    <script type="module" src="/src/playground.js"></script>
+  </body>
+</html>

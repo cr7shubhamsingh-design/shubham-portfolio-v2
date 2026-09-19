@@ -15,14 +15,47 @@
     0 2px 2px rgba(150, 150, 150, 0.09),
     0 5px 3px rgba(173, 173, 173, 0.05),
     0 8px 3px rgba(150, 150, 150, 0.01);
+  /* Same stack minus the #dedede ring — Figma disables that layer on the
+     album art (node 107:320) so the cover has no grey outline. */
+  --panel-shadow-soft:
+    0 1px 1px rgba(150, 150, 150, 0.1),
+    0 2px 2px rgba(150, 150, 150, 0.09),
+    0 5px 3px rgba(173, 173, 173, 0.05),
+    0 8px 3px rgba(150, 150, 150, 0.01);
+  --player-icon-muted: #a6a6a6;
   --nav-bg: rgba(247, 247, 248, 0.95);
   --nav-border: #fff;
   --menu-bg: #f7f7f8;
   --menu-border: rgba(222, 222, 222, 1);
   --menu-shadow: inset 0 2px 0 #fff;
   --icon-filter: none;
-  --theme-duration: 550ms;
+  --muted: #676767;
+  --panel-bg: rgba(255, 255, 255, 0.8);
+  --player-surface: #f9f9f9;
+  --player-art-bg: #fff;
+  --track-bg: rgba(209, 209, 209, 0.5);
+  --track-fill: #0077ff;
+  /* Case study page — Figma 178:43 uses its own greys, a touch lighter than
+     the homepage ink/muted pair. */
+  --case-ink: #353535;
+  /* Heading colour is split out from --case-ink because frame 2 repaints the
+     page copy pure white while leaving the controls on the site's own ink. */
+  --case-title: var(--case-ink);
+  --case-body: #707070;
+  --case-frame-border: #dedede;
+  --case-frame-bg: transparent;
+  /* Stroke on the carousel cards. Sits on top of the artwork rather than
+     against the page, so it stays black in both themes. */
+  --card-stroke: rgba(0, 0, 0, 0.15);
+  /* Theme colours change instantly; the crossfade above does the smoothing.
+     At the old 550ms, elements without a theme transition beat the ones that
+     had it — the switch visibly swept across the page instead of flipping. */
+  --theme-duration: 0ms;
   --theme-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Space between adjacent homepage sections, at every breakpoint. Each section
+     contributes half of it, so any two neighbours add up to the full gap and no
+     boundary depends on which section happens to sit next to it. */
+  --section-gap: 160px;
 
   color-scheme: light;
 }
@@ -39,6 +72,8 @@
   --social-bg: #202020;
   --social-border: #454545;
   --panel-shadow: 0 0 0 1px rgba(22, 22, 22, 1);
+  --panel-shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --player-icon-muted: rgba(248, 248, 221, 0.45);
   --nav-bg: rgba(32, 32, 32, 0.95);
   --nav-border: #454545;
   --menu-bg: #202020;
@@ -46,12 +81,176 @@
   --menu-shadow: 0 0 0 1px rgba(22, 22, 22, 1);
   --icon-filter: brightness(0) invert(1);
   --btn-gloss-opacity: 0.2;
+  --muted: rgba(248, 248, 221, 0.55);
+  --panel-bg: rgba(32, 32, 32, 0.8);
+  --player-surface: #262626;
+  --player-art-bg: #262626;
+  --track-bg: rgba(248, 248, 221, 0.15);
+  --track-fill: var(--accent);
+  --case-ink: #f8f8dd;
+  --case-body: rgba(248, 248, 221, 0.7);
+  --case-frame-border: #454545;
+  --case-frame-bg: #202020;
 
   color-scheme: dark;
 }
 
+/* Figma 225:3988 (frame "2") — the case-study page's dark mode is its own
+   palette: near-black #131416 instead of #1e1e1e, pure white ink instead of the
+   cream. Scoped to html.case-page so the homepage keeps the site palette.
+   The nav pill, jump pills and back button follow frame 2 too: 225:4212/4214
+   draw them as the page colour with a 4% white hairline and white labels,
+   rather than the homepage's #202020/#454545. */
+:root[data-theme='dark'].case-page {
+  --bg: #131416;
+  --case-title: #fff;
+  --case-body: rgba(255, 255, 255, 0.7);
+  --case-frame-bg: #151618;
+  --case-frame-border: rgba(255, 255, 255, 0.06);
+  /* Labels on the back and jump pills — frame 2 sets these pure white. */
+  --case-ink: #fff;
+  /* Controls sit a touch lighter than the #131416 page: #1D1E21 at 95%, which
+     also keeps the backdrop blur doing something behind the pills. */
+  --nav-bg: rgba(29, 30, 33, 0.95);
+  --nav-border: rgba(255, 255, 255, 0.04);
+  --social-bg: rgba(29, 30, 33, 0.95);
+  --social-border: rgba(255, 255, 255, 0.04);
+  /* Every dark control in frame 2 carries a DROP_SHADOW of #0f0f0f at spread 1
+     — a solid 1px ring sitting *outside* the 4% white inside-stroke. The two
+     read as a hairline pair: near-black outer edge, faint white inner lip. */
+  --panel-shadow: 0 0 0 1px #0f0f0f;
+  /* The theme and menu buttons inside the pill (frame 2 "Frame 8") take the
+     same treatment as the pill itself, not the homepage's #202020/#454545. */
+  --menu-bg: rgba(29, 30, 33, 0.95);
+  --menu-border: rgba(255, 255, 255, 0.04);
+  --menu-shadow: 0 0 0 1px #0f0f0f;
+  /* Frame 2 keeps "get in touch" blue rather than taking the homepage's dark
+     orange, and paints the footer links white instead of the site's cream. */
+  --accent: #206cf9;
+  --accent-border: #0048ca;
+  /* The CTA label too — frame 2 has it #ffffff on the blue, not the cream. */
+  --btn-text: #fff;
+  --ink: #fff;
+  --ink-70: rgba(255, 255, 255, 0.7);
+  /* Nothing on this page reads --muted except the footer copyright, which frame
+     2 paints #676767 — the site's cream has no place here. */
+  --muted: #676767;
+}
+
+/* Camb's frame (296:25231) is drawn on #121212 rather than the #131416 the
+   Thrust dark frame uses, so the page background is overridden for that study
+   only. Everything else stays on the shared dark case palette. */
+:root[data-theme='dark'].case-page[data-study='camb'] {
+  --bg: #121212;
+  /* Camb's controls are #171717 (296:25238's chip, and the nav containers in
+     305:26580), a step up from the #1D1E21 the other dark pages use. Kept at
+     95% like the rest of the site so the pills keep their backdrop blur — over
+     this page the rendered colour is indistinguishable from a flat fill. */
+  --nav-bg: rgba(23, 23, 23, 0.95);
+  --social-bg: rgba(23, 23, 23, 0.95);
+  --menu-bg: rgba(23, 23, 23, 0.95);
+}
+
+/* Frame 2 sets the footer links pure white, brighter than the copyright beneath
+   them, so they can't share --muted the way they do in light mode. */
+:root[data-theme='dark'].case-page .footer__link {
+  color: #fff;
+}
+
+:root[data-theme='dark'].case-page .footer__link:hover,
+:root[data-theme='dark'].case-page .footer__link:focus-visible {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Base colour is already frame 2's white, so keep hover from pulling the label
+   towards the site's cream --ink. */
+:root[data-theme='dark'].case-page .case__back:hover,
+:root[data-theme='dark'].case-page .site-nav__jump:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* The wordmark and the two nav icons ship as cream *-dark.svg assets, but frame
+   2 draws all three pure white (225:4214, lucide/moon). They're images, so the
+   colour can't come from a token — flatten to white instead of forking the
+   assets for one page. */
+:root[data-theme='dark'].case-page .site-nav__logo,
+:root[data-theme='dark'].case-page .site-nav__theme img {
+  filter: brightness(0) invert(1);
+}
+
+:root[data-theme='dark'].case-page .case__tag--green {
+  background: rgba(204, 255, 176, 0.12);
+  color: #ccffb0;
+}
+
+:root[data-theme='dark'].case-page .case__tag--blue {
+  background: rgba(142, 186, 255, 0.12);
+  color: #8ebaff;
+}
+
+:root[data-theme='dark'].case-page .case__tag--pink {
+  background: rgba(255, 148, 203, 0.12);
+  color: #ff94cb;
+}
+
 * {
   box-sizing: border-box;
+}
+
+/* Any author `display` outranks the UA stylesheet's [hidden] rule, so state it
+   explicitly. .case__header sets display:flex, which was rendering the empty
+   outcome block on a study that doesn't have one. */
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- Theme switching ----------
+   The DOM flips instantly — every colour, icon and image changes in one frame,
+   so nothing can lag behind anything else. The smoothness comes from a View
+   Transition crossfading a snapshot of the whole page over the top.
+
+   Per-element colour easing is deliberately NOT used for this. Any element
+   whose rule lacks a theme transition would snap while its neighbours eased,
+   and a blanket `* { transition }` rule turned out to interpolate
+   asymptotically — the hero headline was still a third of the way to its new
+   colour 300ms in. One instant swap plus one crossfade is both simpler and
+   genuinely synchronised. */
+html.theme-instant *,
+html.theme-instant *::before,
+html.theme-instant *::after {
+  transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+  animation-timing-function: var(--theme-ease);
+  /* Both snapshots are opaque and cross-fading; default blending muddies the
+     midpoint, plain alpha keeps it clean. */
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* Footer anchors (#work, #about) glide to their section instead of jumping. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+#work,
+#about {
+  scroll-margin-top: 32px;
 }
 
 html,
@@ -82,6 +281,16 @@ body {
   pointer-events: none;
 }
 
+/* Second and later visits in the same session: no loader, content already up.
+   Set on <html> before first paint so neither state is ever painted wrongly. */
+.intro-seen .loading-screen {
+  display: none;
+}
+
+.intro-seen .hero {
+  opacity: 1;
+}
+
 .loading-screen__frame {
   display: block;
   opacity: 1;
@@ -97,8 +306,9 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 100vh;
-  padding: 120px 80px 40px;
+  /* Hugs its content rather than filling the viewport — the content column is
+     fixed-height, so a 100vh floor only added dead space under it. */
+  padding: 120px 80px calc(var(--section-gap) / 2);
   background: var(--bg);
   opacity: 0;
   transition: opacity 400ms ease, background-color var(--theme-duration) var(--theme-ease);
@@ -120,22 +330,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 60px;
-}
-
-.hero__logo,
-.site-nav__logo,
-.social-link img,
-.site-nav__menu img,
-.site-nav__theme img {
-  transition: opacity 220ms ease;
-}
-
-.hero__logo.is-swapping,
-.site-nav__logo.is-swapping,
-.social-link img.is-swapping,
-.site-nav__menu img.is-swapping,
-.site-nav__theme img.is-swapping {
-  opacity: 0;
 }
 
 .hero__logo {
@@ -168,34 +362,64 @@ body {
   display: flex;
   align-items: baseline;
   gap: 12px;
+  /* nowrap keeps "a product" from breaking mid-phrase; wrap lets the animated
+     word drop to its own line when the pair won't fit, which is what happens on
+     a phone. The two together are what keep the headline intact at any width. */
   white-space: nowrap;
+  flex-wrap: wrap;
 }
 
+/* Was -22px, which is right at the 72px desktop size but far too tight once the
+   type drops to 44px. In em it holds the same optical overlap at any size. */
 .hero__line--accent {
-  margin-top: -22px;
+  margin-top: -0.3em;
 }
 
+/* Sized in em off the headline rather than in px, so the word scales with the
+   type at every breakpoint instead of needing a transform. A transform would
+   shrink the artwork without shrinking the box it reserves, which is what used
+   to push the line out of alignment on phones. At the 72px desktop size these
+   em values resolve to the original 280x90 box and 266x68 image exactly. */
 .glitch {
   position: relative;
   display: inline-block;
-  width: 280px;
-  height: 90px;
+  width: 3.889em;
+  height: 1.25em;
   overflow: visible;
 }
 
 .glitch__frame {
   position: absolute;
-  bottom: -18px;
-  left: 5px;
+  bottom: -0.25em;
+  left: 0.069em;
   display: block;
+  width: 3.694em;
+  height: auto;
   transform: translateY(0);
   opacity: 1;
-  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  filter: blur(0);
+  /* The rise keeps its snappy expo-out curve; the blur gets a slow-start curve
+     so the focus pull is actually seen (on an expo-out it resolves too early).
+     It runs shorter than the rise, though — opacity races to full on that expo
+     curve, and a 650ms blur left the word sitting visibly soft long after it
+     had arrived. */
+  transition:
+    transform 950ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 950ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 700ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glitch__frame.is-entering {
   transform: translateY(20px);
   opacity: 0;
+  filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch__frame,
+  .glitch__frame.is-entering {
+    filter: none;
+  }
 }
 
 .hero__footer {
@@ -301,6 +525,32 @@ body {
   max-width: 600px;
 }
 
+/* The wordmark is a button (scrolls to top) but must look like the plain mark
+   it replaced — no chrome of its own. */
+/* A button on the homepage (scrolls to top) and an anchor on a case study
+   (links home), so it has to read the same either way. */
+.site-nav__home {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 6px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.site-nav__home:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Figma draws this at a fixed 48px in every frame it appears in — homepage
+   light and dark (110:602, 130:72) and both case-study frames. Left to hug, the
+   32px icon buttons plus 10px padding and the 1px border make it 54, so the
+   height is pinned and the icons centre inside it exactly as they do in the
+   design. */
 .site-nav__pill {
   display: flex;
   align-items: center;
@@ -308,14 +558,38 @@ body {
   gap: 32px;
   flex: 1;
   min-width: 0;
+  height: 48px;
+  /* Anchor for the cat that peeks over the top edge. */
+  position: relative;
   padding: 10px 8px;
   border-radius: 14px;
+}
+
+/* The pill's chrome lives on a pseudo-element rather than the pill itself, so
+   the cat can sit behind it. A negative z-index child still paints above its
+   parent's own background — the only way to get truly behind is for the
+   background to be a layer that paints later. Everything else about it is
+   unchanged: same fill, hairline, shadow and blur. */
+.site-nav__pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   background: var(--nav-bg);
   border: 1px solid var(--nav-border);
   backdrop-filter: blur(11px);
   -webkit-backdrop-filter: blur(11px);
-  transition: background-color var(--theme-duration) var(--theme-ease), border-color var(--theme-duration) var(--theme-ease), box-shadow var(--theme-duration) var(--theme-ease);
   box-shadow: var(--panel-shadow);
+  transition: background-color var(--theme-duration) var(--theme-ease),
+    border-color var(--theme-duration) var(--theme-ease),
+    box-shadow var(--theme-duration) var(--theme-ease);
+}
+
+/* The pill's real contents have to clear the chrome layer above. */
+.site-nav__home,
+.site-nav__icons {
+  position: relative;
+  z-index: 1;
 }
 
 .site-nav__logo {
@@ -323,7 +597,6 @@ body {
   margin-left: 9px;
 }
 
-.site-nav__menu,
 .site-nav__theme {
   display: inline-flex;
   align-items: center;
@@ -347,6 +620,31 @@ body {
   flex-shrink: 0;
 }
 
+/* Camb is drawn dark-only and Hobbes light-only, so those pages are pinned and
+   the theme button has nothing to switch between. It stays in the DOM — the
+   theme wiring keys off it — but leaves the layout and the a11y tree. */
+.theme-locked .site-nav__theme {
+  display: none;
+}
+
+/* Figma 305:26580 — a cat peeking over the top edge of the nav pill, two thirds
+   of the way across, drawn there at 32x24 and shown here at 1.5x. It laps 1px
+   over the edge so it reads as resting on the pill. Purely decorative, so it is
+   aria-hidden and never takes pointer events.
+
+   z-index 0 keeps it under the chrome layer, so its lower half is hidden by the
+   pill and it reads as sitting behind it. Always visible — no hover gate. */
+.site-nav__cat {
+  position: absolute;
+  left: 66.4%;
+  bottom: calc(100% - 1px);
+  width: 48px;
+  height: 36px;
+  z-index: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
 .site-nav__theme img {
   width: 16px;
   height: 16px;
@@ -354,62 +652,118 @@ body {
 
 .case-studies {
   background: var(--bg);
-  padding: 80px 0 189px;
+  padding: calc(var(--section-gap) / 2) 0;
   transition: background-color var(--theme-duration) var(--theme-ease);
 }
 
-.case-studies__viewport {
+/* Embla carousel — anatomy per the official parallax example. */
+.embla__viewport {
   overflow: hidden;
-  touch-action: pan-y;
   cursor: grab;
 }
 
-.case-studies__viewport:active {
+.embla__viewport:active {
   cursor: grabbing;
 }
 
-.case-studies__track {
+.embla__container {
   display: flex;
   gap: 16px;
-  will-change: transform;
-  user-select: none;
+  touch-action: pan-y pinch-zoom;
+  backface-visibility: hidden;
 }
 
-.case-card {
-  flex: 0 0 auto;
-  width: min(640px, 74vw);
+.embla__slide {
+  flex: 0 0 min(640px, 74vw);
+  min-width: 0;
   aspect-ratio: 4 / 3;
+}
+
+/* Each slide is a real link to its case study. Embla suppresses the click when
+   the pointer-up ended a drag, so swiping never navigates. */
+.embla__slide-link {
+  display: block;
+  height: 100%;
+  border-radius: 24px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.embla__slide-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.embla__parallax {
+  height: 100%;
   border-radius: 24px;
   overflow: hidden;
+  /* The parallax layer slides horizontally inside this box, so at the extremes
+     it can uncover a sliver at one edge. Filling the card with the artwork's
+     own edge colour (--card-fill, set per slide and sampled from the image)
+     means what shows through is indistinguishable from the image itself. */
+  background-color: var(--card-fill, #f2f2f2);
+  /* Hairline stroke over the artwork. A real border rather than an inset
+     box-shadow: inset shadows paint beneath child content, so the image would
+     cover it. box-sizing is border-box globally, so this costs no layout. */
+  border: 1px solid var(--card-stroke);
+}
+
+.embla__parallax__layer {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  will-change: transform;
+}
+
+/* Oversized so the layer can slide without exposing an edge inside the card. */
+.embla__parallax__img {
+  flex: 0 0 120%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
 }
 
 .case-card__thumb {
-  width: 100%;
-  height: 100%;
-  background-color: #f2f2f2;
-  background-size: cover;
+  background-color: var(--card-fill, #f2f2f2);
+  /* Matted by --card-fill. Percentage sizing is relative to this box — the
+     120%-wide parallax layer, not the card — so 75% here draws the artwork at
+     about 90% of the card's width. no-repeat matters now that the artwork no
+     longer fills the box. */
+  background-size: 75%;
+  background-repeat: no-repeat;
   background-position: center;
 }
 
 .case-card__thumb--camb {
-  background-image: linear-gradient(135deg, #ec5512, #ec8e12);
+  background-image: url('/case-studies/card-camb.webp');
 }
 
 .case-card__thumb--hobbes {
-  background-color: #292929;
+  background-image: url('/case-studies/card-hobbes.webp');
+  /* The monitor's stand runs off the bottom of the artwork, so it sits on the
+     card's bottom edge rather than floating centred with a gap beneath it. */
+  background-position: center bottom;
 }
 
-.case-card__thumb--digit {
-  background-image: linear-gradient(135deg, #24d6dc, #4994fb);
+.case-card__thumb--sutton {
+  background-image: url('/case-studies/card-sutton.webp');
+}
+
+.case-card__thumb--sybill {
+  background-image: url('/case-studies/card-sybill.webp');
 }
 
 .case-studies__info {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
+  /* Figma node 161:44 spreads this row across the card: meta pinned left,
+     link pinned right, 12px inset on each side. */
+  justify-content: space-between;
+  gap: 10px;
   width: min(640px, 74vw);
+  padding: 0 12px;
   margin: 24px auto 0;
 }
 
@@ -423,10 +777,12 @@ body {
   display: block;
   width: 50px;
   height: auto;
-  /* the icon's SVG viewBox reserves ~11px below the artwork for its drop shadow,
-     so its optical center sits above the bounding-box center; nudge up to align
-     with the text block's true center */
-  transform: translateY(-5.5px);
+  /* Each icon is a 44px square sitting at the top of a 50x55 viewBox; the
+     spare 11px at the bottom is drop-shadow room. Discounting it from the
+     margin box lets align-items:center centre the artwork itself rather than
+     the padded box, which otherwise rides 11px high. The shadow still paints,
+     it just no longer takes part in layout. */
+  margin-bottom: -11px;
 }
 
 .case-studies__text {
@@ -439,9 +795,9 @@ body {
   margin: 0;
   font-family: 'Inter Tight', 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
+  line-height: 24px; /* Figma 161:56 — 120% */
   color: var(--ink);
-  transition: opacity 220ms ease;
 }
 
 .case-studies__subtitle {
@@ -449,17 +805,44 @@ body {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
+  line-height: 24px; /* Figma 161:57 — 150% */
   color: var(--ink-70);
-  transition: opacity 220ms ease;
 }
 
+/* Card swap: the label defocuses and fades out, then the new one resolves back
+   into focus. main.js reads --case-swap-out so the content changes exactly when
+   the old label has finished fading — keep the swap timed off this variable. */
+.case-studies__info {
+  --case-swap-out: 260ms;
+}
+
+/* Applies on the way IN (class removed). The slow start holds the blurred
+   state long enough to actually read as a focus pull; a front-loaded curve
+   here snaps to sharp almost immediately and the blur goes unseen. */
+.case-studies__title,
+.case-studies__subtitle,
+.case-studies__icon {
+  transition:
+    opacity 480ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 480ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Applies on the way OUT (class added) — quicker, so the swap isn't sluggish. */
 .case-studies__text.is-swapping .case-studies__title,
-.case-studies__text.is-swapping .case-studies__subtitle {
-  opacity: 0;
-}
-
+.case-studies__text.is-swapping .case-studies__subtitle,
 .case-studies__icon.is-swapping {
   opacity: 0;
+  filter: blur(3px);
+  transition-duration: var(--case-swap-out), var(--case-swap-out);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.7, 1), cubic-bezier(0.4, 0, 0.7, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-studies__text.is-swapping .case-studies__title,
+  .case-studies__text.is-swapping .case-studies__subtitle,
+  .case-studies__icon.is-swapping {
+    filter: none;
+  }
 }
 
 .case-studies__link {
@@ -482,39 +865,1128 @@ body {
   height: 14px;
 }
 
+.about {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+  padding: calc(var(--section-gap) / 2) 80px;
+  background: var(--bg);
+  /* Clips the pointer trail at the page edges only. Vertically the cards are
+     free to spill past the section, so one spawned near the top or bottom shows
+     in full — the section itself is still the area that spawns them. `clip`
+     rather than `hidden` so the visible y-axis isn't forced into a scroller. */
+  overflow-x: clip;
+  transition: background-color var(--theme-duration) var(--theme-ease);
+}
+
+/* Pointer trail layer. Sits above the section background but below the copy
+   and the player, so the artwork drifts behind the text and never costs
+   legibility. pointer-events stays off so the links and the player controls
+   underneath keep working. */
+.about__trail {
+  position: absolute;
+  inset: 0;
+  overflow-x: clip;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.about__trail-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background-position: 50% 50%;
+  background-size: cover;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.about__copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.about .player {
+  position: relative;
+  z-index: 2;
+}
+
+.about__meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+}
+
+.about__city {
+  font-style: italic;
+}
+
+.about__clock {
+  font-variant-numeric: tabular-nums;
+}
+
+.about__paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.about__lead,
+.about__body {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.about__lead {
+  color: var(--ink);
+}
+
+.about__body {
+  color: var(--ink);
+}
+
+.about__link {
+  color: inherit;
+  text-decoration: underline;
+  /* sit the rule clear of the descenders in "Bricxlabs" / "Real Madrid" */
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 220ms ease, text-decoration-color 220ms ease;
+}
+
+.about__link:hover,
+.about__link:focus-visible {
+  color: var(--accent);
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  background: var(--panel-bg);
+  border: 1px solid var(--nav-border);
+  box-shadow: var(--panel-shadow);
+  transition: background-color var(--theme-duration) var(--theme-ease), border-color var(--theme-duration) var(--theme-ease), box-shadow var(--theme-duration) var(--theme-ease);
+}
+
+.player__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.player__lights {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.player__light {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid;
+  overflow: hidden;
+}
+
+/* Figma gives each light a gloss cap (Rectangle 29): a white gradient over the
+   top 7 of its 11px, at 60% layer opacity, with a 1px white inner highlight. */
+.player__light::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7px;
+  border-radius: 100px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.3);
+}
+
+.player__light--red {
+  background: #f3594b;
+  border-color: #e93f30;
+}
+
+.player__light--amber {
+  background: #fbc354;
+  border-color: #f2ad21;
+}
+
+.player__light--green {
+  background: #5dd54d;
+  border-color: #47ac3a;
+}
+
+.player__label,
+.player__open {
+  font-size: 16px;
+  /* Figma's auto line height on Inter Display 16 resolves to 19px; the
+     browser's `normal` for Inter gives 20 and makes the card a pixel taller. */
+  line-height: 19px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* Every text node in the Figma player is set to textCase: LOWER. */
+.player__label,
+.player__open,
+.player__title,
+.player__artist {
+  text-transform: lowercase;
+}
+
+.player__open {
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.player:hover .player__open,
+.player__open:focus-visible {
+  opacity: 1;
+}
+
+/* On a touch device there is no hover to reveal it with, so the link would be
+   permanently invisible. Show it outright, with enough padding to be tappable. */
+@media (hover: none) {
+  .player__open {
+    opacity: 1;
+    padding: 8px 0;
+    margin: -8px 0;
+  }
+}
+
+.player__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.player__track {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.player__art {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--player-art-bg);
+  box-shadow: var(--panel-shadow-soft);
+}
+
+.player__art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.player__title,
+.player__artist {
+  margin: 0;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player__title {
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--ink);
+}
+
+.player__artist {
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.player__controls {
+  display: flex;
+  align-items: center;
+  gap: 7.111px;
+  flex-shrink: 0;
+}
+
+.player__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--player-surface);
+  border: 1px solid var(--nav-border);
+  box-shadow: var(--panel-shadow);
+  color: var(--ink);
+  transition: background-color var(--theme-duration) var(--theme-ease), border-color var(--theme-duration) var(--theme-ease), box-shadow var(--theme-duration) var(--theme-ease);
+}
+
+.player__btn {
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Mouse only — on touch a tap leaves :hover stuck, so the last button pressed
+   stayed tinted. */
+@media (hover: hover) {
+  .player__btn:hover {
+    filter: brightness(0.97);
+  }
+}
+
+.player__btn:active {
+  transform: scale(0.94);
+}
+
+.player__btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Figma renders the previous-track glyph in #a6a6a6, not the ink colour. */
+.player__btn--prev {
+  color: var(--player-icon-muted);
+}
+
+/* the play/pause button holds both glyphs; .is-playing picks which one shows */
+.player__icon--pause,
+.player.is-playing .player__icon--play {
+  display: none;
+}
+
+.player.is-playing .player__icon--pause {
+  display: block;
+}
+
+.player__progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.player__time {
+  font-size: 16px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.player__scrubber {
+  position: relative;
+  flex: 1;
+  height: 5px;
+  border-radius: 4px;
+  background: var(--track-bg);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* widen the pointer target without changing the 5px visual rail */
+.player__scrubber::before {
+  content: '';
+  position: absolute;
+  inset: -10px 0;
+}
+
+.player__fill {
+  position: relative;
+  width: 0%;
+  height: 100%;
+  border-radius: 9px;
+  background: var(--track-fill);
+  overflow: hidden;
+}
+
+/* Gloss on the filled portion — Figma clips a tall white gradient rect so only
+   its lower edge shows across the top 3px of the 5px bar. */
+.player__fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+  /* extra bottom room so the copyright clears the fixed nav pill */
+  padding: calc(var(--section-gap) / 2) 80px 140px;
+  background: var(--bg);
+  transition: background-color var(--theme-duration) var(--theme-ease);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer__link {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 220ms ease;
+}
+
+.footer__link:hover,
+.footer__link:focus-visible {
+  color: var(--ink);
+}
+
+/* Homepage footer: pointing at one link softens the rest out of focus so the
+   hovered word is the only sharp thing in the column. Hover-capable devices
+   only — on touch a tap would leave the column stuck half-blurred. */
+@media (hover: hover) {
+  :root:not(.case-page) .footer__link {
+    /* Vertical padding makes the hit areas meet in the middle of the 24px gap,
+       so gliding between links never drops the hover and flickers the blur. The
+       negative margin cancels it out of the layout. */
+    padding: 12px 0;
+    margin: -12px 0;
+    transition:
+      color 220ms ease,
+      filter 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :root:not(.case-page) .footer__links:has(.footer__link:hover) .footer__link:not(:hover) {
+    filter: blur(2px);
+    opacity: 0.45;
+  }
+}
+
+:root:not(.case-page) .footer__links:has(.footer__link:focus-visible) .footer__link:not(:focus-visible) {
+  filter: blur(2px);
+  opacity: 0.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not(.case-page) .footer__link {
+    transition: color 220ms ease;
+  }
+}
+
+.footer__cta {
+  letter-spacing: -0.02em;
+}
+
+.footer__copyright {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+}
+
 @media (max-width: 680px) {
+  /* Only the gutters and the outer edges shrink on mobile — the vertical
+     rhythm between sections stays on --section-gap. */
   .hero {
-    padding: 80px 24px 40px;
+    padding: 80px 24px calc(var(--section-gap) / 2);
   }
 
   .hero__headline {
     font-size: 44px;
+    /* The desktop headline is set solid at line-height 1 with the second line
+       pulled up over the first. At 44px that overlap closes to almost nothing
+       and the two lines collide, so mobile gets a little air instead. */
+    line-height: 1.06;
+  }
+
+  .hero__line--accent {
+    margin-top: 0;
+  }
+
+  /* white-space stays nowrap and .glitch keeps its em sizing: the headline now
+     wraps by dropping the animated word onto its own line, rather than breaking
+     "a product" in half and leaving the word floating out of alignment.
+     Once it is on its own line the desktop baseline offset reads as a dead band
+     above it, so the box tightens to the artwork and the row gap closes up. */
+  .glitch {
+    height: 1em;
+  }
+
+  .glitch__frame {
+    bottom: -0.05em;
   }
 
   .hero__line {
-    white-space: normal;
-  }
-
-  .glitch {
-    width: 175px;
-    height: 50px;
-    transform: scale(0.62);
-    transform-origin: left top;
+    row-gap: 4px;
   }
 
   .hero__subtext {
-    font-size: 17px;
+    font-size: 16px;
   }
 
-  .case-studies__viewport {
-    padding: 0 24px;
-  }
-
-  .case-card {
-    width: 82vw;
+  .embla__slide {
+    flex-basis: 86vw;
   }
 
   .case-studies__info {
-    width: 82vw;
+    width: 86vw;
+  }
+
+  /* Touch targets. Padding grows the hit area to 44px and an equal negative
+     margin cancels it out of the layout, so the column keeps its original 24px
+     rhythm. Shrinking the gap instead had collapsed the spacing around the CTA
+     and the social row, which have no padding of their own to compensate. */
+  .footer__link {
+    padding: 9px 12px;
+    margin: -9px 0;
+  }
+
+  .site-nav__home {
+    padding: 12px 0;
+    margin: -12px 0;
+  }
+
+  .about {
+    padding: calc(var(--section-gap) / 2) 24px;
+  }
+
+  .footer {
+    padding: calc(var(--section-gap) / 2) 24px 140px;
+  }
+
+  /* Mobile player — Figma 347:521. A stacked "now playing" card rather than the
+     desktop strip: full-width cover, then title/artist, the progress row, and a
+     centred row of large buttons. No window bar. Same DOM as desktop:
+     .player__track dissolves (display: contents) so its children can be
+     re-ordered around .player__progress. */
+  .player {
+    padding: 16px 20px 32px;
+    border-radius: 36px;
+  }
+
+  .player__bar {
+    display: none;
+  }
+
+  .player__body {
+    gap: 20px;
+  }
+
+  .player__track {
+    display: contents;
+  }
+
+  .player__art {
+    order: 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 26.5px;
+    box-shadow:
+      0 3.3px 3.3px rgba(150, 150, 150, 0.1),
+      0 6.6px 6.6px rgba(150, 150, 150, 0.09),
+      0 16.6px 9.9px rgba(173, 173, 173, 0.05),
+      0 26.5px 9.9px rgba(150, 150, 150, 0.01);
+  }
+
+  :root[data-theme='dark'] .player__art {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  .player__text {
+    order: 2;
+    text-align: center;
+  }
+
+  .player__title {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .player__artist {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .player__progress {
+    order: 3;
+  }
+
+  .player__time {
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .player__controls {
+    order: 4;
+    justify-content: center;
+    gap: 12.44px;
+    /* 28px from the progress row in Figma; the column gap supplies 20. */
+    margin-top: 8px;
+  }
+
+  .player__btn {
+    width: 56px;
+    height: 56px;
+    border-width: 1.75px;
+  }
+
+  .player__btn svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+/* ============================================================
+   Case study detail page — Figma node 178:43
+   ============================================================ */
+
+.case {
+  background: var(--bg);
+  transition: background-color var(--theme-duration) var(--theme-ease);
+}
+
+/* Figma 178:130 — 80px block padding, 240px inline, 80px between the back
+   control and the intro column. */
+.case__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 80px;
+  padding: 80px 240px;
+}
+
+/* Figma 178:2265 carries the same fill, stroke and six-layer shadow as the
+   homepage's arrow button (161:58), so it reuses the same tokens. */
+.case__back,
+.site-nav__back {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  color: var(--case-ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--theme-duration) var(--theme-ease),
+    border-color var(--theme-duration) var(--theme-ease),
+    box-shadow var(--theme-duration) var(--theme-ease), color 220ms ease;
+}
+
+.case__back {
+  /* Figma fixes this frame at 32px tall — its 8px vertical padding is inset,
+     not additive — which is also what makes it match the 32px arrow button. */
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 24px;
+  background: var(--social-bg);
+  border: 1px solid var(--social-border);
+  box-shadow: var(--panel-shadow);
+}
+
+.case__back:hover,
+.site-nav__back:hover {
+  color: var(--ink);
+}
+
+.case__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 700px;
+  max-width: 100%;
+}
+
+.case__heading {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px; /* 150% */
+  font-weight: 500;
+  color: var(--case-title);
+}
+
+.case__intro-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.case__overview {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.case__paragraph {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px; /* 150% */
+  font-weight: 500;
+  color: var(--case-body);
+}
+
+.case__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Figma 178:1134 — fully rounded pill, 8/14 padding, no stroke. Each tone is a
+   tinted wash of its own hue: 50%/30% over the light page, a flat 12% over the
+   dark one, with the text colour going from a deep shade to the hue itself. */
+.case__tag {
+  padding: 8px 14px;
+  border-radius: 900px;
+  border: 0;
+  font-size: 16px;
+  line-height: 24px; /* 150% */
+  font-weight: 500;
+  color: var(--case-ink);
+  background: var(--case-frame-bg);
+}
+
+.case__tag--green {
+  background: rgba(204, 255, 176, 0.5);
+  color: #2a4e15;
+}
+
+.case__tag--blue {
+  background: rgba(142, 186, 255, 0.3);
+  color: #143569;
+}
+
+.case__tag--pink {
+  background: rgba(255, 148, 203, 0.3);
+  color: #731a4a;
+}
+
+/* Figma 178:202 — 24px gutters, 60px inline padding, rows of 1320px. The 24px
+   top and bottom are the frame gaps to the header and outcome blocks, whose own
+   80px padding supplies the rest of the breathing room. */
+.case__media {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 60px;
+}
+
+.case__row {
+  display: grid;
+  gap: 24px;
+}
+
+.case__row--pair {
+  grid-template-columns: 1fr 1fr;
+}
+
+.case__row--full {
+  grid-template-columns: 1fr;
+}
+
+/* Figma 296:25725 — a copy block inline in the media stack. 80px of its own
+   padding, and the 700px column centres in the 1320 row, which puts it on the
+   same measure as the header's column above it. */
+.case__row--text {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.case__frame {
+  position: relative;
+  margin: 0;
+  border: 1px solid var(--case-frame-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--case-frame-bg);
+  transition: border-color var(--theme-duration) var(--theme-ease),
+    background-color var(--theme-duration) var(--theme-ease);
+}
+
+/* Fallback ratios for studies still on empty slots; a row that names its own
+   `ratio` sets it inline and wins. */
+.case__row--pair .case__frame {
+  aspect-ratio: 648 / 520;
+}
+
+.case__row--full .case__frame {
+  aspect-ratio: 1320 / 767;
+}
+
+/* Shots are exported from Figma as the whole card — fill, 1px stroke and 12px
+   radius baked in, corners transparent — so the CSS chrome would double it. */
+.case__frame--shot {
+  border: 0;
+  background: none;
+}
+
+.case__img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* No transition on the swap: the page's View Transition crossfade covers the
+   whole switch at once, and a second, slower fade here would lag behind it. */
+.case__img--dark {
+  opacity: 0;
+}
+
+:root[data-theme='dark'] .case__img--light {
+  opacity: 0;
+}
+
+:root[data-theme='dark'] .case__img--dark {
+  opacity: 1;
+}
+
+/* Figma 179:2315 — back/top, the standard pill, and next, 12px apart. The 12px
+   lives on each jump pill's own margin rather than the row's gap so it can
+   collapse away with the pill instead of leaving a hole beside it. */
+.site-nav--case {
+  gap: 0;
+}
+
+/* Figma 179:2316 and 208:1232 — the jump pills carry exactly the chrome of the
+   nav pill between them, so the three read as one control strip. Same fill,
+   stroke, shadow and blur as .site-nav__back, minus its collapse animation. */
+.site-nav__jump {
+  flex-shrink: 0;
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  border-radius: 14px;
+  background: var(--nav-bg);
+  border: 1px solid var(--nav-border);
+  box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(11px);
+  -webkit-backdrop-filter: blur(11px);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  /* Buttons don't inherit text-transform from body, so "Top" rendered capped
+     next to a lowercase "next". */
+  text-transform: lowercase;
+  color: var(--case-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+
+  /* Collapsed by default. Width, padding, border and margin all go to zero so
+     the centre pill sits alone until a control earns its place. Same curve and
+     duration as the back control this replaces. */
+  max-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  border-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-width 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    background-color var(--theme-duration) var(--theme-ease),
+    border-color var(--theme-duration) var(--theme-ease),
+    box-shadow var(--theme-duration) var(--theme-ease),
+    color 220ms ease;
+}
+
+#case-jump {
+  margin-right: 0;
+}
+
+#case-next {
+  margin-left: 0;
+}
+
+.site-nav--case[data-back='visible'] #case-jump,
+.site-nav--case[data-next='visible'] #case-next {
+  max-width: 200px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-width: 1px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.site-nav--case[data-back='visible'] #case-jump {
+  margin-right: 12px;
+}
+
+.site-nav--case[data-next='visible'] #case-next {
+  margin-left: 12px;
+}
+
+/* The playground's back pill is always up — there is nothing to reveal it on,
+   and it's the only way out besides the wordmark. The case-study pills collapse
+   by default, so this opts back out of that. */
+.site-nav--playground {
+  gap: 0;
+}
+
+.site-nav--playground .site-nav__jump {
+  max-width: 200px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 12px;
+  border-width: 1px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.site-nav__jump:hover {
+  color: var(--ink);
+}
+
+/* On phones the case-study nav is just the wordmark pill — the back/previous and
+   next pills are dropped entirely rather than squeezed in beside it. */
+@media (max-width: 780px) {
+  #case-jump,
+  #case-next {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__jump {
+    transition: opacity 120ms ease;
+  }
+}
+
+/* Figma 179:2316 — same treatment as the nav pill beside it, blur included.
+   Hidden by default: it only takes over once the header's own back button has
+   scrolled away, and starting hidden avoids a flash before the observer runs. */
+.site-nav__back {
+  /* Figma draws this and the nav pill both at 48px. Ours renders 54 because of
+     the pill's own padding, so stretch rather than hard-coding a height —
+     that keeps the pair level whatever the pill ends up being. */
+  align-self: stretch;
+  padding: 0 20px;
+  border-radius: 14px;
+  background: var(--nav-bg);
+  border: 1px solid var(--nav-border);
+  box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(11px);
+  -webkit-backdrop-filter: blur(11px);
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+
+  /* Collapsed state — width, padding, border and margin all go to zero so the
+     pill beside it reclaims the full width instead of sitting next to a gap. */
+  max-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 0;
+  border-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-width 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    background-color var(--theme-duration) var(--theme-ease),
+    border-color var(--theme-duration) var(--theme-ease),
+    box-shadow var(--theme-duration) var(--theme-ease),
+    color 220ms ease;
+}
+
+.site-nav--case[data-back='visible'] .site-nav__back {
+  max-width: 200px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 12px;
+  border-width: 1px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__back {
+    transition: opacity 120ms ease;
+  }
+}
+
+@media (max-width: 1100px) {
+  .case__header {
+    padding: 80px 60px;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 780px) {
+  .case__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    padding: 60px 24px;
+  }
+
+  .case__back {
+    align-self: flex-start;
+  }
+
+  .case__intro {
+    width: 100%;
+  }
+
+  /* One image below another on a phone: the pairs collapse to a single column,
+     so every row is one card. Narrower gutters buy the artwork back some width,
+     which matters because these are desktop screenshots being read on a phone.
+     The bottom padding clears the fixed nav pill. */
+  .case__media {
+    gap: 16px;
+    padding: 16px 16px 140px;
+  }
+
+  .case__row {
+    gap: 16px;
+  }
+
+  .case__row--pair {
+    grid-template-columns: 1fr;
+  }
+
+  /* The inline copy block keeps the media rhythm rather than its 80px desktop
+     padding, which read as a dead gap at this width. */
+  .case__row--text {
+    padding: 32px 8px;
+  }
+}
+
+/* ---------- Wide screens ----------
+   The Figma frames are drawn at 1440 with a 1320 content column. Past that the
+   column stops growing and centres, so the site reads the same on a 27" display
+   as it does on the frame — only the page background gets wider. Each block
+   caps at 1320 plus its own gutters, so the content box itself lands on 1320
+   whether the section insets by 60px or 80px. */
+@media (min-width: 1440px) {
+  .hero,
+  .about,
+  .footer {
+    /* 1320 + 2 x 80px */
+    max-width: 1480px;
+    margin-inline: auto;
+  }
+
+  .case__header,
+  .case__media {
+    /* 1320 + 2 x 60px */
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  /* .case-studies is deliberately left uncapped: the carousel runs edge to edge
+     at any width, so the neighbouring cards keep peeking off the viewport
+     rather than being clipped by the content column. */
+}
+
+/* ---------- Playground ----------
+   Figma 308:4691 — a two-column grid of 648px tiles with 24px gutters inside a
+   1320px column, plus a couple that run the full width. Each tile is exported
+   whole from the frame, so its fill and 12px radius are already in the image;
+   the frame here only clips and holds the ratio. */
+.playground {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* dense matters: a full-width tile that can't fit the rest of a row gets
+     pushed to the next one, and without this the half-row it left behind stays
+     empty. dense pulls a later square back into that gap. With the order
+     shuffled the wide tiles land mid-row on most loads, so the hole would show
+     up nearly every time. */
+  grid-auto-flow: row dense;
+  gap: 24px;
+  max-width: 1440px; /* 1320 + 2 x 60px */
+  margin-inline: auto;
+  /* Bottom clearance so the last row isn't sitting under the fixed nav pill. */
+  padding: 60px 60px 140px;
+}
+
+.playground__tile {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.playground__tile--wide {
+  grid-column: span 2;
+}
+
+.playground__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 780px) {
+  /* One tile per row on a phone — two columns leaves each tile too small to
+     read. The wide ones stop spanning, since there is only one column. */
+  .playground {
+    gap: 16px;
+    padding: 24px 16px 140px;
+    grid-template-columns: 1fr;
+  }
+
+  .playground__tile--wide {
+    grid-column: span 1;
   }
 }

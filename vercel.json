@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/work/:slug",
+      "destination": "/case-study.html"
+    },
+    {
+      "source": "/playground",
+      "destination": "/playground.html"
+    }
+  ]
+}

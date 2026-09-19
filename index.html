@@ -4,6 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>shubham. — product designer</title>
+    <meta name="description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="shubham." />
+    <meta property="og:title" content="shubham. — product designer" />
+    <meta property="og:description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <meta property="og:url" content="https://shubhamdesign.com/" />
+    <meta property="og:image" content="https://shubhamdesign.com/og.png" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1260" />
+    <meta property="og:image:alt" content="hi! i am shubham, a product designer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="shubham. — product designer" />
+    <meta name="twitter:description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
+    <meta name="twitter:image" content="https://shubhamdesign.com/og.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,6 +33,15 @@
         var stored = localStorage.getItem('theme');
         if (stored === 'dark') {
           document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        // The intro plays once per browsing session. Decided here, before first
+        // paint, so coming back from a case study never flashes the loader.
+        try {
+          if (sessionStorage.getItem('intro-seen') === '1') {
+            document.documentElement.classList.add('intro-seen');
+          }
+        } catch (error) {
+          // Private modes can throw on sessionStorage; just play the intro.
         }
       })();
     </script>
@@ -85,7 +111,7 @@
                   height="16"
                 />
               </a>
-              <a class="social-link" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener">
+              <a class="social-link" href="https://www.linkedin.com/in/shubhamsingh0711" target="_blank" rel="noopener">
                 <img
                   data-icon-light="/icons/linkedin.svg"
                   data-icon-dark="/icons/linkedin-dark.svg"
@@ -112,49 +138,102 @@
 
       <nav class="site-nav" aria-label="Primary">
         <div class="site-nav__pill">
-          <img
-            class="site-nav__logo"
-            data-icon-light="/logo.svg"
-            data-icon-dark="/logo-dark.svg"
-            src="/logo.svg"
-            alt="shubham."
-            width="84"
-            height="15"
-          />
+          <button class="site-nav__home" type="button" aria-label="Back to top">
+            <img
+              class="site-nav__logo"
+              data-icon-light="/logo.svg"
+              data-icon-dark="/logo-dark.svg"
+              src="/logo.svg"
+              alt="shubham."
+              width="84"
+              height="15"
+            />
+          </button>
           <div class="site-nav__icons">
             <button id="theme-toggle" class="site-nav__theme" type="button" aria-label="Toggle dark mode">
               <img id="theme-toggle-icon" src="/icons/moon.svg" alt="" width="16" height="16" />
             </button>
-            <button class="site-nav__menu" type="button" aria-label="Open menu">
-              <img
-                data-icon-light="/icons/menu.svg"
-                data-icon-dark="/icons/menu-dark.svg"
-                src="/icons/menu.svg"
-                alt=""
-                width="13"
-                height="11"
-              />
-            </button>
           </div>
+
+          <img
+            class="site-nav__cat"
+            data-icon-light="/icons/cat.svg"
+            data-icon-dark="/icons/cat-dark.svg"
+            src="/icons/cat.svg"
+            alt=""
+            aria-hidden="true"
+            width="48"
+            height="36"
+          />
         </div>
       </nav>
     </main>
 
-    <section class="case-studies" aria-label="Case studies">
-      <div class="case-studies__viewport" id="case-viewport">
-        <div class="case-studies__track" id="case-track">
-          <article class="case-card">
-            <div class="case-card__thumb" style="background-image: url('/case-studies/card-thrust.jpg')"></div>
-          </article>
-          <article class="case-card">
-            <div class="case-card__thumb case-card__thumb--camb"></div>
-          </article>
-          <article class="case-card">
-            <div class="case-card__thumb case-card__thumb--hobbes"></div>
-          </article>
-          <article class="case-card">
-            <div class="case-card__thumb case-card__thumb--digit"></div>
-          </article>
+    <section class="case-studies" id="work" aria-label="Case studies">
+      <div class="embla" id="case-embla">
+        <div class="embla__viewport" id="case-viewport">
+          <div class="embla__container">
+            <article class="embla__slide">
+              <a class="embla__slide-link" href="/work/thrust" aria-label="Thrust — Mobile &amp; Web Design">
+                <div class="embla__parallax" style="--card-fill: #f6f6f6">
+                <div class="embla__parallax__layer">
+                  <div
+                    class="embla__parallax__img case-card__thumb"
+                    style="background-image: url('/case-studies/card-thrust-3.webp')"
+                  ></div>
+                </div>
+                </div>
+              </a>
+            </article>
+            <article class="embla__slide">
+              <a class="embla__slide-link" href="/work/camb" aria-label="Camb — Product &amp; Website Design">
+                <div class="embla__parallax" style="--card-fill: #111111">
+                <div class="embla__parallax__layer">
+                  <div class="embla__parallax__img case-card__thumb case-card__thumb--camb"></div>
+                </div>
+                </div>
+              </a>
+            </article>
+            <article class="embla__slide">
+              <a class="embla__slide-link" href="/work/hobbes" aria-label="Hobbes — Product Design">
+                <div class="embla__parallax" style="--card-fill: #efefef">
+                <div class="embla__parallax__layer">
+                  <div class="embla__parallax__img case-card__thumb case-card__thumb--hobbes"></div>
+                </div>
+                </div>
+              </a>
+            </article>
+            <article class="embla__slide">
+              <a
+                class="embla__slide-link"
+                href="https://www.digit-software.com/"
+                target="_blank"
+                rel="noopener"
+                aria-label="Sutton — Web Design (opens the live site)"
+              >
+                <div class="embla__parallax" style="--card-fill: #e6f3fa">
+                <div class="embla__parallax__layer">
+                  <div class="embla__parallax__img case-card__thumb case-card__thumb--sutton"></div>
+                </div>
+                </div>
+              </a>
+            </article>
+            <article class="embla__slide">
+              <a
+                class="embla__slide-link"
+                href="https://www.figma.com/deck/Rmudmu9pFxyWhe2Z7iD7Hm"
+                target="_blank"
+                rel="noopener"
+                aria-label="Sybill — Product Design (opens the deck on figma.com)"
+              >
+                <div class="embla__parallax" style="--card-fill: #fafafa">
+                <div class="embla__parallax__layer">
+                  <div class="embla__parallax__img case-card__thumb case-card__thumb--sybill"></div>
+                </div>
+                </div>
+              </a>
+            </article>
+          </div>
         </div>
       </div>
 
@@ -178,6 +257,161 @@
         </a>
       </div>
     </section>
+
+    <section class="about" id="about" aria-label="About">
+      <div class="about__trail" id="about-trail" aria-hidden="true"></div>
+      <div class="about__copy">
+        <div class="about__meta">
+          <span class="about__city">mumbai</span>
+          <span class="about__clock" id="local-clock">[ --:--:-- ]</span>
+        </div>
+        <div class="about__paragraphs">
+          <p class="about__lead">
+            Hi! I'm Shubham Singh, a 25-year-old product designer based in India. I'm a college
+            dropout who made the leap from graphic design to product design, and I'm currently
+            working at
+            <a class="about__link" href="https://bricxlabs.com/" target="_blank" rel="noopener"
+              >Bricxlabs</a
+            >.
+          </p>
+          <p class="about__body">
+            When I'm not working, I listen to a ton of music, play video games (Cyberpunk 2077 🐐),
+            and agonize over my favorite club,
+            <a
+              class="about__link"
+              href="https://www.realmadrid.com/en-US"
+              target="_blank"
+              rel="noopener"
+              >Real Madrid</a
+            >. I also enjoy reading every now and then, and occasionally stepping outside to feel the
+            sun and touch grass.
+          </p>
+        </div>
+      </div>
+
+      <div class="player">
+        <div class="player__bar">
+          <div class="player__lights" aria-hidden="true">
+            <span class="player__light player__light--red"></span>
+            <span class="player__light player__light--amber"></span>
+            <span class="player__light player__light--green"></span>
+          </div>
+          <span class="player__label">miniplayer</span>
+          <a
+            class="player__open"
+            id="player-spotify"
+            href="https://open.spotify.com/track/1xqT27jSG1Y15vOXfsV0gv"
+            target="_blank"
+            rel="noopener"
+            >open spotify</a
+          >
+        </div>
+
+        <div class="player__body">
+          <div class="player__track">
+            <div class="player__art">
+              <img id="player-art" src="/cover-ipod-touch.jpg" alt="" width="60" height="60" />
+            </div>
+            <div class="player__text">
+              <p class="player__title" id="player-title">iPod Touch</p>
+              <p class="player__artist" id="player-artist">Ninajirachi</p>
+            </div>
+            <div class="player__controls">
+              <button class="player__btn player__btn--prev" id="player-prev" type="button" aria-label="Previous track">
+                <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M10.6503 2.5392C10.8302 2.43129 11.0355 2.37304 11.2452 2.37039C11.4549 2.36775 11.6616 2.4208 11.8441 2.52414C12.0266 2.62748 12.1784 2.77739 12.284 2.95859C12.3897 3.13978 12.4453 3.34576 12.4453 3.5555V10.6666C12.4453 10.8763 12.3897 11.0823 12.284 11.2635C12.1784 11.4447 12.0266 11.5946 11.8441 11.698C11.6616 11.8013 11.4549 11.8544 11.2452 11.8517C11.0355 11.8491 10.8302 11.7908 10.6503 11.6829L4.7262 8.12853C4.55034 8.02346 4.40471 7.8746 4.30353 7.69646C4.20235 7.51833 4.14908 7.31701 4.1489 7.11215C4.14872 6.90729 4.20164 6.70588 4.30251 6.52757C4.40338 6.34926 4.54874 6.20014 4.72442 6.09476L10.6503 2.5392Z" fill="currentColor" />
+                  <path d="M1.77865 2.37031V11.8518M10.6503 2.5392C10.8302 2.43129 11.0355 2.37304 11.2452 2.37039C11.4549 2.36775 11.6616 2.4208 11.8441 2.52414C12.0266 2.62748 12.1784 2.77739 12.284 2.95859C12.3897 3.13978 12.4453 3.34576 12.4453 3.5555V10.6666C12.4453 10.8763 12.3897 11.0823 12.284 11.2635C12.1784 11.4447 12.0266 11.5946 11.8441 11.698C11.6616 11.8013 11.4549 11.8544 11.2452 11.8517C11.0355 11.8491 10.8302 11.7908 10.6503 11.6829L4.7262 8.12853C4.55034 8.02346 4.40471 7.8746 4.30353 7.69646C4.20235 7.51833 4.14908 7.31701 4.1489 7.11215C4.14872 6.90729 4.20164 6.70588 4.30251 6.52757C4.40338 6.34926 4.54874 6.20014 4.72442 6.09476L10.6503 2.5392Z" stroke="currentColor" stroke-width="0.888889" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button class="player__btn" id="player-play" type="button" aria-label="Play">
+                <svg class="player__icon player__icon--play" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <g transform="translate(1.574 0)">
+                    <path d="M3.57231 2.5392C3.39246 2.43129 3.1872 2.37304 2.97748 2.37039C2.76776 2.36775 2.5611 2.4208 2.37859 2.52414C2.19608 2.62748 2.04426 2.77739 1.93863 2.95859C1.833 3.13978 1.77734 3.34576 1.77734 3.5555V10.6666C1.77734 10.8763 1.833 11.0823 1.93863 11.2635C2.04426 11.4447 2.19608 11.5946 2.37859 11.698C2.5611 11.8013 2.76776 11.8544 2.97748 11.8517C3.1872 11.8491 3.39246 11.7908 3.57231 11.6829L9.49645 8.12853C9.67232 8.02346 9.81794 7.8746 9.91912 7.69646C10.0203 7.51833 10.0736 7.31701 10.0738 7.11215C10.0739 6.90729 10.021 6.70588 9.92015 6.52757C9.81928 6.34926 9.67391 6.20014 9.49823 6.09476L3.57231 2.5392Z" fill="currentColor" stroke="currentColor" stroke-width="0.888889" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </svg>
+                <svg class="player__icon player__icon--pause" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M10.2865 2.66663H8.69921C8.40699 2.66663 8.17011 2.88772 8.17011 3.16045V11.0617C8.17011 11.3344 8.40699 11.5555 8.69921 11.5555H10.2865C10.5787 11.5555 10.8156 11.3344 10.8156 11.0617V3.16045C10.8156 2.88772 10.5787 2.66663 10.2865 2.66663Z" fill="currentColor" stroke="currentColor" stroke-width="0.550242" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M5.52461 2.66663H3.9373C3.64509 2.66663 3.4082 2.88772 3.4082 3.16045V11.0617C3.4082 11.3344 3.64509 11.5555 3.9373 11.5555H5.52461C5.81682 11.5555 6.05371 11.3344 6.05371 11.0617V3.16045C6.05371 2.88772 5.81682 2.66663 5.52461 2.66663Z" fill="currentColor" stroke="currentColor" stroke-width="0.550242" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button class="player__btn" id="player-next" type="button" aria-label="Next track">
+                <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M3.57231 2.5392C3.39246 2.43129 3.1872 2.37304 2.97748 2.37039C2.76776 2.36775 2.5611 2.4208 2.37859 2.52414C2.19608 2.62748 2.04426 2.77739 1.93863 2.95859C1.833 3.13978 1.77734 3.34576 1.77734 3.5555V10.6666C1.77734 10.8763 1.833 11.0823 1.93863 11.2635C2.04426 11.4447 2.19608 11.5946 2.37859 11.698C2.5611 11.8013 2.76776 11.8544 2.97748 11.8517C3.1872 11.8491 3.39246 11.7908 3.57231 11.6829L9.49645 8.12853C9.67232 8.02346 9.81794 7.8746 9.91912 7.69646C10.0203 7.51833 10.0736 7.31701 10.0738 7.11215C10.0739 6.90729 10.021 6.70588 9.92015 6.52757C9.81928 6.34926 9.67391 6.20014 9.49823 6.09476L3.57231 2.5392Z" fill="currentColor" />
+                  <path d="M12.444 2.37031V11.8518M3.57231 2.5392C3.39246 2.43129 3.1872 2.37304 2.97748 2.37039C2.76776 2.36775 2.5611 2.4208 2.37859 2.52414C2.19608 2.62748 2.04426 2.77739 1.93863 2.95859C1.833 3.13978 1.77734 3.34576 1.77734 3.5555V10.6666C1.77734 10.8763 1.833 11.0823 1.93863 11.2635C2.04426 11.4447 2.19608 11.5946 2.37859 11.698C2.5611 11.8013 2.76776 11.8544 2.97748 11.8517C3.1872 11.8491 3.39246 11.7908 3.57231 11.6829L9.49645 8.12853C9.67232 8.02346 9.81794 7.8746 9.91912 7.69646C10.0203 7.51833 10.0736 7.31701 10.0738 7.11215C10.0739 6.90729 10.021 6.70588 9.92014 6.52757C9.81928 6.34926 9.67391 6.20014 9.49823 6.09476L3.57231 2.5392Z" stroke="currentColor" stroke-width="0.888889" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="player__progress">
+            <span class="player__time" id="player-elapsed">00:00</span>
+            <div
+              class="player__scrubber"
+              id="player-scrubber"
+              role="slider"
+              tabindex="0"
+              aria-label="Seek"
+              aria-valuemin="0"
+              aria-valuemax="30"
+              aria-valuenow="0"
+            >
+              <div class="player__fill" id="player-fill"></div>
+            </div>
+            <span class="player__time" id="player-duration">00:30</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <nav class="footer__links" aria-label="Footer">
+        <a class="footer__link" href="#work">work</a>
+        <a class="footer__link" href="#about">about me</a>
+        <a class="footer__link" href="https://docs.google.com/document/d/1upMsiiMyAIBHP1014bbuEauBmQThHTaqQiRgDY_yHC8/edit?usp=sharing" target="_blank" rel="noopener">resume</a>
+        <a class="footer__link" href="/playground">playground</a>
+        <a
+          class="btn-primary footer__cta"
+          href="https://cal.com/shubham-singh-chauhan-cqypt4/30min"
+          target="_blank"
+          rel="noopener"
+          >Get in touch</a
+        >
+        <div class="social-links footer__social">
+          <a class="social-link" href="https://x.com/aritated" target="_blank" rel="noopener">
+            <img
+              data-icon-light="/icons/x.svg"
+              data-icon-dark="/icons/x-dark.svg"
+              src="/icons/x.svg"
+              alt="X (Twitter)"
+              width="16"
+              height="16"
+            />
+          </a>
+          <a class="social-link" href="https://www.linkedin.com/in/shubhamsingh0711" target="_blank" rel="noopener">
+            <img
+              data-icon-light="/icons/linkedin.svg"
+              data-icon-dark="/icons/linkedin-dark.svg"
+              src="/icons/linkedin.svg"
+              alt="LinkedIn"
+              width="16"
+              height="16"
+            />
+          </a>
+          <a class="social-link" href="https://www.instagram.com/ishubhaam/" target="_blank" rel="noopener">
+            <img
+              data-icon-light="/icons/instagram.svg"
+              data-icon-dark="/icons/instagram-dark.svg"
+              src="/icons/instagram.svg"
+              alt="Instagram"
+              width="16"
+              height="16"
+            />
+          </a>
+        </div>
+      </nav>
+
+      <p class="footer__copyright">shubham, 2026. All rights reserved.</p>
+    </footer>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
