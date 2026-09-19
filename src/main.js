@@ -160,98 +160,98 @@ const FALLBACK_TRACKS = [
     title: 'iPod Touch',
     artist: 'Ninajirachi',
     src: '/audio/ipod-touch.m4a',
-    cover: '/cover-ipod-touch.jpg',
+    cover: '/cover-ipod-touch.webp',
     spotify: 'https://open.spotify.com/track/1xqT27jSG1Y15vOXfsV0gv',
   },
   {
     title: 'Supersonic',
     artist: 'fromis_9',
     src: '/audio/supersonic.m4a',
-    cover: '/cover-supersonic.jpg',
+    cover: '/cover-supersonic.webp',
     spotify: 'https://open.spotify.com/track/6oNLSQX8bcAdbCElZYju3v',
   },
   {
     title: 'Twilight Zone',
     artist: 'Ariana Grande',
     src: '/audio/twilight-zone.m4a',
-    cover: '/cover-twilight-zone.jpg',
+    cover: '/cover-twilight-zone.webp',
     spotify: 'https://open.spotify.com/track/1UrwJzlNC2oaTlxj1OZmcu',
   },
   {
     title: 'Pool',
     artist: 'Paramore',
     src: '/audio/pool.m4a',
-    cover: '/cover-pool.jpg',
+    cover: '/cover-pool.webp',
     spotify: 'https://open.spotify.com/track/3xCsHloPBl211Yi4UEUUcm',
   },
   {
     title: 'Massaging Me',
     artist: 'Future',
     src: '/audio/massaging-me.m4a',
-    cover: '/cover-massaging-me.jpg',
+    cover: '/cover-massaging-me.webp',
     spotify: 'https://open.spotify.com/track/5hs2urSRIvZbmcQwvxEtat',
   },
   {
     title: 'In Motion',
     artist: 'beabadoobee',
     src: '/audio/in-motion.m4a',
-    cover: '/cover-in-motion.jpg',
+    cover: '/cover-in-motion.webp',
     spotify: 'https://open.spotify.com/track/0N6xvbX8lsB8u9Q9B6rJgt',
   },
   {
     title: 'the cure',
     artist: 'Olivia Rodrigo',
     src: '/audio/the-cure.m4a',
-    cover: '/cover-the-cure.jpg',
+    cover: '/cover-the-cure.webp',
     spotify: 'https://open.spotify.com/track/4EoJ151oQ5jY48z4RhSE96',
   },
   {
     title: 'Basement Freestyle',
     artist: 'Travis Scott',
     src: '/audio/basement-freestyle.m4a',
-    cover: '/cover-basement-freestyle.jpg',
+    cover: '/cover-basement-freestyle.webp',
     spotify: 'https://open.spotify.com/track/0I3MkBTrKeKulwuSSLEJGN',
   },
   {
     title: 'harvest sky',
     artist: 'Oklou & underscores',
     src: '/audio/harvest-sky.m4a',
-    cover: '/cover-harvest-sky.jpg',
+    cover: '/cover-harvest-sky.webp',
     spotify: 'https://open.spotify.com/track/0Bz6Ih38mhIR3ZnzB1TYDV',
   },
   {
     title: 'Whiplash',
     artist: 'aespa',
     src: '/audio/whiplash.m4a',
-    cover: '/cover-whiplash.jpg',
+    cover: '/cover-whiplash.webp',
     spotify: 'https://open.spotify.com/track/3coRPMnFg2dJcPu5RMloa9',
   },
   {
     title: 'Cosmic',
     artist: 'Red Velvet',
     src: '/audio/cosmic.m4a',
-    cover: '/cover-cosmic.jpg',
+    cover: '/cover-cosmic.webp',
     spotify: 'https://open.spotify.com/track/0kE4TRJ0pWoRKzKdtbx8To',
   },
   {
     title: "We Don't Leave the House",
     artist: 'glaive',
     src: '/audio/we-dont-leave-the-house.m4a',
-    cover: '/cover-we-dont-leave-the-house.jpg',
+    cover: '/cover-we-dont-leave-the-house.webp',
     spotify: 'https://open.spotify.com/track/5Tej0q4FelEClV0ZvYvz89',
   },
   {
     title: 'The Party & The After Party',
     artist: 'The Weeknd',
     src: '/audio/the-party-and-the-after-party.m4a',
-    cover: '/cover-the-party-and-the-after-party.jpg',
+    cover: '/cover-the-party-and-the-after-party.webp',
     spotify: 'https://open.spotify.com/track/0dcf0L6F1LUA1nE2zWH4J2',
   },
   {
     title: 'Reborn',
     artist: 'KIDS SEE GHOSTS',
     src: '/audio/reborn.m4a',
-    cover: '/cover-reborn.jpg',
+    cover: '/cover-reborn.webp',
     spotify: 'https://open.spotify.com/track/4RVbK6cV0VqWdpCDcx3hiT',
   },
 ];
@@ -311,11 +311,46 @@ if (playerEl && playBtn && FALLBACK_TRACKS.length) {
     scrubberEl.setAttribute('aria-valuenow', Math.floor(audio.currentTime));
   };
 
+  // Apple's artwork server renders any size and format on request, so ask for
+  // just the pixels the cover is actually drawn at (60px on desktop, the full
+  // card width on phones) as WebP, instead of the 1000px JPEG in the list —
+  // roughly 400 KB down to 10–60 KB. Local fallback covers pass through as-is.
+  const coverSrc = (url) => {
+    if (!/mzstatic\.com\//.test(url)) return url;
+    const drawn = (artEl.getBoundingClientRect().width || 60) * (window.devicePixelRatio || 1);
+    const px = Math.min(1000, Math.max(100, Math.ceil(drawn / 100) * 100));
+    return url.replace(/\/\d+x\d+bb\.(jpg|png|webp)$/, `/${px}x${px}bb.webp`);
+  };
+
+  // The player sits far down the page, so hold the cover back until it's
+  // within about a screen of view. Only the latest requested cover is kept, so
+  // when the monthly list replaces the fallback before the visitor gets there,
+  // the fallback's cover is never downloaded at all. (loading="lazy" alone
+  // wasn't enough: Chrome's lazy-load distance already reaches the player.)
+  let pendingCover = null;
+  let artInView = !('IntersectionObserver' in window);
+  const showCover = (url) => {
+    pendingCover = url;
+    if (artInView) artEl.src = coverSrc(url);
+  };
+  if (!artInView) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        artInView = true;
+        if (pendingCover) artEl.src = coverSrc(pendingCover);
+      },
+      { rootMargin: '600px 0px' },
+    );
+    observer.observe(playerEl);
+  }
+
   const loadTrack = (index, autoplay) => {
     trackIndex = (index + TRACKS.length) % TRACKS.length;
     const track = TRACKS[trackIndex];
     audio.src = track.src;
-    artEl.src = track.cover;
+    showCover(track.cover);
     artEl.alt = `${track.title} by ${track.artist}`;
     titleEl.textContent = track.title;
     artistEl.textContent = track.artist;

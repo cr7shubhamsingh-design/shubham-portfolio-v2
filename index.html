@@ -21,12 +21,9 @@
     <meta name="twitter:title" content="shubham. — product designer" />
     <meta name="twitter:description" content="Former graphic designer, now a Product Designer with 2+ years of experience shaping digital products for startups and big tech." />
     <meta name="twitter:image" content="https://shubhamdesign.com/og.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Inter+Tight:wght@500;600&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/case-studies/card-thrust-3.webp" as="image" fetchpriority="high" />
     <link rel="stylesheet" href="/src/style.css" />
     <script>
       (function () {
@@ -310,7 +307,7 @@
         <div class="player__body">
           <div class="player__track">
             <div class="player__art">
-              <img id="player-art" src="/cover-ipod-touch.jpg" alt="" width="60" height="60" />
+              <img id="player-art" alt="" width="60" height="60" loading="lazy" decoding="async" />
             </div>
             <div class="player__text">
               <p class="player__title" id="player-title">iPod Touch</p>
