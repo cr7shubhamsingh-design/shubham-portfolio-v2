@@ -647,6 +647,12 @@ body {
   pointer-events: none;
 }
 
+/* Hidden for now at Shubham's request. The markup and styles above stay in
+   place — delete this rule to bring the cat back. */
+.site-nav__cat {
+  display: none;
+}
+
 .site-nav__theme img {
   width: 16px;
   height: 16px;
