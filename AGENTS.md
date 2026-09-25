@@ -12,22 +12,19 @@ Codex reads this file automatically. It also works as a plain handoff doc.
 
 ---
 
-## ⚠️ Read this first: the repo does not match production
+## ⚠️ Read this first: deploys go through GitHub
 
-**20 files are uncommitted and nothing has been pushed.** Every deploy has gone out
-via the Vercel CLI straight from the working directory, so:
+Resolved 2026-09-19: the repo was synced (commit `1327363`) and Vercel is now
+**Git-connected**. So:
 
-> **production is AHEAD of GitHub.** `git log` does not describe what is live.
+> **Deploy by committing and pushing to `master`.** A CLI-only deploy would be
+> overwritten by the next Git deploy.
 
-`origin/master` is at `9ddc143`, which predates: the case-study detail pages, Embla,
-the theme rework, the image trail, the miniplayer, and the Keystatic removal. Do **not**
-"restore from git" or assume uncommitted work is unfinished — it is all live and verified.
-
-Untracked/modified includes `case-study.html`, `vite.config.js`, `vercel.json`,
-`src/{theme,nav,case-study,case-studies}.js`, `src/trail-images/`, `public/audio/`,
-`public/cover-*.jpg`.
-
-**First task for whoever picks this up:** commit and push, so the repo stops lying.
+- Commit as `Shubham Singh <311718944+cr7shubhamsingh-design@users.noreply.github.com>`
+  (set repo-local). **Never** the work email.
+- `git pull` before starting: a scheduled job commits to `master` on its own (below).
+- `vercel.json` carries an `ignoreCommand` that skips the build when a commit only
+  touches `data/`.
 
 ---
 
@@ -36,12 +33,10 @@ Untracked/modified includes `case-study.html`, `vite.config.js`, `vercel.json`,
 ```bash
 npm run dev                  # Vite dev server (port 5174)
 npm run build                # → dist/
-npx vercel --yes             # preview deploy
-npx vercel --prod --yes      # production (shubhamdesign.com)
+git push origin master       # → production (shubhamdesign.com), via Vercel's Git integration
 ```
 
-**Deploy convention used throughout:** preview by default; `--prod` **only** when the
-user explicitly asks. Nothing is pushed to GitHub unless asked.
+**Deploy convention:** the user wants changes shipped straight to production.
 
 ---
 
@@ -151,6 +146,19 @@ Spotify's `preview_url` is dead for apps created after 2024-11-27, hence the man
 Player icons are exact Figma vector paths — **filled, not stroked** — and the previous
 glyph is `#a6a6a6`, not ink. It matches Figma across 50 measured checks.
 
+Volume is pinned to `0.2` — the site plays at a fifth of the visitor's system volume.
+
+**The playlist is generated, not hand-kept.** `.github/workflows/top-tracks.yml` runs
+`scripts/update-top-tracks.mjs` every Monday: Last.fm top 20 over the last 30 days for
+user `Aribum`, **one song per artist** (their most played), each matched to an iTunes
+preview + artwork, written to `data/top-tracks.json` — and only when the song list
+itself changed. `src/main.js` fetches that file from raw.githubusercontent at runtime,
+shuffles it, and falls back to `FALLBACK_TRACKS` (the hand-cut clips in `public/audio/`)
+if it can't. The workflow needs repo secret `LASTFM_API_KEY`; it never deploys the site.
+
+Mobile (≤680px) uses a different player layout — Figma `347:521`: full-width cover,
+centred title, 56px transport buttons, no window bar.
+
 ### Keystatic — removed
 A CMS was trialled and torn out (config, admin route, dev middleware, React,
 `content/`). Case-study images now live in `src/case-studies.js`. Don't be surprised by
@@ -167,7 +175,9 @@ references in old commits.
   the CMS. Camb / Hobbes / Sutton have none, so their detail pages are all placeholder frames.
 - **Carousel cards** for Camb / Hobbes / Sutton are gradient placeholders, not real work.
 - `card-thrust.jpg` is **640×480 rendered at 640px** — soft on retina, wants a 2x export.
-- `#resume` and `#playground` in the footer are **dead links** — no matching elements.
+
+Footer links are live now: "resume" opens the Google Doc, "playground" opens
+`/playground`.
 
 ---
 
@@ -212,10 +222,12 @@ Carried over from an earlier session; still true.
 
 ## Known-open items
 
-- **Push to GitHub** (see the warning at the top).
-- Whether Vercel auto-deploys on push is **unconfirmed** — all deploys have been CLI.
-- Real case-study copy, images, and non-placeholder cards.
-- `#resume` / `#playground` destinations.
+- Real case-study copy and images for Sutton / Sybill (their `/work/…` pages are still
+  placeholder; the cards link out instead, so nobody lands on them).
+- The 1.7s intro loader is what Lighthouse blames for mobile LCP; shortening it is a
+  design decision the user has not made yet.
+- The Sybill Figma deck returns 403 to anonymous visitors — needs Share → Anyone with
+  the link.
 - Nav pill renders **54px** tall where Figma says 48px — pre-existing. The case-study
   back button stretches to match it rather than hard-coding 48.
 - Carousel no longer wraps (loop removed on request) and has no arrows or dots, so the

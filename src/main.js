@@ -147,7 +147,7 @@ if (clockEl) {
 }
 
 // The playlist is Shubham's top 20 on Last.fm over the last 30 days, one song
-// per artist, rebuilt on the 15th of each month by
+// per artist, rebuilt every Monday by
 // .github/workflows/top-tracks.yml into data/top-tracks.json. It's read
 // straight from the repo at runtime, so the monthly update never needs a site
 // deploy. The hand-picked list below is the fallback for when that file can't

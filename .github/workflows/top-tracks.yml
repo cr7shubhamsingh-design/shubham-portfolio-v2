@@ -1,13 +1,14 @@
 # Rebuilds the miniplayer's playlist — top 20 on Last.fm over the last 30
-# days, one song per artist — on the 15th of every month. Only
-# data/top-tracks.json changes; the site reads it at runtime, so this never
+# days, one song per artist — every Monday. The window stays at 30 days; the
+# weekly run just keeps it current. Only data/top-tracks.json changes, and only
+# when the songs actually differ; the site reads it at runtime, so this never
 # deploys anything. If the run fails, the previous file stays as it is.
 name: Update top tracks
 
 on:
   schedule:
-    # 00:30 UTC on the 15th = 06:00 IST
-    - cron: '30 0 15 * *'
+    # 00:30 UTC on Mondays = 06:00 IST
+    - cron: '30 0 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -43,5 +44,5 @@ jobs:
             echo "Playlist unchanged."
             exit 0
           fi
-          git commit -m "Update top tracks for $(date -u +%B\ %Y)"
+          git commit -m "Update top tracks ($(date -u +%-d\ %B\ %Y))"
           git push

@@ -1,6 +1,6 @@
 // Builds data/top-tracks.json: the miniplayer's monthly playlist.
 //
-// Run by .github/workflows/top-tracks.yml on the 15th of every month. Reads the
+// Run by .github/workflows/top-tracks.yml every Monday. Reads the
 // last 30 days of listening from Last.fm, keeps one song per artist (their most
 // played), and pairs each with a 30s preview and cover from the iTunes catalogue
 // — Last.fm has no audio and has dropped most of its artwork. The site fetches
@@ -191,6 +191,24 @@ if (tracks.length < MIN_TRACKS) {
 }
 
 const outFile = process.env.OUT_FILE || OUT;
+
+// Leave the file alone when the songs are unchanged, so a weekly run that finds
+// the same 20 tracks doesn't produce a commit. Compared on song and artist
+// only: play counts and ranks shift constantly, and iTunes hands back a
+// different pressing of the same song often enough (album vs single) that
+// comparing preview/artwork URLs would report a change nearly every week.
+const playable = (list) => list.map(({ title, artist }) => `${artist} — ${title}`);
+let existing = null;
+try {
+  existing = JSON.parse(fs.readFileSync(outFile, 'utf8'));
+} catch {
+  // No file yet (or unreadable) — write a fresh one.
+}
+if (existing && JSON.stringify(playable(existing.tracks || [])) === JSON.stringify(playable(tracks))) {
+  console.log(`Same ${tracks.length} tracks as last time — leaving data/top-tracks.json unchanged.`);
+  process.exit(0);
+}
+
 fs.mkdirSync(path.dirname(outFile), { recursive: true });
 fs.writeFileSync(
   outFile,
