@@ -1,7 +1,7 @@
 {
   "user": "Aribum",
   "period": "last 30 days",
-  "generatedAt": "2026-09-25T05:15:57.861Z",
+  "generatedAt": "2026-09-28T05:44:59.114Z",
   "tracks": [
     {
       "title": "Estranged",
@@ -10,7 +10,7 @@
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/68/24/84/6824844d-3f59-2816-e083-f5d49c994ff1/198704876615_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Estranged%20beabadoobee",
       "rank": 1,
-      "plays": 30
+      "plays": 33
     },
     {
       "title": "Pop Off Pop Off",
@@ -20,15 +20,6 @@
       "spotify": "https://open.spotify.com/search/Pop%20Off%20Pop%20Off%20KiiiKiii",
       "rank": 3,
       "plays": 13
-    },
-    {
-      "title": "Midnight Sun",
-      "artist": "Zara Larsson",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/59/bb/60/59bb60aa-1a0b-ff4c-3343-d7cb9e7d375a/mzaf_16759827430963483039.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/fb/1d/2d/fb1d2d1c-0f79-53ad-ab9b-ac20918b5856/196873177199.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Midnight%20Sun%20Zara%20Larsson",
-      "rank": 4,
-      "plays": 11
     },
     {
       "title": "Payphone",
@@ -58,22 +49,22 @@
       "plays": 7
     },
     {
-      "title": "dandelion",
-      "artist": "Ariana Grande",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bd/ad/aa/bdadaaae-b20f-255d-cab7-309af69626dc/mzaf_10208229703862294962.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/98/f0/dc/98f0dcff-559c-2910-c0b1-5ba6b66748d4/25UMGIM42096.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/dandelion%20Ariana%20Grande",
-      "rank": 15,
-      "plays": 5
-    },
-    {
       "title": "harvest sky",
       "artist": "Oklou",
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f7/c2/45/f7c24598-90e5-d14f-2f69-ef2fa34422cc/mzaf_3995256243554795177.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/23/c7/ed/23c7ed7f-e233-6996-41cc-a4fccc021067/198704695834.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/harvest%20sky%20Oklou",
-      "rank": 21,
+      "rank": 19,
       "plays": 5
+    },
+    {
+      "title": "Like I Do",
+      "artist": "Ariana Grande",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/12/20/bb/1220bb18-7590-9e7c-a6ed-beca1dc47620/mzaf_667380891852406034.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/56/f4/96/56f49612-02dd-83f4-44fe-d2118cc70707/26UMGIM51129.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Like%20I%20Do%20Ariana%20Grande",
+      "rank": 21,
+      "plays": 4
     },
     {
       "title": "PIXELATED KISSES",
@@ -81,7 +72,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/97/81/e8/9781e8f0-c21b-4e7c-d30d-a9bf73d3c7c7/mzaf_2252969465857439766.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/01/03/94/010394c1-e789-971a-9a47-54a1c6110c41/198704696695_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/PIXELATED%20KISSES%20Joji",
-      "rank": 42,
+      "rank": 25,
       "plays": 4
     },
     {
@@ -90,16 +81,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4f/95/ad/4f95ad42-3159-70f5-0e1d-74e41bf2aeaf/mzaf_10985369354936899334.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/94/79/01/94790156-60e5-ff9b-f844-171f15910d66/820233879705.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/WANNACRY%20Ninajirachi",
-      "rank": 43,
-      "plays": 4
-    },
-    {
-      "title": "BRAND NEW CHANEL$",
-      "artist": "Slayyyter",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/66/b6/e1/66b6e1ee-2cea-ba98-ca53-2ae13b134326/mzaf_3396294438659672321.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f8/f6/e1/f8f6e1ea-279c-c3a6-df70-37aedab1728b/196874456026.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/BRAND%20NEW%20CHANEL%24%20Slayyyter",
-      "rank": 45,
+      "rank": 26,
       "plays": 4
     },
     {
@@ -108,7 +90,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bb/17/44/bb1744cc-d155-e4dd-d954-3af1d8f5ef17/mzaf_774042539264649255.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6d/70/38/6d703862-0533-5375-f245-e2ce0ad5f2cc/198391706493.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/You%20Could%20Hate%20Me%20Sophia%20Stel",
-      "rank": 46,
+      "rank": 29,
       "plays": 4
     },
     {
@@ -117,7 +99,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b3/b2/73/b3b273b9-f271-1e5e-11ec-cf004b2dd29e/mzaf_18207793076274163466.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/6d/65/63/6d6563ef-6376-65fe-f1a4-2453c05dfd24/663918834473.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/EVERYTHING%20I'VE%20EVER%20WANTED%20Tiffany%20Day",
-      "rank": 47,
+      "rank": 30,
       "plays": 4
     },
     {
@@ -126,7 +108,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e7/2e/dd/e72edde1-bc7a-68f0-87b8-f72efdcc3ea1/mzaf_13230533576857617501.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/34/e9/68/34e9680c-152b-9fc6-07e7-8f253e76d8f2/810090098852_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Music%20underscores",
-      "rank": 48,
+      "rank": 31,
       "plays": 4
     },
     {
@@ -135,7 +117,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7d/1b/a1/7d1ba15e-19fb-0411-e503-61e4379abd10/mzaf_16342830676435185944.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/c1/f5/d5c1f505-f588-775f-df05-c672a8ec22e9/888735949562_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Whiplash%20aespa",
-      "rank": 49,
+      "rank": 32,
       "plays": 3
     },
     {
@@ -144,7 +126,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d1/c1/00/d1c10066-e1c1-7db1-9d3e-2e8f15717a32/mzaf_5479495815555754731.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1d/96/06/1d96067b-33d0-a525-58d8-8f33c79a2ddd/191404164778.png/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Raft%20in%20the%20Sea%20Danny%20L%20Harle",
-      "rank": 54,
+      "rank": 35,
       "plays": 3
     },
     {
@@ -153,16 +135,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/45/dd/8f/45dd8ffc-0164-1f70-c53d-bf91a1d80b1a/mzaf_3092057092144618662.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/99/b4/7b/99b47bd8-2b22-e1ef-2e60-c5147f27a861/dj.thrvmjqj.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Titanium%20(feat.%20Sia)%20David%20Guetta",
-      "rank": 55,
-      "plays": 3
-    },
-    {
-      "title": "DM",
-      "artist": "fromis_9",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8e/73/dc/8e73dc25-d2b3-549b-d453-5c6200a65efc/mzaf_18165812935432139432.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/f7/1e/6a/f71e6a37-19e9-8d33-baa2-7d71c76d440f/192641683183_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/DM%20fromis_9",
-      "rank": 56,
+      "rank": 36,
       "plays": 3
     },
     {
@@ -171,17 +144,44 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5b/db/28/5bdb28cc-696e-53f0-85bd-fcdfd5be8707/mzaf_8631042407972316120.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ec/fd/e0/ecfde04e-6db2-e55e-41fe-83c87a52b16e/00602547908339.rgb.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Father%20Stretch%20My%20Hands%20Pt.%201%20Kanye%20West",
-      "rank": 57,
+      "rank": 37,
       "plays": 3
     },
     {
-      "title": "EDM",
-      "artist": "Ken Carson",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/16/e0/18/16e018c2-cc1f-4538-454b-41ee206e0c68/mzaf_10411959460636374286.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f7/46/25/f746256d-c827-eb0d-32fe-de246f5553ec/26UMGIM78337.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/EDM%20Ken%20Carson",
-      "rank": 58,
+      "title": "BRAND NEW CHANEL$",
+      "artist": "Slayyyter",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/66/b6/e1/66b6e1ee-2cea-ba98-ca53-2ae13b134326/mzaf_3396294438659672321.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f8/f6/e1/f8f6e1ea-279c-c3a6-df70-37aedab1728b/196874456026.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/BRAND%20NEW%20CHANEL%24%20Slayyyter",
+      "rank": 45,
       "plays": 3
+    },
+    {
+      "title": "Blind",
+      "artist": "After",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/56/54/1b/56541ba4-eda8-a1c0-f94a-3e0a0a630dcf/mzaf_10917621849150005530.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d5/c7/a4/d5c7a485-2ebc-5cbe-665f-77dfbb0d1cb7/823375232124_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Blind%20After",
+      "rank": 60,
+      "plays": 2
+    },
+    {
+      "title": "Heroes (We Could Be)",
+      "artist": "Alesso",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/24/0f/d4/240fd4db-eace-6616-320f-631011ac628d/mzaf_13936692831795893408.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/ec/f6/b6/ecf6b67a-c8f0-4f1c-faa4-83667013eb0d/15UMGIM17353.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Heroes%20(We%20Could%20Be)%20Alesso",
+      "rank": 71,
+      "plays": 2
+    },
+    {
+      "title": "LEAVE IT ALL BEHIND",
+      "artist": "Alex LeMirage",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/33/fe/c3/33fec3b3-0f6e-de20-efdf-1eb298987279/mzaf_2413841721423252668.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/6c/2f/da/6c2fdadb-c6b5-a70e-700a-0c8cbee18c86/15239.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/LEAVE%20IT%20ALL%20BEHIND%20Alex%20LeMirage",
+      "rank": 72,
+      "plays": 2
     }
   ]
 }
