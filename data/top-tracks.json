@@ -1,7 +1,7 @@
 {
   "user": "Aribum",
   "period": "last 30 days",
-  "generatedAt": "2026-10-12T06:24:15.630Z",
+  "generatedAt": "2026-10-19T05:10:20.391Z",
   "tracks": [
     {
       "title": "Estranged",
@@ -13,22 +13,13 @@
       "plays": 38
     },
     {
-      "title": "drop dead",
-      "artist": "Olivia Rodrigo",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/57/ad/8957adf6-1862-4e4e-bcb5-810d6cf79cc4/mzaf_7752581374620577831.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1d/1b/f9/1d1bf9b1-44c6-9a6c-6ffb-c158488c06ce/26UMGIM39303.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/drop%20dead%20Olivia%20Rodrigo",
-      "rank": 15,
-      "plays": 6
-    },
-    {
       "title": "Whiplash",
       "artist": "aespa",
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7d/1b/a1/7d1ba15e-19fb-0411-e503-61e4379abd10/mzaf_16342830676435185944.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/c1/f5/d5c1f505-f588-775f-df05-c672a8ec22e9/888735949562_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Whiplash%20aespa",
-      "rank": 17,
-      "plays": 5
+      "rank": 13,
+      "plays": 6
     },
     {
       "title": "Fitfully",
@@ -36,17 +27,17 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2f/8e/12/2f8e1240-de4c-2450-e567-9bb98edc4c0d/mzaf_9583830135917665778.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d5/c7/a4/d5c7a485-2ebc-5cbe-665f-77dfbb0d1cb7/823375232124_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Fitfully%20After",
-      "rank": 18,
+      "rank": 17,
       "plays": 5
     },
     {
-      "title": "Juna",
-      "artist": "Clairo",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/27/d5/3c/27d53ce4-078a-6a6d-a9a3-17262fadbaf2/mzaf_16775832885644337028.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/8c/19/f78c1951-ced5-fea6-251b-50914d96fd62/00196922948305_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Juna%20Clairo",
-      "rank": 28,
-      "plays": 3
+      "title": "drop dead",
+      "artist": "Olivia Rodrigo",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/57/ad/8957adf6-1862-4e4e-bcb5-810d6cf79cc4/mzaf_7752581374620577831.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1d/1b/f9/1d1bf9b1-44c6-9a6c-6ffb-c158488c06ce/26UMGIM39303.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/drop%20dead%20Olivia%20Rodrigo",
+      "rank": 18,
+      "plays": 5
     },
     {
       "title": "Blue Light (feat. Blood Orange)",
@@ -54,25 +45,34 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ce/4a/66/ce4a66c4-d5ee-b0d3-d1b1-a8d7f6aebad3/mzaf_4476328266706445123.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/99/76/13/997613ef-6a1e-1401-41b5-27e292d8cf42/193436476317_EMPRESSOFDHSQCOVERA.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Blue%20Light%20(feat.%20Blood%20Orange)%20Empress%20Of",
-      "rank": 30,
-      "plays": 3
+      "rank": 22,
+      "plays": 4
     },
     {
-      "title": "Teacher",
+      "title": "Supernatural",
+      "artist": "NewJeans",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/41/ce/f9/41cef96a-6b48-2ddd-72a8-f479e7a1c752/mzaf_5570335600994446876.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ab/ce/d6/abced6f6-2b90-c230-eb4b-e146734a3a22/196922907821_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Supernatural%20NewJeans",
+      "rank": 23,
+      "plays": 4
+    },
+    {
+      "title": "DM",
       "artist": "fromis_9",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e8/b4/72/e8b472ec-d758-f1f0-b8a2-af64c14b6411/mzaf_9576394856107680179.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/db/44/03/db440319-e991-e392-c8a8-750cb0134206/191953562353.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Teacher%20fromis_9",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8e/73/dc/8e73dc25-d2b3-549b-d453-5c6200a65efc/mzaf_18165812935432139432.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/f7/1e/6a/f71e6a37-19e9-8d33-baa2-7d71c76d440f/192641683183_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/DM%20fromis_9",
       "rank": 31,
       "plays": 3
     },
     {
-      "title": "Iconic Heart",
+      "title": "Butterflies",
       "artist": "Hearts2Hearts",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/72/13/4a/72134a42-816f-397f-2f22-f2fc125cd85f/mzaf_11405617364480415132.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/9c/b4/80/9cb480c6-67b9-07b1-f76d-ca3714ad416a/888735956829.png/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Iconic%20Heart%20Hearts2Hearts",
-      "rank": 32,
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c5/e1/d2/c5e1d24b-5ee6-974e-9579-e36a2858c41e/mzaf_15283787365828349651.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2b/0e/e8/2b0ee80e-eae3-aff6-9ca7-01cf7a830c78/888735951398.png/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Butterflies%20Hearts2Hearts",
+      "rank": 33,
       "plays": 3
     },
     {
@@ -81,17 +81,26 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d2/2b/9f/d22b9fbc-ee66-8dd6-2d60-86522977e6af/mzaf_13700118932839197320.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/07/82/06/078206df-b63f-d1e6-4c62-d56e69949b30/885288015478.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Ever2Late!%20KiiiKiii",
-      "rank": 33,
+      "rank": 36,
       "plays": 3
     },
     {
-      "title": "LEAVE IT ALL BEHIND",
-      "artist": "Alex LeMirage",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/33/fe/c3/33fec3b3-0f6e-de20-efdf-1eb298987279/mzaf_2413841721423252668.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/6c/2f/da/6c2fdadb-c6b5-a70e-700a-0c8cbee18c86/15239.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/LEAVE%20IT%20ALL%20BEHIND%20Alex%20LeMirage",
-      "rank": 47,
-      "plays": 2
+      "title": "Rings Of Saturn",
+      "artist": "Soccer Mommy",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a5/22/66/a522663b-83c6-fe86-7a50-9074b9133ea4/mzaf_73567419668283769.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/09/dc/ea/09dcea18-c585-1c77-afde-61932096a874/26CRGIM56324.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Rings%20Of%20Saturn%20Soccer%20Mommy",
+      "rank": 39,
+      "plays": 3
+    },
+    {
+      "title": "LOOP (feat. Lil Cherry)",
+      "artist": "Yves",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/89/f4/16/89f4167e-bb5e-17dd-9c98-547d06721dea/mzaf_12344066792543570719.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/61/20/89/6120899a-e96d-4855-5deb-8f9ccd75e17f/5021732393807.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/LOOP%20(feat.%20Lil%20Cherry)%20Yves",
+      "rank": 44,
+      "plays": 3
     },
     {
       "title": "nowhere, nobody",
@@ -99,16 +108,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/37/73/13/377313ff-8f92-a613-a740-2a7dddbe569b/mzaf_10720131291195764842.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7e/e6/82/7ee682bd-1b17-6adc-be63-b5af1bdff369/26UMGIM51126.rgb.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/nowhere%2C%20nobody%20Ariana%20Grande",
-      "rank": 48,
-      "plays": 2
-    },
-    {
-      "title": "Copines",
-      "artist": "Aya Nakamura",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/6a/ed/11/6aed1146-4cec-480e-4e90-9b956e5c8591/mzaf_11564923740070482294.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/27/8c/0c/278c0cab-2e4f-977a-a904-e428c7003091/190295329389.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Copines%20Aya%20Nakamura",
-      "rank": 49,
+      "rank": 51,
       "plays": 2
     },
     {
@@ -117,70 +117,70 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ef/9f/26/ef9f264c-bac5-c111-4bb4-5a0e1ce1e6d6/mzaf_2009687483432322354.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7e/8a/de/7e8ade96-8af9-7fd5-a0c5-b902b6a8c6ec/artwork.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/winter%204ever%20Baby%20Jane",
-      "rank": 50,
+      "rank": 52,
       "plays": 2
     },
     {
-      "title": "Instant Crush (feat. Julian Casablancas)",
-      "artist": "Daft Punk",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/dc/1e/c2/dc1ec21b-96a0-470c-ee89-2b09346fa847/mzaf_7827098614541126525.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e8/43/5f/e8435ffa-b6b9-b171-40ab-4ff3959ab661/886443919266.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Instant%20Crush%20(feat.%20Julian%20Casablancas)%20Daft%20Punk",
-      "rank": 56,
+      "title": "BURN IT (feat. DEAN)",
+      "artist": "Bibi",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7b/4c/79/7b4c7904-7a25-d839-a882-f3d5524a169a/mzaf_10111497481126466199.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f0/6e/9c/f06e9c54-debe-ee64-ae18-ca5ed7e1a83d/cover_KM0020590_1.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/BURN%20IT%20(feat.%20DEAN)%20Bibi",
+      "rank": 65,
       "plays": 2
     },
     {
-      "title": "Raft in the Sea",
-      "artist": "Danny L Harle",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d1/c1/00/d1c10066-e1c1-7db1-9d3e-2e8f15717a32/mzaf_5479495815555754731.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1d/96/06/1d96067b-33d0-a525-58d8-8f33c79a2ddd/191404164778.png/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Raft%20in%20the%20Sea%20Danny%20L%20Harle",
-      "rank": 57,
-      "plays": 2
-    },
-    {
-      "title": "aint hard",
-      "artist": "Destroy Lonely",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fb/e1/58/fbe158c6-8239-169f-9d22-9ad173f3bd9e/mzaf_7163487609953887105.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ca/b3/cb/cab3cb2d-41c9-48bb-6bad-58f6a2473a35/25UM1IM46730.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/aint%20hard%20Destroy%20Lonely",
-      "rank": 58,
-      "plays": 2
-    },
-    {
-      "title": "PIXELATED KISSES",
-      "artist": "Joji",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/97/81/e8/9781e8f0-c21b-4e7c-d30d-a9bf73d3c7c7/mzaf_2252969465857439766.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/01/03/94/010394c1-e789-971a-9a47-54a1c6110c41/198704696695_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/PIXELATED%20KISSES%20Joji",
+      "title": "GO AGAIN (feat. Superheaven)",
+      "artist": "BNYX®",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2a/02/a6/2a02a60d-937b-2d42-e624-ad852a9fca43/mzaf_17363452080838404677.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d8/8e/10/d88e10cc-5638-828f-8ae8-78d6964d4c0e/24UMGIM86498.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/GO%20AGAIN%20(feat.%20Superheaven)%20BNYX%C2%AE",
       "rank": 66,
       "plays": 2
     },
     {
-      "title": "Autobahn",
-      "artist": "Kim Petras",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c0/2d/23/c02d2363-8c71-6c26-6225-7f84445c8b18/mzaf_6888632401748063683.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e7/ef/f6/e7eff66e-a91f-768e-6bb2-ab1ee29accb6/885288403442.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Autobahn%20Kim%20Petras",
+      "title": "Something Tragic",
+      "artist": "Carly Rae Jepsen",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8e/02/2f/8e022f3c-daa1-5ff5-d3f9-b3526f46420a/mzaf_6042657198055064403.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7f/a4/3c/7fa43c1b-3ffe-098f-aee0-73f02b6015c7/26UMGIM74142.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Something%20Tragic%20Carly%20Rae%20Jepsen",
+      "rank": 67,
+      "plays": 2
+    },
+    {
+      "title": "Add Up My Love",
+      "artist": "Clairo",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2e/f5/d9/2ef5d983-354c-a0c5-e46d-7b883b1dc6f6/mzaf_3533878356687652846.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/8c/19/f78c1951-ced5-fea6-251b-50914d96fd62/00196922948305_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Add%20Up%20My%20Love%20Clairo",
       "rank": 68,
       "plays": 2
     },
     {
-      "title": "A Car Wash and a New Pair of Pants",
-      "artist": "Lizzy McAlpine",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/28/82/e5/2882e50f-b7d2-acb0-cd3a-4d62244b4555/mzaf_17564867454113873877.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/6b/76/cb/6b76cbb0-8e53-d69a-0fa0-706360ab96e3/196874588840.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/A%20Car%20Wash%20and%20a%20New%20Pair%20of%20Pants%20Lizzy%20McAlpine",
-      "rank": 69,
+      "title": "COLD NIGHT IN HELL",
+      "artist": "Denzel Curry",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/aa/b9/f9/aab9f9fb-5a3b-3116-5e41-02da94351b7d/mzaf_1665314233142319197.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/dc/52/07/dc5207bf-496b-4912-58d6-3aabb83b9c88/26CRGIM53902.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/COLD%20NIGHT%20IN%20HELL%20Denzel%20Curry",
+      "rank": 71,
       "plays": 2
     },
     {
-      "title": "Sick of Love - Mura Masa Remix",
-      "artist": "Lykke Li",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f2/e6/53/f2e6534d-0f1d-9bfa-77b4-e14948c33c87/mzaf_4278377242097330979.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/84/a4/c6/84a4c65d-db62-65ed-9aed-cdb0a875c408/198704887093_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Sick%20of%20Love%20-%20Mura%20Masa%20Remix%20Lykke%20Li",
-      "rank": 71,
+      "title": "NOSTYLIST",
+      "artist": "Destroy Lonely",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fd/17/08/fd1708e7-92e5-7659-3627-0401c232585b/mzaf_12171897168916135905.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a8/3b/75/a83b7539-7e48-88dd-0f44-0950ef2c9829/808391158191_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/NOSTYLIST%20Destroy%20Lonely",
+      "rank": 72,
+      "plays": 2
+    },
+    {
+      "title": "Janice STFU",
+      "artist": "Drake",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c6/d7/d1/c6d7d1ec-84e6-ef8a-e02a-70d0ebb556be/mzaf_12941739828801829931.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/39/61/7f396123-be56-bc11-eaab-976441808e58/26UMGIM63622.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Janice%20STFU%20Drake",
+      "rank": 73,
       "plays": 2
     }
   ]
