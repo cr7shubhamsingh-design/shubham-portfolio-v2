@@ -1,7 +1,7 @@
 {
   "user": "Aribum",
   "period": "last 30 days",
-  "generatedAt": "2026-10-26T05:12:14.229Z",
+  "generatedAt": "2026-11-02T06:38:50.858Z",
   "tracks": [
     {
       "title": "High Forever - Marlon Hoffstadt Remix",
@@ -9,8 +9,8 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/69/f8/07/69f8072a-5f93-6140-462e-2f3b58dd7214/mzaf_4447285313812995331.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/89/91/f3/8991f3f2-e261-1885-568d-1d35f71fcc4a/196874707302.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/High%20Forever%20-%20Marlon%20Hoffstadt%20Remix%20Petite%20Meller",
-      "rank": 2,
-      "plays": 23
+      "rank": 1,
+      "plays": 25
     },
     {
       "title": "Oh Ho Ho Ho (Remix)",
@@ -18,26 +18,8 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/82/7c/84/827c84f5-f70b-e8ee-9abb-7bd9777b204d/mzaf_6291254974527134731.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/8e/c0/01/8ec0019d-6a45-72a5-9427-3b955140c35e/8903431663436_cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Oh%20Ho%20Ho%20Ho%20(Remix)%20Sukhbir",
-      "rank": 3,
+      "rank": 2,
       "plays": 20
-    },
-    {
-      "title": "kiss me",
-      "artist": "Ariana Grande",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/19/20/20/1920203e-c9d3-4600-2196-f3ef66e3b297/mzaf_3522744418373208263.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7e/e6/82/7ee682bd-1b17-6adc-be63-b5af1bdff369/26UMGIM51126.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/kiss%20me%20Ariana%20Grande",
-      "rank": 4,
-      "plays": 8
-    },
-    {
-      "title": "Radio",
-      "artist": "beabadoobee",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3c/e9/c6/3ce9c67f-15a5-ed4b-3191-83d53ef601ee/mzaf_14040391092156798540.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/68/24/84/6824844d-3f59-2816-e083-f5d49c994ff1/198704876615_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Radio%20beabadoobee",
-      "rank": 9,
-      "plays": 7
     },
     {
       "title": "Teacher",
@@ -45,6 +27,24 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e8/b4/72/e8b472ec-d758-f1f0-b8a2-af64c14b6411/mzaf_9576394856107680179.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/db/44/03/db440319-e991-e392-c8a8-750cb0134206/191953562353.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Teacher%20fromis_9",
+      "rank": 3,
+      "plays": 10
+    },
+    {
+      "title": "kiss me",
+      "artist": "Ariana Grande",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/19/20/20/1920203e-c9d3-4600-2196-f3ef66e3b297/mzaf_3522744418373208263.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7e/e6/82/7ee682bd-1b17-6adc-be63-b5af1bdff369/26UMGIM51126.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/kiss%20me%20Ariana%20Grande",
+      "rank": 5,
+      "plays": 9
+    },
+    {
+      "title": "Digital Love",
+      "artist": "Daft Punk",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/df/43/5b/df435bbf-129a-ec94-cebb-8c83e3a261e2/mzaf_13417326183095861767.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fd/4a/77/fd4a77db-0ebc-d043-41a2-f32fa1bb0fb4/dj.qrikkdwj.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Digital%20Love%20Daft%20Punk",
       "rank": 20,
       "plays": 6
     },
@@ -54,25 +54,16 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/94/d6/aa/94d6aab6-6654-5aca-dbf8-9874b7975bcd/mzaf_16231939766265640228.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/bf/68/ca/bf68ca64-4acd-543f-bc78-455f11f06105/196922889738_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Bubble%20Gum%20NewJeans",
-      "rank": 22,
+      "rank": 25,
       "plays": 6
     },
     {
-      "title": "Whiplash",
-      "artist": "aespa",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7d/1b/a1/7d1ba15e-19fb-0411-e503-61e4379abd10/mzaf_16342830676435185944.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/c1/f5/d5c1f505-f588-775f-df05-c672a8ec22e9/888735949562_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Whiplash%20aespa",
-      "rank": 23,
-      "plays": 5
-    },
-    {
-      "title": "drop dead",
-      "artist": "Olivia Rodrigo",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/57/ad/8957adf6-1862-4e4e-bcb5-810d6cf79cc4/mzaf_7752581374620577831.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1d/1b/f9/1d1bf9b1-44c6-9a6c-6ffb-c158488c06ce/26UMGIM39303.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/drop%20dead%20Olivia%20Rodrigo",
-      "rank": 25,
+      "title": "Radio",
+      "artist": "beabadoobee",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3c/e9/c6/3ce9c67f-15a5-ed4b-3191-83d53ef601ee/mzaf_14040391092156798540.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/68/24/84/6824844d-3f59-2816-e083-f5d49c994ff1/198704876615_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Radio%20beabadoobee",
+      "rank": 26,
       "plays": 5
     },
     {
@@ -81,16 +72,61 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2f/8e/12/2f8e1240-de4c-2450-e567-9bb98edc4c0d/mzaf_9583830135917665778.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d5/c7/a4/d5c7a485-2ebc-5cbe-665f-77dfbb0d1cb7/823375232124_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Fitfully%20After",
-      "rank": 27,
+      "rank": 31,
       "plays": 4
     },
     {
-      "title": "Butterflies",
+      "title": "winter 4ever",
+      "artist": "Baby Jane",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ef/9f/26/ef9f264c-bac5-c111-4bb4-5a0e1ce1e6d6/mzaf_2009687483432322354.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7e/8a/de/7e8ade96-8af9-7fd5-a0c5-b902b6a8c6ec/artwork.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/winter%204ever%20Baby%20Jane",
+      "rank": 33,
+      "plays": 4
+    },
+    {
+      "title": "A Rusty Dream",
+      "artist": "Doudou",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/27/92/f2/2792f29e-97f2-9657-591e-b55c33c45ed0/mzaf_15781530997638328406.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3e/8d/63/3e8d6389-c326-3af4-136e-24cc72b0c2a6/196874701904.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/A%20Rusty%20Dream%20Doudou",
+      "rank": 37,
+      "plays": 4
+    },
+    {
+      "title": "FOCUS",
       "artist": "Hearts2Hearts",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c5/e1/d2/c5e1d24b-5ee6-974e-9579-e36a2858c41e/mzaf_15283787365828349651.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2b/0e/e8/2b0ee80e-eae3-aff6-9ca7-01cf7a830c78/888735951398.png/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Butterflies%20Hearts2Hearts",
-      "rank": 43,
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/44/97/60/44976097-de99-04ed-b494-11634e957a26/mzaf_5997753821524447019.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/df/26/ea/df26eafa-06e8-8bd0-4180-5ba91fb91c39/888735953859.png/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/FOCUS%20Hearts2Hearts",
+      "rank": 57,
+      "plays": 3
+    },
+    {
+      "title": "SIGN",
+      "artist": "izna",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e4/e4/ce/e4e4ce03-643c-afcd-e662-70be68aaee03/mzaf_11258036149653112982.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/9d/a4/5b/9da45b57-dd82-96ef-e34e-7a85c5b1f8c1/198704433269_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/SIGN%20izna",
+      "rank": 58,
+      "plays": 3
+    },
+    {
+      "title": "Blakk Rokkstar",
+      "artist": "Ken Carson",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f0/b2/98/f0b2980c-596b-2f1c-d7a3-24c227955dce/mzaf_16106205450371133844.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c4/a2/d8/c4a2d864-8b49-2174-e766-f6a8795b66b2/24UM1IM12407.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Blakk%20Rokkstar%20Ken%20Carson",
+      "rank": 59,
+      "plays": 3
+    },
+    {
+      "title": "Ever2Late!",
+      "artist": "KiiiKiii",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d2/2b/9f/d22b9fbc-ee66-8dd6-2d60-86522977e6af/mzaf_13700118932839197320.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/07/82/06/078206df-b63f-d1e6-4c62-d56e69949b30/885288015478.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Ever2Late!%20KiiiKiii",
+      "rank": 60,
       "plays": 3
     },
     {
@@ -99,89 +135,53 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d0/d1/2d/d0d12deb-b71e-6e77-7176-c7e0e8987064/mzaf_14648610317811016497.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/34/26/66/34266621-f2c0-268a-56f0-c86f5272c958/00602577692116.rgb.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Price%20On%20My%20Head%20(feat.%20The%20Weeknd)%20NAV",
-      "rank": 44,
+      "rank": 62,
       "plays": 3
     },
     {
-      "title": "Runaway",
-      "artist": "RESCENE",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/8c/b8/2b/8cb82b16-a181-a4a6-c745-7187bcf20b64/mzaf_2745322250276907813.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6c/94/62/6c946232-183b-9e28-01c8-d630b41ca3a8/888272179019_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Runaway%20RESCENE",
-      "rank": 48,
+      "title": "iPod Touch",
+      "artist": "Ninajirachi",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2d/cb/5d/2dcb5d7d-9827-87f6-0d10-d7a8594c677f/mzaf_13223693110374767797.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/51/41/9c/51419c3f-dce3-5072-eb94-fc453f6fdb87/199350974793.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/iPod%20Touch%20Ninajirachi",
+      "rank": 65,
       "plays": 3
     },
     {
-      "title": "DANCE...",
-      "artist": "Slayyyter",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/76/d7/81/76d7817b-248a-5f59-1e97-c888d97ff0ed/mzaf_5459621354696185719.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e7/41/d8/e741d8f3-f8db-d401-5d93-fdfd69d8f17e/196873835891.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/DANCE...%20Slayyyter",
-      "rank": 49,
+      "title": "Birthday Wish",
+      "artist": "NMIXX",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/aa/c3/96/aac39692-0c97-d364-78c7-108e21be26e6/mzaf_13399266607938547727.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/48/f1/ab/48f1abb9-adb8-1880-f829-1657fff3e7f3/8809928956848_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Birthday%20Wish%20NMIXX",
+      "rank": 66,
       "plays": 3
     },
     {
-      "title": "BURN IT (feat. DEAN)",
-      "artist": "Bibi",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7b/4c/79/7b4c7904-7a25-d839-a882-f3d5524a169a/mzaf_10111497481126466199.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f0/6e/9c/f06e9c54-debe-ee64-ae18-ca5ed7e1a83d/cover_KM0020590_1.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/BURN%20IT%20(feat.%20DEAN)%20Bibi",
-      "rank": 70,
-      "plays": 2
+      "title": "drop dead",
+      "artist": "Olivia Rodrigo",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/57/ad/8957adf6-1862-4e4e-bcb5-810d6cf79cc4/mzaf_7752581374620577831.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1d/1b/f9/1d1bf9b1-44c6-9a6c-6ffb-c158488c06ce/26UMGIM39303.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/drop%20dead%20Olivia%20Rodrigo",
+      "rank": 67,
+      "plays": 3
     },
     {
-      "title": "Something Tragic",
-      "artist": "Carly Rae Jepsen",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8e/02/2f/8e022f3c-daa1-5ff5-d3f9-b3526f46420a/mzaf_6042657198055064403.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7f/a4/3c/7fa43c1b-3ffe-098f-aee0-73f02b6015c7/26UMGIM74142.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Something%20Tragic%20Carly%20Rae%20Jepsen",
-      "rank": 71,
-      "plays": 2
+      "title": "Bottle",
+      "artist": "Remi Wolf",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2a/92/8c/2a928c95-cd00-80cc-fe17-5e2a62edad34/mzaf_16073099531074565950.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/9e/c6/db/9ec6db05-040b-4e63-c099-42406602a4e7/26UMGIM96852.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Bottle%20Remi%20Wolf",
+      "rank": 68,
+      "plays": 3
     },
     {
-      "title": "Add Up My Love",
-      "artist": "Clairo",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2e/f5/d9/2ef5d983-354c-a0c5-e46d-7b883b1dc6f6/mzaf_3533878356687652846.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/8c/19/f78c1951-ced5-fea6-251b-50914d96fd62/00196922948305_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Add%20Up%20My%20Love%20Clairo",
-      "rank": 72,
-      "plays": 2
-    },
-    {
-      "title": "COLD NIGHT IN HELL",
-      "artist": "Denzel Curry",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/aa/b9/f9/aab9f9fb-5a3b-3116-5e41-02da94351b7d/mzaf_1665314233142319197.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/dc/52/07/dc5207bf-496b-4912-58d6-3aabb83b9c88/26CRGIM53902.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/COLD%20NIGHT%20IN%20HELL%20Denzel%20Curry",
-      "rank": 74,
-      "plays": 2
-    },
-    {
-      "title": "NOSTYLIST",
-      "artist": "Destroy Lonely",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fd/17/08/fd1708e7-92e5-7659-3627-0401c232585b/mzaf_12171897168916135905.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a8/3b/75/a83b7539-7e48-88dd-0f44-0950ef2c9829/808391158191_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/NOSTYLIST%20Destroy%20Lonely",
-      "rank": 77,
-      "plays": 2
-    },
-    {
-      "title": "KRYPTONITE",
-      "artist": "Don Toliver",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/84/e1/04/84e104e8-9258-1096-8d6a-2c812a33f524/mzaf_9344688527276182062.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/22/3c/5d/223c5d96-501e-040e-a34d-0608e6e5c4ff/075679638434.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/KRYPTONITE%20Don%20Toliver",
-      "rank": 78,
-      "plays": 2
-    },
-    {
-      "title": "Janice STFU",
-      "artist": "Drake",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c6/d7/d1/c6d7d1ec-84e6-ef8a-e02a-70d0ebb556be/mzaf_12941739828801829931.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/39/61/7f396123-be56-bc11-eaab-976441808e58/26UMGIM63622.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Janice%20STFU%20Drake",
-      "rank": 79,
-      "plays": 2
+      "title": "You Can't Run From Me",
+      "artist": "Rico Nasty",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/be/a1/46/bea146ee-882e-32d0-32f7-ad760c12ca7d/mzaf_2781549701300084029.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/89/91/f3/8991f3f2-e261-1885-568d-1d35f71fcc4a/196874707302.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/You%20Can't%20Run%20From%20Me%20Rico%20Nasty",
+      "rank": 69,
+      "plays": 3
     }
   ]
 }
