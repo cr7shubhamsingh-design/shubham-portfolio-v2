@@ -1,7 +1,7 @@
 {
   "user": "Aribum",
   "period": "last 30 days",
-  "generatedAt": "2026-11-02T06:38:50.858Z",
+  "generatedAt": "2026-11-09T07:02:48.761Z",
   "tracks": [
     {
       "title": "High Forever - Marlon Hoffstadt Remix",
@@ -22,13 +22,22 @@
       "plays": 20
     },
     {
-      "title": "Teacher",
-      "artist": "fromis_9",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e8/b4/72/e8b472ec-d758-f1f0-b8a2-af64c14b6411/mzaf_9576394856107680179.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/db/44/03/db440319-e991-e392-c8a8-750cb0134206/191953562353.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Teacher%20fromis_9",
+      "title": "Here You Come, There You Go",
+      "artist": "Gracie Abrams",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/6d/f1/1c/6df11c24-67b8-b4f4-aba1-7e36e3817158/mzaf_12882604540192473267.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/10/d4/d3/10d4d3c1-1832-f04c-5883-39fe81ed21fa/26UM1IM32920.rgb.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Here%20You%20Come%2C%20There%20You%20Go%20Gracie%20Abrams",
       "rank": 3,
-      "plays": 10
+      "plays": 17
+    },
+    {
+      "title": "Vitamin ME",
+      "artist": "fromis_9",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8e/9d/c7/8e9dc74d-552a-52cc-d5bd-75fa38997bf9/mzaf_7527977524455189764.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/db/44/03/db440319-e991-e392-c8a8-750cb0134206/191953562353.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Vitamin%20ME%20fromis_9",
+      "rank": 4,
+      "plays": 12
     },
     {
       "title": "kiss me",
@@ -36,8 +45,8 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/19/20/20/1920203e-c9d3-4600-2196-f3ef66e3b297/mzaf_3522744418373208263.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7e/e6/82/7ee682bd-1b17-6adc-be63-b5af1bdff369/26UMGIM51126.rgb.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/kiss%20me%20Ariana%20Grande",
-      "rank": 5,
-      "plays": 9
+      "rank": 6,
+      "plays": 10
     },
     {
       "title": "Digital Love",
@@ -45,7 +54,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/df/43/5b/df435bbf-129a-ec94-cebb-8c83e3a261e2/mzaf_13417326183095861767.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fd/4a/77/fd4a77db-0ebc-d043-41a2-f32fa1bb0fb4/dj.qrikkdwj.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Digital%20Love%20Daft%20Punk",
-      "rank": 20,
+      "rank": 25,
       "plays": 6
     },
     {
@@ -54,35 +63,26 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/94/d6/aa/94d6aab6-6654-5aca-dbf8-9874b7975bcd/mzaf_16231939766265640228.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/bf/68/ca/bf68ca64-4acd-543f-bc78-455f11f06105/196922889738_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Bubble%20Gum%20NewJeans",
-      "rank": 25,
+      "rank": 29,
       "plays": 6
     },
     {
-      "title": "Radio",
-      "artist": "beabadoobee",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3c/e9/c6/3ce9c67f-15a5-ed4b-3191-83d53ef601ee/mzaf_14040391092156798540.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/68/24/84/6824844d-3f59-2816-e083-f5d49c994ff1/198704876615_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Radio%20beabadoobee",
-      "rank": 26,
+      "title": "Head Full of Nightmares",
+      "artist": "Baby Jane",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/80/4f/a2/804fa205-c20d-e556-f968-0e0dfb919d21/mzaf_9757018167018280149.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a7/68/a8/a768a897-7ca3-9a41-b666-e0205e72230b/artwork.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Head%20Full%20of%20Nightmares%20Baby%20Jane",
+      "rank": 30,
       "plays": 5
     },
     {
-      "title": "Fitfully",
-      "artist": "After",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2f/8e/12/2f8e1240-de4c-2450-e567-9bb98edc4c0d/mzaf_9583830135917665778.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d5/c7/a4/d5c7a485-2ebc-5cbe-665f-77dfbb0d1cb7/823375232124_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Fitfully%20After",
-      "rank": 31,
-      "plays": 4
-    },
-    {
-      "title": "winter 4ever",
-      "artist": "Baby Jane",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ef/9f/26/ef9f264c-bac5-c111-4bb4-5a0e1ce1e6d6/mzaf_2009687483432322354.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7e/8a/de/7e8ade96-8af9-7fd5-a0c5-b902b6a8c6ec/artwork.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/winter%204ever%20Baby%20Jane",
-      "rank": 33,
-      "plays": 4
+      "title": "NOSTYLIST",
+      "artist": "Destroy Lonely",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fd/17/08/fd1708e7-92e5-7659-3627-0401c232585b/mzaf_12171897168916135905.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a8/3b/75/a83b7539-7e48-88dd-0f44-0950ef2c9829/808391158191_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/NOSTYLIST%20Destroy%20Lonely",
+      "rank": 34,
+      "plays": 5
     },
     {
       "title": "A Rusty Dream",
@@ -90,8 +90,53 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/27/92/f2/2792f29e-97f2-9657-591e-b55c33c45ed0/mzaf_15781530997638328406.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3e/8d/63/3e8d6389-c326-3af4-136e-24cc72b0c2a6/196874701904.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/A%20Rusty%20Dream%20Doudou",
-      "rank": 37,
+      "rank": 41,
       "plays": 4
+    },
+    {
+      "title": "Promise (When You Go)",
+      "artist": "After",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/86/c9/a4/86c9a442-7ca3-a9c3-20a3-8c1718ceb8f8/mzaf_8686406349871755652.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4e/23/24/4e2324ec-b624-b173-c29d-518181e5dc31/810090099057_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Promise%20(When%20You%20Go)%20After",
+      "rank": 42,
+      "plays": 3
+    },
+    {
+      "title": "10:36",
+      "artist": "beabadoobee",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e6/56/45/e65645f6-cd62-996e-9257-3d397360321d/mzaf_8396922328018404309.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/15/13/6b/15136b77-3a59-2f4e-d0ae-588f8d64802b/196922094361_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/10%3A36%20beabadoobee",
+      "rank": 51,
+      "plays": 3
+    },
+    {
+      "title": "Thank You",
+      "artist": "Clairo",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a0/3f/b7/a03fb71d-6081-b483-b0c0-cc3b9ccc6f75/mzaf_2221989972721592513.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/8c/19/f78c1951-ced5-fea6-251b-50914d96fd62/00196922948305_Cover.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Thank%20You%20Clairo",
+      "rank": 53,
+      "plays": 3
+    },
+    {
+      "title": "I RUN MY HANDS THRU IT",
+      "artist": "daine",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6f/32/d3/6f32d3da-1865-01da-9cd5-cc7adc5859c2/mzaf_14457383436214184330.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4d/21/86/4d2186ed-58ae-96c7-fc66-f26192f572a3/663918630204.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/I%20RUN%20MY%20HANDS%20THRU%20IT%20daine",
+      "rank": 62,
+      "plays": 3
+    },
+    {
+      "title": "Wish Upon You",
+      "artist": "Florence Road",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3d/33/b5/3d33b5c3-4d5c-396f-36ed-c3047920b2a9/mzaf_11392451864104563302.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4e/0c/5a/4e0c5a67-e66b-47a7-0aa1-1f97d1e1c12d/1200220128754.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/Wish%20Upon%20You%20Florence%20Road",
+      "rank": 64,
+      "plays": 3
     },
     {
       "title": "FOCUS",
@@ -99,7 +144,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/44/97/60/44976097-de99-04ed-b494-11634e957a26/mzaf_5997753821524447019.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/df/26/ea/df26eafa-06e8-8bd0-4180-5ba91fb91c39/888735953859.png/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/FOCUS%20Hearts2Hearts",
-      "rank": 57,
+      "rank": 67,
       "plays": 3
     },
     {
@@ -108,7 +153,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e4/e4/ce/e4e4ce03-643c-afcd-e662-70be68aaee03/mzaf_11258036149653112982.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/9d/a4/5b/9da45b57-dd82-96ef-e34e-7a85c5b1f8c1/198704433269_Cover.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/SIGN%20izna",
-      "rank": 58,
+      "rank": 68,
       "plays": 3
     },
     {
@@ -117,16 +162,16 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f0/b2/98/f0b2980c-596b-2f1c-d7a3-24c227955dce/mzaf_16106205450371133844.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c4/a2/d8/c4a2d864-8b49-2174-e766-f6a8795b66b2/24UM1IM12407.rgb.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Blakk%20Rokkstar%20Ken%20Carson",
-      "rank": 59,
+      "rank": 69,
       "plays": 3
     },
     {
-      "title": "Ever2Late!",
-      "artist": "KiiiKiii",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d2/2b/9f/d22b9fbc-ee66-8dd6-2d60-86522977e6af/mzaf_13700118932839197320.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/07/82/06/078206df-b63f-d1e6-4c62-d56e69949b30/885288015478.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Ever2Late!%20KiiiKiii",
-      "rank": 60,
+      "title": "x2",
+      "artist": "Lil Uzi Vert",
+      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/52/bb/fe/52bbfef2-7ac0-b0fc-d234-b91a98cad94a/mzaf_15734118336541558227.plus.aac.p.m4a",
+      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/11/65/d9/1165d9a5-a14f-3ced-00ca-9bc2e24026f8/075679676672.jpg/1000x1000bb.jpg",
+      "spotify": "https://open.spotify.com/search/x2%20Lil%20Uzi%20Vert",
+      "rank": 70,
       "plays": 3
     },
     {
@@ -135,52 +180,7 @@
       "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d0/d1/2d/d0d12deb-b71e-6e77-7176-c7e0e8987064/mzaf_14648610317811016497.plus.aac.p.m4a",
       "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/34/26/66/34266621-f2c0-268a-56f0-c86f5272c958/00602577692116.rgb.jpg/1000x1000bb.jpg",
       "spotify": "https://open.spotify.com/search/Price%20On%20My%20Head%20(feat.%20The%20Weeknd)%20NAV",
-      "rank": 62,
-      "plays": 3
-    },
-    {
-      "title": "iPod Touch",
-      "artist": "Ninajirachi",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2d/cb/5d/2dcb5d7d-9827-87f6-0d10-d7a8594c677f/mzaf_13223693110374767797.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/51/41/9c/51419c3f-dce3-5072-eb94-fc453f6fdb87/199350974793.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/iPod%20Touch%20Ninajirachi",
-      "rank": 65,
-      "plays": 3
-    },
-    {
-      "title": "Birthday Wish",
-      "artist": "NMIXX",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/aa/c3/96/aac39692-0c97-d364-78c7-108e21be26e6/mzaf_13399266607938547727.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/48/f1/ab/48f1abb9-adb8-1880-f829-1657fff3e7f3/8809928956848_Cover.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Birthday%20Wish%20NMIXX",
-      "rank": 66,
-      "plays": 3
-    },
-    {
-      "title": "drop dead",
-      "artist": "Olivia Rodrigo",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/57/ad/8957adf6-1862-4e4e-bcb5-810d6cf79cc4/mzaf_7752581374620577831.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1d/1b/f9/1d1bf9b1-44c6-9a6c-6ffb-c158488c06ce/26UMGIM39303.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/drop%20dead%20Olivia%20Rodrigo",
-      "rank": 67,
-      "plays": 3
-    },
-    {
-      "title": "Bottle",
-      "artist": "Remi Wolf",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2a/92/8c/2a928c95-cd00-80cc-fe17-5e2a62edad34/mzaf_16073099531074565950.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/9e/c6/db/9ec6db05-040b-4e63-c099-42406602a4e7/26UMGIM96852.rgb.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/Bottle%20Remi%20Wolf",
-      "rank": 68,
-      "plays": 3
-    },
-    {
-      "title": "You Can't Run From Me",
-      "artist": "Rico Nasty",
-      "src": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/be/a1/46/bea146ee-882e-32d0-32f7-ad760c12ca7d/mzaf_2781549701300084029.plus.aac.p.m4a",
-      "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/89/91/f3/8991f3f2-e261-1885-568d-1d35f71fcc4a/196874707302.jpg/1000x1000bb.jpg",
-      "spotify": "https://open.spotify.com/search/You%20Can't%20Run%20From%20Me%20Rico%20Nasty",
-      "rank": 69,
+      "rank": 71,
       "plays": 3
     }
   ]
