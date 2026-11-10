@@ -47,13 +47,15 @@ const params = { ...SETTINGS };
 let lastTone = { h: 220, s: 0, dark: 0, pale: 0, ph: 0, ps: 0 };
 const BG = background;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let running = false, raf = 0, visible = false, dirty = 2;   // render on demand (see frame / wake)
+let running = false, raf = 0, visible = false, dirty = 2, dtSmooth = 1 / 60;   // render on demand (see frame / wake)
 
 // ------------------------------------------------------------------
 // Renderer, camera, environment
 // ------------------------------------------------------------------
 const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(2);   // the 'High' quality setting (supersampled on 1x screens)
+// sharp on retina, and still lightly supersampled on 1x screens without the
+// 4× pixel cost of a fixed 2 — keeps the frame rate steady
+renderer.setPixelRatio(Math.min(2, Math.max(1.25, window.devicePixelRatio || 1)));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.NeutralToneMapping;
 renderer.toneMappingExposure = 1.0;
@@ -517,14 +519,11 @@ windowPane.rotation.x = Math.PI / 2;
 windowPane.position.set(DISC.x, DISC.y, LID_Z + LID_D * 0.6);
 caseGroup.add(windowPane);
 
-// clear frosted shutter panel under the black tab, running down over the disc
+// frosted plastic, used for the thin clear lip on the end of the black tab
+// (the frosted panel that used to run down over the disc under the tab is gone)
 const frostPanelMat = new THREE.MeshPhysicalMaterial({
   color: '#ffffff', transparent: true, opacity: 0.38, roughness: 0.45, clearcoat: 1, clearcoatRoughness: 0.15, depthWrite: false,
 });
-{
-  const [x0, y0] = toWorld(154, 343), [x1, y1] = toWorld(388, 851);
-  add(extrude(roundRect(x1 - x0, y0 - y1, 0.12, (x0 + x1) / 2, (y0 + y1) / 2), 0.03, 0.02, 3), frostPanelMat, 0, 0, LID_TOP + 0.005);
-}
 
 // ------------------------------------------------------------------
 // Raised mouldings as real geometry (bevelled, in the case's own plastic), so
@@ -1061,8 +1060,13 @@ function applyTone(url) {
 
 
 function frame() {
-  const dt = Math.min(0.05, clock.getDelta());
-  spinSpeed += ((playing ? (reduceMotion ? 0.6 : 1.8) : 0) - spinSpeed) * Math.min(1, dt * 2.5);
+  // frame time, lightly smoothed so one slow frame can't make the disc lurch
+  const rawDt = Math.min(0.05, clock.getDelta());
+  dtSmooth += (rawDt - dtSmooth) * 0.2;
+  const dt = dtSmooth;
+  // slow, record-player-ish spin (~7 rpm) that eases up to speed and back down
+  const SPIN = reduceMotion ? 0.25 : 0.72;                     // rad/s
+  spinSpeed += ((playing ? SPIN : 0) - spinSpeed) * (1 - Math.exp(-dt * 1.6));
   discBase.rotation.z -= spinSpeed * dt;          // the whole disc turns; the light streaks stay put
 
   const k = Math.min(1, dt * 3);
@@ -1178,7 +1182,7 @@ function setBackground(css) {
   wake();
 }
 // render only while the player is on screen
-function start() { if (!running) { running = true; clock.getDelta(); raf = requestAnimationFrame(frame); } }
+function start() { if (!running) { running = true; clock.getDelta(); dtSmooth = 1 / 60; raf = requestAnimationFrame(frame); } }
 function stop() { running = false; cancelAnimationFrame(raf); }
 // ask for a redraw; runs only while the player is (nearly) on screen
 function wake() { dirty = Math.max(dirty, 2); if (visible) start(); }
