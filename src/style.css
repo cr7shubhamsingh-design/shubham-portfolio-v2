@@ -1,6 +1,8 @@
 @import './fonts.css';
 
 :root {
+  /* body text size: 18px on desktop, 16px on phones (see the 680px query) */
+  --text-body: 18px;
   --bg: #f5f5f5;
   --ink: #2a2a2a;
   --ink-70: rgba(42, 42, 42, 0.7);
@@ -434,7 +436,7 @@ body {
   margin: 0;
   width: 600px;
   max-width: 100%;
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.01em;
@@ -460,7 +462,7 @@ body {
   border: 1px solid var(--accent-border);
   color: var(--btn-text);
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 500;
   letter-spacing: -0.02em;
   text-decoration: none;
@@ -803,7 +805,7 @@ body {
   margin: 0;
   font-family: 'Inter Tight', 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 24px; /* Figma 161:56 — 120% */
   color: var(--ink);
 }
@@ -812,7 +814,7 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 24px; /* Figma 161:57 — 150% */
   color: var(--ink-70);
 }
@@ -921,7 +923,7 @@ body {
   flex-direction: column;
   gap: 32px;
   width: 100%;
-  max-width: 600px;
+  max-width: 480px;
 }
 
 .about .player {
@@ -933,7 +935,7 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -957,7 +959,7 @@ body {
 .about__lead,
 .about__body {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: -0.01em;
@@ -1004,19 +1006,12 @@ body {
    with the track info and transport underneath. */
 .player.player--disc {
   gap: 40px;                       /* Figma 374:430 */
-  max-width: 600px;                /* the copy column's width… */
+  max-width: 480px;                /* same width as the copy column */
   padding: 0;
   border: 0;
   border-radius: 0;
   background: none;
   box-shadow: none;
-}
-
-/* …with the player itself at most 400px, flush with the copy's left edge */
-.player--disc > .disc-stage,
-.player--disc > .player__body {
-  width: 100%;
-  max-width: 400px;
 }
 
 .disc-stage {
@@ -1077,7 +1072,7 @@ body {
 
 .player--disc .player__title,
 .player--disc .player__artist {
-  font-size: 16px;                 /* same as the site's body copy */
+  font-size: var(--text-body);                 /* same as the site's body copy */
   line-height: 20px;
 }
 
@@ -1158,7 +1153,7 @@ body {
 
 .player__label,
 .player__open {
-  font-size: 16px;
+  font-size: var(--text-body);
   /* Figma's auto line height on Inter Display 16 resolves to 19px; the
      browser's `normal` for Inter gives 20 and makes the card a pixel taller. */
   line-height: 19px;
@@ -1242,13 +1237,13 @@ body {
 }
 
 .player__title {
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 20px;
   color: var(--ink);
 }
 
 .player__artist {
-  font-size: 16px;
+  font-size: var(--text-body);
   color: var(--muted);
 }
 
@@ -1317,7 +1312,7 @@ body {
 }
 
 .player__time {
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: var(--muted);
@@ -1380,7 +1375,7 @@ body {
 }
 
 .footer__link {
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -1433,7 +1428,7 @@ body {
 
 .footer__copyright {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -1441,6 +1436,10 @@ body {
 }
 
 @media (max-width: 680px) {
+  :root {
+    --text-body: 16px;
+  }
+
   /* Only the gutters and the outer edges shrink on mobile — the vertical
      rhythm between sections stays on --section-gap. */
   .hero {
@@ -1648,7 +1647,7 @@ body {
   height: 32px;
   padding: 0 12px;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 24px;
   background: var(--social-bg);
   border: 1px solid var(--social-border);
@@ -1670,7 +1669,7 @@ body {
 
 .case__heading {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 24px; /* 150% */
   font-weight: 500;
   color: var(--case-title);
@@ -1690,7 +1689,7 @@ body {
 
 .case__paragraph {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 24px; /* 150% */
   font-weight: 500;
   color: var(--case-body);
@@ -1712,7 +1711,7 @@ body {
   padding: 8px 14px;
   border-radius: 900px;
   border: 0;
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 24px; /* 150% */
   font-weight: 500;
   color: var(--case-ink);
@@ -1841,7 +1840,7 @@ body {
   backdrop-filter: blur(11px);
   -webkit-backdrop-filter: blur(11px);
   font-family: inherit;
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 24px;
   font-weight: 500;
   /* Buttons don't inherit text-transform from body, so "Top" rendered capped
@@ -1950,7 +1949,7 @@ body {
   box-shadow: var(--panel-shadow);
   backdrop-filter: blur(11px);
   -webkit-backdrop-filter: blur(11px);
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 24px;
   white-space: nowrap;
   overflow: hidden;
