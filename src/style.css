@@ -878,7 +878,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 44px;
+  gap: 60px;                       /* Figma 359:490 */
   padding: calc(var(--section-gap) / 2) 80px;
   background: var(--bg);
   /* Clips the pointer trail at the page edges only. Vertically the cards are
@@ -921,7 +921,7 @@ body {
   flex-direction: column;
   gap: 32px;
   width: 100%;
-  max-width: 600px;
+  max-width: 400px;               /* Figma 359:491 */
 }
 
 .about .player {
@@ -933,7 +933,8 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-size: 16px;
+  font-family: 'Inter Tight', 'Inter', sans-serif;   /* Figma: Inter Display Medium 20 / 130%, -2% */
+  font-size: 20px;
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -957,7 +958,8 @@ body {
 .about__lead,
 .about__body {
   margin: 0;
-  font-size: 16px;
+  font-family: 'Inter Tight', 'Inter', sans-serif;   /* Figma: Inter Display Medium 24 / 150%, -1% */
+  font-size: 24px;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: -0.01em;
@@ -1004,6 +1006,7 @@ body {
    with the track info and transport underneath. */
 .player.player--disc {
   gap: 40px;                       /* Figma 374:430 */
+  max-width: 400px;                /* Figma 359:490: the About column is 400px */
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -1014,7 +1017,7 @@ body {
 .disc-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 600 / 562;         /* Figma 374:431 */
+  aspect-ratio: 400 / 377;         /* Figma 374:431 */
   cursor: pointer;
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -1025,16 +1028,16 @@ body {
   border-radius: 12px;
 }
 
-/* The canvas is wider than the stage and runs 30% below it, so the case's
-   reflection and soft edges fade out instead of stopping at a box edge. It
-   never extends upward, so it can't cover the copy above. The numbers must
-   match CAN in disc-scene.js. */
+/* The canvas is wider than the stage, runs 30% below it and 6% above, so the
+   case's reflection and edges fade out instead of stopping at a box edge. The
+   6% stays inside the section gap above. The numbers must match CAN in
+   disc-scene.js. */
 .disc-stage canvas {
   position: absolute;
   left: -14%;
-  top: 0;
+  top: -6%;
   width: 128% !important;
-  height: 130% !important;
+  height: 136% !important;
   pointer-events: none;
 }
 
@@ -1067,38 +1070,44 @@ body {
   gap: 32px;
 }
 
+.player--disc .player__title,
+.player--disc .player__artist {
+  font-family: 'Inter Tight', 'Inter', sans-serif;   /* Figma: Inter Display Medium */
+  letter-spacing: 0;
+}
+
 .player--disc .player__title {
-  font-size: 20px;
+  font-size: 20px;                 /* Figma 374:435 */
   line-height: 20px;
 }
 
 .player--disc .player__artist {
-  font-size: 18px;
+  font-size: 18px;                 /* Figma 374:436 */
   line-height: 22px;
 }
 
 .player--disc .player__controls {
-  gap: 12px;
+  gap: 7.5px;                      /* Figma 374:437 */
 }
 
 .player--disc .player__btn {
-  width: 45px;
-  height: 45px;
+  width: 28px;
+  height: 28px;
 }
 
 .player--disc .player__btn svg {
-  width: 16px;
-  height: 16px;
+  width: 11px;
+  height: 11px;
 }
 
 .player--disc #player-play {
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
 }
 
 .player--disc #player-play svg {
-  width: 22px;
-  height: 22px;
+  width: 15px;
+  height: 15px;
 }
 
 .player__bar {
@@ -1553,6 +1562,19 @@ body {
   .player__title {
     font-size: 20px;
     line-height: 20px;
+  }
+
+  /* the disc player keeps the Figma row on phones too */
+  .player--disc .player__track {
+    display: flex;
+  }
+
+  .player--disc .player__text {
+    text-align: left;
+  }
+
+  .player--disc .player__controls {
+    margin-top: 0;
   }
 
   .player__artist {

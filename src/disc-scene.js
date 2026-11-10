@@ -47,7 +47,7 @@ const params = { ...SETTINGS };
 let lastTone = { h: 220, s: 0, dark: 0, pale: 0, ph: 0, ps: 0 };
 const BG = background;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let running = false, raf = 0;
+let running = false, raf = 0, visible = false, dirty = 2;   // render on demand (see frame / wake)
 
 // ------------------------------------------------------------------
 // Renderer, camera, environment
@@ -86,9 +86,9 @@ scene.environmentIntensity = 1.0;
 // Framing: the stage (the case's box on the page) shows STAGE_H world units.
 // The canvas overhangs the stage (see CSS), so widen the view to match and aim
 // at the canvas centre rather than the stage centre.
-// Figma 374:431: the stage is 600 × 562 and the case spans 588 of its 600px, so
+// Figma 374:431: the stage is 400 × 377 and the case spans ~392 of its 400px, so
 // the stage shows 10.1 × 9.46 world units with the case's top edge at its top.
-const CAM_D = 40, STAGE_H = 9.46, CAN = { top: 0, h: 1.3 };   // must match .disc-stage canvas in style.css
+const CAM_D = 40, STAGE_H = 9.46, CAN = { top: 0.06, h: 1.36 };   // must match .disc-stage canvas in style.css
 const STAGE_CY = 9.35 / 2 + 0.03 - STAGE_H / 2;                // world y of the stage centre (case height 9.35, defined further down)
 const camera = new THREE.PerspectiveCamera(17, 1, 1, 200);
 function frameCamera() {
@@ -782,6 +782,13 @@ const tabMat = new THREE.MeshPhysicalMaterial({ color: '#0e0e10', roughness: 0.3
   const m = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: 0.08, bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.025, bevelSegments: 3 }), tabMat);
   m.position.z = 0.64;
   tab.add(m);
+  // the body ends in a thin clear plastic edge (the shutter's lip in the reference)
+  const lip = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(roundRect(0.16, bodyT - bodyB + 0.04, 0.08, bodyR + 0.04, (bodyT + bodyB) / 2),
+      { depth: 0.07, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 3 }),
+    frostPanelMat);
+  lip.position.z = 0.645;
+  tab.add(lip);
 }
 function stickerTexture() {
   const c = document.createElement('canvas'); c.width = 240; c.height = 600;
@@ -808,8 +815,8 @@ const cardFrame = new THREE.Mesh(new RoundedBoxGeometry(2.2, 2.2, 0.05, 3, 0.09)
 cardFrame.position.set(-2.4, -0.05, 0.765);
 tab.add(cardFrame);
 const coverMat = new THREE.MeshPhysicalMaterial({ color: '#dddddd', roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.03, transparent: true, opacity: 0 });
-const coverMesh = new THREE.Mesh(new RoundedBoxGeometry(2.04, 2.04, 0.02, 2, 0.06), coverMat);
-coverMesh.position.set(-2.4, -0.05, 0.795);
+const coverMesh = new THREE.Mesh(new RoundedBoxGeometry(2.2, 2.2, 0.03, 3, 0.16), coverMat);   // art sits straight on the black, rounded corners
+coverMesh.position.set(-2.42, -0.04, 0.76);
 tab.add(coverMesh);
 
 // ------------------------------------------------------------------
@@ -841,7 +848,8 @@ function applyStyle() {
   if (!STYLES.includes(params.style)) params.style = STYLES[0];     // older saved value
   const printed = params.style === 'Printed disc';
   disc.material[1] = printed ? printMat : cdMat;        // the array is shared with the reflection's copy
-  for (const o of [cardFrame, coverMesh, ...mirrorCard]) o.visible = true;
+  for (const o of [coverMesh, mirrorCard[1]]) o.visible = true;
+  for (const o of [cardFrame, mirrorCard[0]]) o.visible = false;   // no white frame round the art
 }
 
 // page-coloured veil over the reflection: see-through at the top, solid lower down
@@ -1115,7 +1123,17 @@ function frame() {
   mirrorDisc.rotation.z = discBase.rotation.z;
 
   renderer.render(scene, camera);
-  if (running) raf = requestAnimationFrame(frame);
+  // Render on demand: keep the loop alive only while something is moving —
+  // the disc spinning, colours or the art still fading, or a pending redraw
+  // (resize, theme, new progress). Once it all settles the loop stops, and the
+  // GPU does nothing until wake() is called again.
+  const near = (a, b) => Math.abs(a.r - b.r) + Math.abs(a.g - b.g) + Math.abs(a.b - b.b) < 0.002;
+  const busy = playing || spinSpeed > 0.002 || coverFade.v !== coverFade.target ||
+    Math.abs(tone.s - tone.sTarget) > 0.001 || Math.abs(tone.dark - tone.darkTarget) > 0.001 || Math.abs(tone.pale - tone.paleTarget) > 0.001 ||
+    !near(tone.cur, tone.target) || !near(tone.tint, tone.tintTarget) || !near(tone.paleCase, tone.paleCaseT) || !near(tone.paleDeep, tone.paleDeepT);
+  if (dirty > 0) dirty--;
+  if (running && (busy || dirty > 0)) raf = requestAnimationFrame(frame);
+  else running = false;
 }
 
 
@@ -1129,6 +1147,7 @@ function setTrack({ cover }) {
   toneOf(cover).then(({ h, s, dark, pale, ph, ps }) => {
     if (cover !== currentCover) return;
     setTone(h, s, { dark, pale, ph, ps });
+    wake();
   });
   // the album art fades out, swaps, and fades back in (on the card and the disc)
   const swapId = ++coverSwap;
@@ -1143,28 +1162,36 @@ function setTrack({ cover }) {
       coverMat.map = tex; coverMat.color.set('#ffffff'); coverMat.needsUpdate = true;
       drawDiscArt(tex.image);
       coverFade.target = 1;
+      wake();
     };
     const wait = coverMat.map ? Math.max(0, COVER_FADE_MS - (performance.now() - fadeStarted)) : 0;
     setTimeout(swapIn, wait);
   });
   fadeStarted = performance.now();
+  wake();
 }
 function setBackground(css) {
   const c = new THREE.Color(css);
   scene.background = c;
   wall.material.color.copy(c);
   veilMat.color.copy(c); veilFlatMat.color.copy(c); veilBase.material.color.copy(c);
+  wake();
 }
 // render only while the player is on screen
 function start() { if (!running) { running = true; clock.getDelta(); raf = requestAnimationFrame(frame); } }
 function stop() { running = false; cancelAnimationFrame(raf); }
-const io = new IntersectionObserver(es => (es.some(e => e.isIntersecting) ? start() : stop()), { rootMargin: '200px 0px' });
+// ask for a redraw; runs only while the player is (nearly) on screen
+function wake() { dirty = Math.max(dirty, 2); if (visible) start(); }
+const io = new IntersectionObserver(es => {
+  visible = es.some(e => e.isIntersecting);
+  if (visible) wake(); else stop();
+}, { rootMargin: '200px 0px' });
 io.observe(stage);
 
 return {
   setTrack,
-  setPlaying(on) { playing = !!on; },
-  setProgress,
+  setPlaying(on) { playing = !!on; wake(); },
+  setProgress(p) { setProgress(p); wake(); },
   setBackground,
   destroy() { stop(); io.disconnect(); ro.disconnect(); renderer.dispose(); renderer.domElement.remove(); },
 };
