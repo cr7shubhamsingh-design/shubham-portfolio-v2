@@ -273,7 +273,7 @@ const isTrack = (t) =>
 
 if (playerEl && playBtn && FALLBACK_TRACKS.length) {
   let TRACKS = shuffle(FALLBACK_TRACKS);
-  const artEl = document.getElementById('player-art');
+  const stageEl = document.getElementById('disc-stage');
   const titleEl = document.getElementById('player-title');
   const artistEl = document.getElementById('player-artist');
   const spotifyEl = document.getElementById('player-spotify');
@@ -305,53 +305,89 @@ if (playerEl && playBtn && FALLBACK_TRACKS.length) {
     const duration = audio.duration;
     const ratio = Number.isFinite(duration) && duration > 0 ? audio.currentTime / duration : 0;
     fillEl.style.width = `${Math.min(100, ratio * 100)}%`;
+    disc?.setProgress(ratio);
     elapsedEl.textContent = formatTime(audio.currentTime);
     durationEl.textContent = formatTime(duration);
     scrubberEl.setAttribute('aria-valuemax', Math.floor(duration || 0));
     scrubberEl.setAttribute('aria-valuenow', Math.floor(audio.currentTime));
   };
 
-  // Apple's artwork server renders any size and format on request, so ask for
-  // just the pixels the cover is actually drawn at (60px on desktop, the full
-  // card width on phones) as WebP, instead of the 1000px JPEG in the list —
-  // roughly 400 KB down to 10–60 KB. Local fallback covers pass through as-is.
-  const coverSrc = (url) => {
-    if (!/mzstatic\.com\//.test(url)) return url;
-    const drawn = (artEl.getBoundingClientRect().width || 60) * (window.devicePixelRatio || 1);
-    const px = Math.min(1000, Math.max(100, Math.ceil(drawn / 100) * 100));
-    return url.replace(/\/\d+x\d+bb\.(jpg|png|webp)$/, `/${px}x${px}bb.webp`);
-  };
+  // Apple's artwork server renders any size on request; the disc and the label
+  // card are drawn from a 600px copy (instead of the 1000px JPEG in the list).
+  // Local fallback covers pass through as-is.
+  const coverSrc = (url) =>
+    /mzstatic\.com\//.test(url) ? url.replace(/\/\d+x\d+bb\.(jpg|png|webp)$/, '/600x600bb.jpg') : url;
 
-  // The player sits far down the page, so hold the cover back until it's
-  // within about a screen of view. Only the latest requested cover is kept, so
-  // when the monthly list replaces the fallback before the visitor gets there,
-  // the fallback's cover is never downloaded at all. (loading="lazy" alone
-  // wasn't enough: Chrome's lazy-load distance already reaches the player.)
-  let pendingCover = null;
-  let artInView = !('IntersectionObserver' in window);
-  const showCover = (url) => {
-    pendingCover = url;
-    if (artInView) artEl.src = coverSrc(url);
+  // The 3D disc player (src/disc-scene.js, ~600 KB with three.js) sits far down
+  // the page, so it's only fetched once the player is within a screen or so of
+  // view. Until then the current track is just remembered. If WebGL or the
+  // import fails, the stage shows the plain cover instead.
+  let disc = null;
+  let pendingTrack = null;
+  let discFailed = false;
+  const themeBg = () => getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#f5f5f5';
+  const showFallbackCover = (track) => {
+    let img = stageEl.querySelector('.disc-stage__fallback');
+    if (!img) {
+      img = document.createElement('img');
+      img.className = 'disc-stage__fallback';
+      img.decoding = 'async';
+      stageEl.append(img);
+    }
+    img.src = coverSrc(track.cover);
+    img.alt = `${track.title} by ${track.artist}`;
   };
-  if (!artInView) {
+  const showCover = (track) => {
+    pendingTrack = track;
+    if (disc) disc.setTrack({ cover: coverSrc(track.cover) });
+    else if (discFailed) showFallbackCover(track);
+  };
+  const mountDisc = () =>
+    import('./disc-scene.js')
+      .then(({ createDiscScene }) => {
+        disc = createDiscScene(stageEl, { background: themeBg() });
+        if (pendingTrack) disc.setTrack({ cover: coverSrc(pendingTrack.cover) });
+        disc.setPlaying(!audio.paused);
+        // the scene paints its own background, so follow the site theme
+        new MutationObserver(() => disc.setBackground(themeBg())).observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['data-theme', 'class'],
+        });
+      })
+      .catch(() => {
+        discFailed = true;
+        stageEl.classList.add('disc-stage--fallback');
+        if (pendingTrack) showFallbackCover(pendingTrack);
+      });
+  if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
         observer.disconnect();
-        artInView = true;
-        if (pendingCover) artEl.src = coverSrc(pendingCover);
+        mountDisc();
       },
-      { rootMargin: '600px 0px' },
+      { rootMargin: '800px 0px' },
     );
     observer.observe(playerEl);
+  } else {
+    mountDisc();
   }
+
+  // the case itself is a play / pause button
+  stageEl.addEventListener('click', () => playBtn.click());
+  stageEl.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    playBtn.click();
+  });
 
   const loadTrack = (index, autoplay) => {
     trackIndex = (index + TRACKS.length) % TRACKS.length;
     const track = TRACKS[trackIndex];
     audio.src = track.src;
-    showCover(track.cover);
-    artEl.alt = `${track.title} by ${track.artist}`;
+    showCover(track);
+    stageEl.setAttribute('aria-label', `Play or pause ${track.title} by ${track.artist}`);
+    disc?.setProgress(0);
     titleEl.textContent = track.title;
     artistEl.textContent = track.artist;
     if (spotifyEl) spotifyEl.href = track.spotify;
@@ -362,6 +398,7 @@ if (playerEl && playBtn && FALLBACK_TRACKS.length) {
 
   const setPlayingState = (isPlaying) => {
     playerEl.classList.toggle('is-playing', isPlaying);
+    disc?.setPlaying(isPlaying);
     playBtn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
   };
 
@@ -457,8 +494,8 @@ if (playerEl && playBtn && FALLBACK_TRACKS.length) {
   const markTouched = () => {
     touched = true;
   };
-  [playBtn, prevBtn, nextBtn, scrubberEl].forEach((el) => el?.addEventListener('pointerdown', markTouched));
-  [playBtn, prevBtn, nextBtn, scrubberEl].forEach((el) => el?.addEventListener('keydown', markTouched));
+  [playBtn, prevBtn, nextBtn, scrubberEl, stageEl].forEach((el) => el?.addEventListener('pointerdown', markTouched));
+  [playBtn, prevBtn, nextBtn, scrubberEl, stageEl].forEach((el) => el?.addEventListener('keydown', markTouched));
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 6000);
@@ -693,7 +730,11 @@ const trailSection = trailEl?.closest('.about');
 
 // Desktop pointers only: on touch, every scroll gesture is a "move" and the
 // section would spray artwork while the visitor is just reading.
+// Switched off for now (the cards drifting behind the bio). Flip to true to
+// bring it back; nothing else needs changing.
+const TRAIL_ENABLED = false;
 const wantsTrail =
+  TRAIL_ENABLED &&
   window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
   !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

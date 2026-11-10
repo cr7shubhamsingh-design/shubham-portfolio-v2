@@ -999,6 +999,108 @@ body {
   transition: background-color var(--theme-duration) var(--theme-ease), border-color var(--theme-duration) var(--theme-ease), box-shadow var(--theme-duration) var(--theme-ease);
 }
 
+/* Disc player (src/disc-scene.js): the 3D case replaces the miniplayer card. It
+   sits straight on the page — no panel — at the same 600px as the copy above,
+   with the track info and transport underneath. */
+.player.player--disc {
+  gap: 40px;                       /* Figma 374:430 */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.disc-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 600 / 562;         /* Figma 374:431 */
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.disc-stage:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent);
+  border-radius: 12px;
+}
+
+/* The canvas is wider than the stage and runs 30% below it, so the case's
+   reflection and soft edges fade out instead of stopping at a box edge. It
+   never extends upward, so it can't cover the copy above. The numbers must
+   match CAN in disc-scene.js. */
+.disc-stage canvas {
+  position: absolute;
+  left: -14%;
+  top: 0;
+  width: 128% !important;
+  height: 130% !important;
+  pointer-events: none;
+}
+
+.player--disc > :not(.disc-stage) {
+  position: relative;
+  z-index: 1;
+}
+
+/* No WebGL: just the cover, centred in the stage. */
+.disc-stage__fallback {
+  position: absolute;
+  inset: 12% 12% 14%;
+  width: 76%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: var(--panel-shadow-soft);
+}
+
+/* Info row under the case — Figma 374:433: title + artist on the left, the
+   transport on the right; no progress bar or Spotify link (the arc on the
+   disc's black ring shows progress). */
+.player--disc .player__progress,
+.player--disc .player__open {
+  display: none;
+}
+
+.player--disc .player__track {
+  gap: 32px;
+}
+
+.player--disc .player__title {
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.player--disc .player__artist {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.player--disc .player__controls {
+  gap: 12px;
+}
+
+.player--disc .player__btn {
+  width: 45px;
+  height: 45px;
+}
+
+.player--disc .player__btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.player--disc #player-play {
+  width: 64px;
+  height: 64px;
+}
+
+.player--disc #player-play svg {
+  width: 22px;
+  height: 22px;
+}
+
 .player__bar {
   display: flex;
   align-items: center;

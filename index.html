@@ -286,32 +286,23 @@
         </div>
       </div>
 
-      <div class="player">
-        <div class="player__bar">
-          <div class="player__lights" aria-hidden="true">
-            <span class="player__light player__light--red"></span>
-            <span class="player__light player__light--amber"></span>
-            <span class="player__light player__light--green"></span>
-          </div>
-          <span class="player__label">miniplayer</span>
-          <a
-            class="player__open"
-            id="player-spotify"
-            href="https://open.spotify.com/track/1xqT27jSG1Y15vOXfsV0gv"
-            target="_blank"
-            rel="noopener"
-            >open spotify</a
-          >
-        </div>
+      <div class="player player--disc">
+        <!-- 3D disc player (src/disc-scene.js). The case is a click target for play / pause. -->
+        <div class="disc-stage" id="disc-stage" role="button" tabindex="0" aria-label="Play or pause"></div>
 
         <div class="player__body">
           <div class="player__track">
-            <div class="player__art">
-              <img id="player-art" alt="" width="60" height="60" loading="lazy" decoding="async" />
-            </div>
             <div class="player__text">
               <p class="player__title" id="player-title">iPod Touch</p>
               <p class="player__artist" id="player-artist">Ninajirachi</p>
+              <a
+                class="player__open"
+                id="player-spotify"
+                href="https://open.spotify.com/track/1xqT27jSG1Y15vOXfsV0gv"
+                target="_blank"
+                rel="noopener"
+                >open spotify</a
+              >
             </div>
             <div class="player__controls">
               <button class="player__btn player__btn--prev" id="player-prev" type="button" aria-label="Previous track">
