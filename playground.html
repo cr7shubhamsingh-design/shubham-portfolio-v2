@@ -26,10 +26,10 @@
     <link rel="stylesheet" href="/src/style.css" />
     <script>
       (function () {
-        var stored = localStorage.getItem('theme');
-        if (stored === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        }
+        // Dark mode lives only on the case-study pages. This page is always
+        // light and hides the theme button (.theme-locked); the saved choice
+        // is left alone so case studies still open in the visitor's theme.
+        document.documentElement.classList.add('theme-locked');
       })();
     </script>
   </head>
