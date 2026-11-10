@@ -824,6 +824,59 @@ tab.add(coverMesh);
 // shares geometry and materials, so colours and the album art stay in sync.
 // ------------------------------------------------------------------
 const MIRROR_GAP = 0.04;
+// ------------------------------------------------------------------
+// Vertical gradient on the case plastic (vertex colours, multiplied into the
+// material colour). Every cover: slightly darker toward the bottom. Dark
+// covers: darker at the top, lifting toward the bottom with a hint of the
+// album's colour. The reflection shares these geometries, so it follows.
+// ------------------------------------------------------------------
+const gradMeshes = [];
+caseGroup.updateMatrixWorld(true);
+caseGroup.traverse(o => {
+  if (!o.isMesh || o.material !== pcFrame) return;
+  const pos = o.geometry.attributes.position, v = new THREE.Vector3();
+  const t = new Float32Array(pos.count);
+  for (let k = 0; k < pos.count; k++) {
+    v.fromBufferAttribute(pos, k).applyMatrix4(o.matrixWorld);
+    t[k] = Math.min(1, Math.max(0, (H / 2 - v.y) / H));          // 0 at the top edge, 1 at the bottom
+  }
+  o.geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(pos.count * 3).fill(1), 3));
+  gradMeshes.push({ attr: o.geometry.attributes.color, t });
+});
+pcFrame.vertexColors = true;
+// The vertex colour scales the final shaded colour (reflections included), not just
+// the base colour: on the dark cases most of what you see is reflection.
+pcFrame.onBeforeCompile = sh => {
+  sh.fragmentShader = sh.fragmentShader
+    .replace('#include <color_fragment>', '')
+    .replace('#include <opaque_fragment>', 'outgoingLight *= vColor.rgb;\n#include <opaque_fragment>');
+};
+pcFrame.customProgramCacheKey = () => 'pc-gradient';
+pcFrame.needsUpdate = true;
+const gradTop = new THREE.Color(), gradBottom = new THREE.Color(), gradAccent = new THREE.Color();
+let gradKey = '';
+function applyGradient(dark, hue, sat) {
+  // light/coloured: even at the top, slightly darker at the bottom;
+  // dark: darker at the top, lifting to a lighter, album-tinted bottom
+  gradTop.setScalar(1).lerp(new THREE.Color(0.55, 0.55, 0.58), dark);
+  gradAccent.setHSL(hue, Math.min(0.8, sat * 1.4 + 0.15), 0.6);
+  gradBottom.setScalar(0.66).lerp(new THREE.Color(1, 1, 1).lerp(gradAccent, Math.min(0.7, sat * 1.4 + 0.2)).multiplyScalar(1.45), dark);
+  const key = [gradTop, gradBottom].map(c => c.toArray().map(x => x.toFixed(3)).join()).join();
+  if (key === gradKey) return;                                    // unchanged: skip the upload
+  gradKey = key;
+  for (const { attr, t } of gradMeshes) {
+    const a = attr.array;
+    for (let k = 0; k < t.length; k++) {
+      const f = t[k];
+      a[k * 3] = gradTop.r + (gradBottom.r - gradTop.r) * f;
+      a[k * 3 + 1] = gradTop.g + (gradBottom.g - gradTop.g) * f;
+      a[k * 3 + 2] = gradTop.b + (gradBottom.b - gradTop.b) * f;
+    }
+    attr.needsUpdate = true;
+  }
+}
+applyGradient(0, 0, 0);
+
 const mirror = caseGroup.clone();
 mirror.scale.y = -1;
 mirror.position.y = -H - MIRROR_GAP;
@@ -932,6 +985,18 @@ const WALL_BASE = new THREE.Color('#c3c9d2'), CLAMP_BASE = new THREE.Color('#dfe
 const attenColor = new THREE.Color('#ffffff');
 const WHITE = new THREE.Color('#ffffff');
 const hsl = { h: 0, s: 0, l: 0 };
+// Very bright hues (neon green, yellow, cyan) glare at the same saturation that
+// looks fine for blue or red. glare(h) is how bright the pure hue looks (0–1);
+// tame() pulls saturation and lightness down for the bright ones.
+const _g = new THREE.Color();
+const glare = h => { _g.setHSL(h, 1, 0.5); return 0.2126 * _g.r + 0.7152 * _g.g + 0.0722 * _g.b; };
+function tame(c) {
+  c.getHSL(_hsl);
+  const over = Math.max(0, glare(_hsl.h) - 0.3) / 0.6;            // 0 for blue/red/purple, ~1 for neon green
+  if (over <= 0) return c;
+  return c.setHSL(_hsl.h, _hsl.s * (1 - 0.6 * over), _hsl.l * (1 - 0.3 * over));
+}
+const _hsl = { h: 0, s: 0, l: 0 };
 
 // ------------------------------------------------------------------
 // Apply settings
@@ -1064,8 +1129,8 @@ function frame() {
   const rawDt = Math.min(0.05, clock.getDelta());
   dtSmooth += (rawDt - dtSmooth) * 0.2;
   const dt = dtSmooth;
-  // slow, record-player-ish spin (~7 rpm) that eases up to speed and back down
-  const SPIN = reduceMotion ? 0.25 : 0.72;                     // rad/s
+  // a slow, lazy spin (~3 rpm) that eases up to speed and back down
+  const SPIN = reduceMotion ? 0.12 : 0.32;                     // rad/s
   spinSpeed += ((playing ? SPIN : 0) - spinSpeed) * (1 - Math.exp(-dt * 1.6));
   discBase.rotation.z -= spinSpeed * dt;          // the whole disc turns; the light streaks stay put
 
@@ -1086,16 +1151,20 @@ function frame() {
   cdMat.color.copy(cdTint).lerp(DARK.mirror, tone.dark);          // dark cover → gunmetal mirror
   // case colour = album tint (scaled by the Tint control); metal gets a touch darker base
   caseColor.setRGB(1, 1, 1).lerp(tone.tint, Math.min(1.5, params.tint));
+  tame(caseColor);
   if (params.metal) caseColor.multiplyScalar(0.92);
   // the colour light picks up passing through the plastic: a deep, saturated
   // version of the album colour (white = clear for silver discs)
   tone.cur.getHSL(hsl);
   attenColor.setHSL(hsl.h, Math.min(0.95, 0.35 + tone.s * 0.9), 0.5);
+  tame(attenColor);
   attenColor.lerp(WHITE, 1 - Math.min(1, tone.s * 2.2) * Math.min(1, params.plasticColour + 0.0001) * (params.metal ? 0 : 1));
   // dark / black covers: smoked plastic, dark floor and walls
   caseColor.lerp(tone.paleCase, tone.pale).lerp(DARK.plastic, tone.dark);
   attenColor.lerp(tone.paleDeep, tone.pale).lerp(DARK.smoke, tone.dark);
   for (const m of PC) { m.color.copy(caseColor); m.attenuationColor.copy(attenColor); }
+  tone.cur.getHSL(hsl);
+  applyGradient(Math.round(tone.dark * 50) / 50, Math.round(hsl.h * 72) / 72, Math.round(tone.s * 25) / 25);   // quantised: re-uploads only when it visibly changes
   trayMat.color.copy(TRAY_BASE).multiply(caseColor).lerp(DARK.floor, tone.dark);
   shadeA.copy(WALL_BASE).lerp(tone.paleDeep, tone.pale * 0.6);
   wallMat.color.copy(shadeA).lerp(DARK.wall, tone.dark);
@@ -1110,6 +1179,7 @@ function frame() {
   const glowAmt = Math.min(1, tone.s * 1.6) * params.glow * (params.metal ? 0.35 : 1);
   tone.cur.getHSL(hsl);
   glowColor.setHSL(hsl.h, Math.min(1, hsl.s * 1.2 + 0.1), 0.66);   // deeper than the pastel disc
+  tame(glowColor);
   ringGlowMat.emissive.copy(glowColor).multiplyScalar(glowAmt * 1.1);
   trayMat.emissive.copy(glowColor).multiplyScalar(glowAmt * 0.9);
   haloMat.color.copy(glowColor);
