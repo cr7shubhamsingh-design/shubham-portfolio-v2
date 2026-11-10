@@ -344,8 +344,9 @@ if (playerEl && playBtn && FALLBACK_TRACKS.length) {
   };
   const mountDisc = () =>
     import('./disc-scene.js')
-      .then(({ createDiscScene }) => {
-        disc = createDiscScene(stageEl, { background: themeBg() });
+      .then(({ createDiscScene }) => createDiscScene(stageEl, { background: themeBg() }))
+      .then((scene) => {
+        disc = scene;
         if (pendingTrack) disc.setTrack({ cover: coverSrc(pendingTrack.cover) });
         disc.setPlaying(!audio.paused);
         // the scene paints its own background, so follow the site theme
@@ -359,18 +360,25 @@ if (playerEl && playBtn && FALLBACK_TRACKS.length) {
         stageEl.classList.add('disc-stage--fallback');
         if (pendingTrack) showFallbackCover(pendingTrack);
       });
+  // Build the 3D player as soon as the page has loaded and gone quiet (the build
+  // itself waits out any scrolling), or sooner if the visitor heads for it.
+  let mounted = false;
+  const mountOnce = () => { if (!mounted) { mounted = true; mountDisc(); } };
+  const whenIdle = (fn) => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 2000 }) : setTimeout(fn, 600));
+  if (document.readyState === 'complete') whenIdle(mountOnce);
+  else window.addEventListener('load', () => whenIdle(mountOnce), { once: true });
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
         observer.disconnect();
-        mountDisc();
+        mountOnce();
       },
       { rootMargin: '800px 0px' },
     );
     observer.observe(playerEl);
   } else {
-    mountDisc();
+    mountOnce();
   }
 
   // the case itself is a play / pause button

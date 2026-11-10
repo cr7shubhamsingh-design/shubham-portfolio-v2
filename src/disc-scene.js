@@ -10,6 +10,7 @@
 //   setBackground(css)   – page colour behind the case (follows the site theme)
 // Only the scene lives here; song choice, audio and controls stay in main.js.
 import * as THREE from 'three';
+import * as texMath from './disc-tex.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
@@ -42,7 +43,55 @@ const SETTINGS = {
   reflectionLength: 1.1,
 };
 
-export function createDiscScene(stage, { background = '#f5f5f5' } = {}) {
+export async function createDiscScene(stage, { background = '#f5f5f5' } = {}) {
+// The build runs in short slices (yielding to the page between them) so scrolling
+// never stalls behind it: per-pixel texture loops check in every few rows.
+const pause = () => new Promise(r => setTimeout(r, 0));
+let sliceT = performance.now();
+// A few steps can't be sliced (creating the WebGL context, baking the reflection
+// environment, a shader's first use: ~50–100ms each). They wait until the page has
+// stopped scrolling for a moment, so they never land mid-scroll.
+let lastScroll = -1e9;
+const onScroll = () => { lastScroll = performance.now(); };
+addEventListener('scroll', onScroll, { passive: true });
+const scrolling = () => performance.now() - lastScroll < 120;
+const settle = async () => {
+  while (scrolling()) await new Promise(r => setTimeout(r, 80));
+  await new Promise(r => (window.requestIdleCallback ? requestIdleCallback(() => r(), { timeout: 150 }) : setTimeout(r, 0)));
+  sliceT = performance.now();
+};
+// The texture maths (~0.6s of per-pixel loops) runs in a worker; without one it
+// runs here.
+let texWorker = null;
+const texJobs = new Map();
+let texJobId = 0;
+try {
+  texWorker = new Worker(new URL('./disc-tex-worker.js', import.meta.url), { type: 'module' });
+  texWorker.onmessage = ({ data: { id, out } }) => { texJobs.get(id)?.resolve(out); texJobs.delete(id); };
+  texWorker.onerror = () => {                                       // couldn't start: do the pending jobs here
+    texWorker = null;
+    for (const [id, j] of texJobs) { j.resolve(texMath[j.fn](...j.args)); texJobs.delete(id); }
+  };
+} catch { texWorker = null; }
+const FN = { shell: 'shellPixels', grain: 'grainPixels', groove: 'groovePixels', disc: 'discPixels' };
+function texJob(job, args, transfer = []) {
+  if (!texWorker) return pause().then(() => texMath[FN[job]](...args));
+  return new Promise(resolve => {
+    const id = ++texJobId;
+    texJobs.set(id, { resolve, fn: FN[job], args });
+    texWorker.postMessage({ id, job, args }, transfer);
+  });
+}
+const dataTex = (arr, w, h, srgb) => {
+  const t = new THREE.DataTexture(arr, w, h);
+  t.flipY = false;                                                 // rows come pre-flipped from disc-tex.js
+  t.generateMipmaps = true; t.minFilter = THREE.LinearMipmapLinearFilter; t.magFilter = THREE.LinearFilter;
+  t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace;
+  t.needsUpdate = true;
+  return t;
+};
+const discJob = texJob('disc', [1024]), grooveJob = texJob('groove', [512]), grainJob = texJob('grain', [512]);
+await settle();
 const params = { ...SETTINGS };
 let lastTone = { h: 220, s: 0, dark: 0, pale: 0, ph: 0, ps: 0 };
 const BG = background;
@@ -83,8 +132,10 @@ function studioEnv() {
   box(10, 2.5, 0, 7, 3, 0, 2.2);               // top bounce, for the lid's top edge
   return pmrem.fromScene(env, 0.02).texture;
 }
+await settle();
 scene.environment = studioEnv();
 scene.environmentIntensity = 1.0;
+await pause();
 
 // Framing: the stage (the case's box on the page) shows STAGE_H world units.
 // The canvas overhangs the stage (see CSS), so widen the view to match and aim
@@ -370,7 +421,7 @@ for (const [sx, sy] of SHELL.screws) {   // posts only under the screws
 // are a height map → normal map on the lid. The same map darkens each
 // shape's edge a little (colour map) and drives the satin coat's normals.
 // ------------------------------------------------------------------
-function shellMaps() {
+async function shellMaps() {
   const S = 2048, SH = Math.round(S * H / W), k = S / 990;
   const hc = document.createElement('canvas'); hc.width = S; hc.height = SH;
   const g = hc.getContext('2d');
@@ -449,54 +500,22 @@ function shellMaps() {
   const bc = document.createElement('canvas'); bc.width = S; bc.height = SH;
   const bg = bc.getContext('2d'); bg.filter = `blur(${P(1.8)}px)`; bg.drawImage(hc, 0, 0);
   const src = bg.getImageData(0, 0, S, SH).data;
-  const h = (x, y) => src[(Math.min(SH - 1, Math.max(0, y)) * S + Math.min(S - 1, Math.max(0, x))) * 4] / 255;
 
-  const nc = document.createElement('canvas'); nc.width = S; nc.height = SH;
-  const sc = document.createElement('canvas'); sc.width = S; sc.height = SH;
-  const tc = document.createElement('canvas'); tc.width = S; tc.height = SH;
-  const nImg = nc.getContext('2d').createImageData(S, SH), sImg = sc.getContext('2d').createImageData(S, SH);
-  const tImg = tc.getContext('2d').createImageData(S, SH);
-  const STR = 4.5;
-  for (let y = 0; y < SH; y++) for (let x = 0; x < S; x++) {
-    const dx = (h(x + 1, y) - h(x - 1, y)) * STR, dy = (h(x, y + 1) - h(x, y - 1)) * STR;
-    const len = Math.hypot(dx, dy, 1), i = (y * S + x) * 4;
-    nImg.data[i] = (-dx / len * 0.5 + 0.5) * 255;
-    nImg.data[i + 1] = (dy / len * 0.5 + 0.5) * 255;   // canvas y runs down, texture v runs up
-    nImg.data[i + 2] = (1 / len * 0.5 + 0.5) * 255;
-    nImg.data[i + 3] = 255;
-    const edge = Math.min(1, Math.hypot(dx, dy) * 0.7);
-    const v = 255 - edge * 80 - (h(x, y) < 0.4 ? 14 : 0);
-    sImg.data[i] = sImg.data[i + 1] = sImg.data[i + 2] = v; sImg.data[i + 3] = 255;
-    // thickness: the rim and raised mouldings are thicker plastic, so their colour runs deeper
-    const dEdge = Math.min(x, S - x, y, SH - y) / k;
-    const t = Math.max(0, Math.min(1, 0.32 + 0.55 * Math.exp(-dEdge / 34) + (h(x, y) - 0.5) * 1.1 + edge * 0.12));
-    tImg.data[i] = tImg.data[i + 1] = tImg.data[i + 2] = t * 255; tImg.data[i + 3] = 255;
-  }
-  tc.getContext('2d').putImageData(tImg, 0, 0);
-  nc.getContext('2d').putImageData(nImg, 0, 0);
-  sc.getContext('2d').putImageData(sImg, 0, 0);
-  const tex = (c, srgb) => {
-    const t = new THREE.CanvasTexture(c);
-    t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace;
+  const { n, s: shade, t: thick } = await texJob('shell', [src, S, SH, k], [src.buffer]);
+  const tex = (arr, srgb) => {
+    const t = dataTex(arr, S, SH, srgb);
     t.repeat.set(1 / W, 1 / H); t.offset.set(0.5, 0.5);   // ExtrudeGeometry UVs are world units
     t.anisotropy = 8;
     return t;
   };
-  // fine frosted grain for the roughness
-  const gc = document.createElement('canvas'); gc.width = 512; gc.height = 512;
-  const gx = gc.getContext('2d'), gImg = gx.createImageData(512, 512);
-  for (let i = 0; i < gImg.data.length; i += 4) {
-    const v = 205 + Math.random() * 50;
-    gImg.data[i] = gImg.data[i + 1] = gImg.data[i + 2] = v; gImg.data[i + 3] = 255;
-  }
-  gx.putImageData(gImg, 0, 0);
-  const grain = new THREE.CanvasTexture(gc);
-  grain.colorSpace = THREE.NoColorSpace;
+  const grain = dataTex((await grainJob).g, 512, 512, false);
   grain.wrapS = grain.wrapT = THREE.RepeatWrapping;
   grain.repeat.set(1.6 / W, 1.6 / H);
-  return { normal: tex(nc, false), shade: tex(sc, true), thick: tex(tc, false), grain };
+  return { normal: tex(n, false), shade: tex(shade, true), thick: tex(thick, false), grain };
 }
-const shell = shellMaps();
+await pause();
+const shell = await shellMaps();
+
 Object.assign(pcFrame, {
   normalMap: shell.normal, normalScale: new THREE.Vector2(0.7, 0.7),
   clearcoatNormalMap: shell.normal, clearcoatNormalScale: new THREE.Vector2(0.9, 0.9),
@@ -580,58 +599,19 @@ for (const [sx, sy] of SHELL.screws) {
 // grooves (normal map) catch a soft sheen; a few broader "track" bands and a
 // faint print make it read as a real disc (and show it turning).
 // ------------------------------------------------------------------
-function grooveMap(size = 512) {
-  // per-pixel groove direction, tangential to the centre, so highlights fan out radially
-  const c = document.createElement('canvas'); c.width = c.height = size;
-  const g = c.getContext('2d');
-  const img = g.createImageData(size, size);
-  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
-    const u = x / size - 0.5, v = 0.5 - y / size;
-    const a = Math.atan2(v, u);
-    const k = (y * size + x) * 4;
-    img.data[k] = (-Math.sin(a) * 0.5 + 0.5) * 255;
-    img.data[k + 1] = (Math.cos(a) * 0.5 + 0.5) * 255;
-    img.data[k + 2] = 255; img.data[k + 3] = 255;
-  }
-  g.putImageData(img, 0, 0);
-  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.NoColorSpace;
-  return t;
-}
-function discMaps(size = 1024) {
-  const half = size / 2;
-  const nc = document.createElement('canvas'); nc.width = nc.height = size;
-  const cc = document.createElement('canvas'); cc.width = cc.height = size;
-  const nImg = nc.getContext('2d').createImageData(size, size), cImg = cc.getContext('2d').createImageData(size, size);
-  const GROOVES = 170;                                       // grooves from centre to edge
-  const ringNoise = new Float32Array(GROOVES + 2).map(() => 0.55 + Math.random() * 0.45);
-  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
-    const u = (x - half) / half, v = (half - y) / half, r = Math.hypot(u, v), k = (y * size + x) * 4;
-    const ri = Math.min(GROOVES, Math.floor(r * GROOVES));
-    const slope = Math.cos(r * GROOVES * Math.PI * 2) * 0.32 * ringNoise[ri];
-    const ca = r ? u / r : 0, sa = r ? v / r : 0, len = Math.hypot(slope, 1);
-    nImg.data[k] = (-slope * ca / len * 0.5 + 0.5) * 255;
-    nImg.data[k + 1] = (-slope * sa / len * 0.5 + 0.5) * 255;
-    nImg.data[k + 2] = (1 / len * 0.5 + 0.5) * 255; nImg.data[k + 3] = 255;
-    // colour: broad track bands, slightly darker toward the clamp area
-    let c = 1;
-    for (const [rb, w, d] of [[0.43, 0.012, 0.18], [0.6, 0.006, 0.1], [0.78, 0.008, 0.12], [0.93, 0.01, 0.1]]) c -= d * Math.exp(-(((r - rb) / w) ** 2));
-    c -= 0.06 * (r < 0.48 ? 1 : 0);
-    const v8 = Math.max(0, Math.min(255, c * 255));
-    cImg.data[k] = cImg.data[k + 1] = cImg.data[k + 2] = v8; cImg.data[k + 3] = 255;
-  }
-  nc.getContext('2d').putImageData(nImg, 0, 0);
-  const cg = cc.getContext('2d'); cg.putImageData(cImg, 0, 0);
-  const n = new THREE.CanvasTexture(nc); n.colorSpace = THREE.NoColorSpace; n.anisotropy = 8;
-  const c = new THREE.CanvasTexture(cc); c.colorSpace = THREE.SRGBColorSpace; c.anisotropy = 8;
-  return { normal: n, color: c };
-}
-const dmaps = discMaps();
+const dmaps = await discJob.then(({ n, c }) => {
+  const nt = dataTex(n, 1024, 1024, false); nt.anisotropy = 8;
+  const ct = dataTex(c, 1024, 1024, true); ct.anisotropy = 8;
+  return { normal: nt, color: ct };
+});
+const grooveTex = dataTex((await grooveJob).g, 512, 512, false);
+texWorker?.terminate();
 const discMat = new THREE.MeshPhysicalMaterial({
   color: '#c9ccd2', map: dmaps.color,
   transmission: 0.35, thickness: 0.25, ior: 1.58, roughness: 0.22,
   attenuationColor: new THREE.Color('#9aa0aa'), attenuationDistance: 0.35,
   normalMap: dmaps.normal, normalScale: new THREE.Vector2(0.7, 0.7),
-  anisotropy: 0.55, anisotropyMap: grooveMap(),
+  anisotropy: 0.55, anisotropyMap: grooveTex,
   clearcoat: 0.9, clearcoatRoughness: 0.1, clearcoatNormalMap: dmaps.normal, clearcoatNormalScale: new THREE.Vector2(0.25, 0.25),
   specularIntensity: 1, specularColor: new THREE.Color('#ffffff'), sheen: 0.5, sheenRoughness: 0.35, sheenColor: new THREE.Color('#ffffff'),
 });
@@ -668,54 +648,8 @@ const printMat = new THREE.MeshPhysicalMaterial({
   map: artTex, roughness: 0.42, clearcoat: 0.7, clearcoatRoughness: 0.18,
   emissive: '#ffffff', emissiveIntensity: 0,                        // used to fade the print to blank between tracks
 });
-// Reflective MiniDisc surface (the 'Reflective disc' style), after the MD photo:
-// mirror data area with rainbow at the light streaks, a black printed ring with
-// text round the hub, a clear inner ring and a clear rim, tinted by the album,
-// under a glassy clear coat. Maps are drawn once; the tint is the material colour.
-function cdMaps() {
-  const S = 1024, c = S / 2;
-  const mk = () => { const cv = document.createElement('canvas'); cv.width = cv.height = S; return cv; };
-  const col = mk(), mr = mk(), irid = mk(), thick = mk();
-  const R = { data0: 1.8 / DISC_R, rim: 0.975 };
-  // colour: white mirror (tinted by material colour), black print ring, pale clear areas
-  let g = col.getContext('2d');
-  g.fillStyle = '#e8ecef'; g.fillRect(0, 0, S, S);
-  g.fillStyle = '#ffffff'; g.beginPath(); g.arc(c, c, c * R.rim, 0, 7); g.fill();
-  g.fillStyle = '#e8ecef'; g.beginPath(); g.arc(c, c, c * R.data0, 0, 7); g.fill();   // clear band (no print)
-  // metal (B) / roughness (G): data area is polished metal, print ring is satin ink, clear areas glossy
-  g = mr.getContext('2d');
-  g.fillStyle = 'rgb(0,26,0)'; g.fillRect(0, 0, S, S);
-  g.fillStyle = 'rgb(0,24,255)'; g.beginPath(); g.arc(c, c, c * R.rim, 0, 7); g.fill();
-  g.fillStyle = 'rgb(0,26,0)'; g.beginPath(); g.arc(c, c, c * R.data0, 0, 7); g.fill();
-  // rainbow only on the mirror, in the sectors beside the light streaks
-  const sector = a => { for (const s0 of [200, 20]) { const d = ((a - s0 + 540) % 360) - 180; if (Math.abs(d) < 32) return d / 32; } return null; };
-  for (const [cv, fn] of [[irid, (a, r) => (r > R.data0 && r < R.rim) ? (sector(a) === null ? 0.08 : 0.08 + 0.92 * Math.cos(sector(a) * Math.PI / 2) ** 1.5) : 0],
-                          [thick, (a, r) => sector(a) === null ? 0.5 : sector(a) * 0.5 + 0.5]]) {
-    const gg = cv.getContext('2d'), img = gg.createImageData(S, S);
-    for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
-      const a = (Math.atan2(y - c, x - c) * 180 / Math.PI + 360) % 360, r = Math.hypot(x - c, y - c) / c, k = (y * S + x) * 4;
-      img.data[k] = img.data[k + 1] = img.data[k + 2] = fn(a, r) * 255; img.data[k + 3] = 255;
-    }
-    gg.putImageData(img, 0, 0);
-  }
-  const tex = (cv, srgb) => {
-    const t = new THREE.CanvasTexture(cv); t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace; t.anisotropy = 8;
-    t.center.set(0.5, 0.5); t.rotation = Math.PI / 2;      // same quarter-turn as the printed art
-    return t;
-  };
-  return { color: tex(col, true), mr: tex(mr, false), irid: tex(irid, false), thick: tex(thick, false) };
-}
-const cdm = cdMaps();
-const cdMat = new THREE.MeshPhysicalMaterial({
-  color: '#e4e6ea', map: cdm.color,
-  metalness: 1, metalnessMap: cdm.mr, roughness: 1, roughnessMap: cdm.mr,
-  anisotropy: 0.8, anisotropyMap: grooveMap(),
-  iridescence: 1, iridescenceMap: cdm.irid, iridescenceIOR: 1.8,
-  iridescenceThicknessMap: cdm.thick, iridescenceThicknessRange: [200, 850],
-  clearcoat: 1, clearcoatRoughness: 0.015, envMapIntensity: 1.6,    // the glassy top layer
-  specularIntensity: 1,
-});
-const cdTint = new THREE.Color('#e4e6ea');
+// (The prototype's 'Reflective disc' MiniDisc style isn't built here: the site
+// only shows the printed disc, and its maps alone cost ~400ms to draw.)
 
 // cylinder groups: 0 = side, 1 = top (faces the viewer after the rotation), 2 = bottom
 const disc = new THREE.Mesh(discGeo, [discMat, printMat, discMat]);
@@ -814,7 +748,11 @@ const cardFrame = new THREE.Mesh(new RoundedBoxGeometry(2.2, 2.2, 0.05, 3, 0.09)
   new THREE.MeshPhysicalMaterial({ color: '#ffffff', roughness: 0.35, clearcoat: 0.6, clearcoatRoughness: 0.2 }));
 cardFrame.position.set(-2.4, -0.05, 0.765);
 tab.add(cardFrame);
-const coverMat = new THREE.MeshPhysicalMaterial({ color: '#dddddd', roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.03, transparent: true, opacity: 0 });
+// starts with a 1px stand-in map so its shader is the with-art variant from the start
+// (otherwise the first album art forces a fresh compile mid-scroll)
+const blankArt = new THREE.DataTexture(new Uint8Array([221, 221, 221, 255]), 1, 1);
+blankArt.colorSpace = THREE.SRGBColorSpace; blankArt.needsUpdate = true;
+const coverMat = new THREE.MeshPhysicalMaterial({ color: '#ffffff', map: blankArt, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.03, transparent: true, opacity: 0 });
 const coverMesh = new THREE.Mesh(new RoundedBoxGeometry(2.2, 2.2, 0.03, 3, 0.16), coverMat);   // art sits straight on the black, rounded corners
 coverMesh.position.set(-2.42, -0.04, 0.76);
 tab.add(coverMesh);
@@ -899,8 +837,7 @@ const mirrorCard = [follow(mirror, pathTo(caseGroup, cardFrame)), follow(mirror,
 const STYLES = ['Printed disc', 'Reflective disc'];
 function applyStyle() {
   if (!STYLES.includes(params.style)) params.style = STYLES[0];     // older saved value
-  const printed = params.style === 'Printed disc';
-  disc.material[1] = printed ? printMat : cdMat;        // the array is shared with the reflection's copy
+  disc.material[1] = printMat;                           // the array is shared with the reflection's copy
   for (const o of [coverMesh, mirrorCard[1]]) o.visible = true;
   for (const o of [cardFrame, mirrorCard[0]]) o.visible = false;   // no white frame round the art
 }
@@ -948,6 +885,18 @@ function applyReflection() {
 
 const texLoader = new THREE.TextureLoader();
 texLoader.setCrossOrigin('anonymous');
+// Album art is decoded off the main thread (ImageBitmap) where supported; a plain
+// <img> texture decodes synchronously at upload time, mid-scroll.
+const bmpLoader = typeof createImageBitmap === 'function' ? new THREE.ImageBitmapLoader().setOptions({ imageOrientation: 'none' }) : null;
+bmpLoader?.setCrossOrigin('anonymous');
+function loadCover(url, done) {
+  if (!bmpLoader) { texLoader.load(url, done); return; }
+  bmpLoader.load(url, bmp => {
+    const t = new THREE.Texture(bmp);
+    t.flipY = false; t.repeat.y = -1; t.offset.y = 1;            // bitmaps can't be flipped on upload
+    t.needsUpdate = true; done(t);
+  }, undefined, () => texLoader.load(url, done));
+}
 
 // ------------------------------------------------------------------
 // Sizing + render loop (no hover tilt: the case sits still)
@@ -1153,8 +1102,6 @@ function frame(now) {
   discMat.color.setHSL(hsl.h, Math.min(0.85, 0.45 + hsl.s) * ds + 0.04, 0.72 - ds * 0.26);
   discMat.attenuationColor.setHSL(hsl.h, 0.9 * ds + 0.04, 0.6 - ds * 0.24);
   // reflective disc: a light metallic tint of the album colour (silver when neutral)
-  cdTint.setHSL(hsl.h, Math.min(0.75, hsl.s * 0.9) * ds, 0.86 - ds * 0.12);
-  cdMat.color.copy(cdTint).lerp(DARK.mirror, tone.dark);          // dark cover → gunmetal mirror
   // case colour = album tint (scaled by the Tint control); metal gets a touch darker base
   caseColor.setRGB(1, 1, 1).lerp(tone.tint, Math.min(1.5, params.tint));
   tame(caseColor);
@@ -1239,7 +1186,7 @@ function setTrack({ cover }) {
   // the album art fades out, swaps, and fades back in (on the card and the disc)
   const swapId = ++coverSwap;
   coverFade.target = 0;
-  texLoader.load(cover, tex => {
+  loadCover(cover, tex => {
     if (swapId !== coverSwap) { tex.dispose(); return; }
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.anisotropy = 8;
@@ -1247,11 +1194,15 @@ function setTrack({ cover }) {
       if (swapId !== coverSwap) { tex.dispose(); return; }
       if (coverMat.map) coverMat.map.dispose();
       coverMat.map = tex; coverMat.color.set('#ffffff'); coverMat.needsUpdate = true;
-      drawDiscArt(tex.image);
-      coverFade.target = 1;
-      wake();
+      renderer.initTexture(tex);                                    // upload now, not in the next frame
+      setTimeout(() => {
+        if (swapId !== coverSwap) return;
+        drawDiscArt(tex.image); renderer.initTexture(artTex);
+        coverFade.target = 1;
+        wake();
+      }, 0);
     };
-    const wait = coverMat.map ? Math.max(0, COVER_FADE_MS - (performance.now() - fadeStarted)) : 0;
+    const wait = coverMat.map !== blankArt ? Math.max(0, COVER_FADE_MS - (performance.now() - fadeStarted)) : 0;
     setTimeout(swapIn, wait);
   });
   fadeStarted = performance.now();
@@ -1269,6 +1220,62 @@ function start() { if (!running) { running = true; lastTick = 0; clock.getDelta(
 function stop() { running = false; cancelAnimationFrame(raf); }
 // ask for a redraw; runs only while the player is (nearly) on screen
 function wake() { dirty = Math.max(dirty, 2); if (visible) start(); }
+// Compile every shader before the first frame, in the background where the browser
+// supports it (KHR_parallel_shader_compile); otherwise the first draw freezes the
+// page for seconds while ~25 programs compile. Twice: once for the screen, once for
+// the transmission pass, which draws the opaque parts into an offscreen target
+// with different shader variants.
+await settle();
+const warmRT = new THREE.WebGLRenderTarget(4, 4, { type: THREE.HalfFloatType });
+try {
+  renderer.setRenderTarget(warmRT); await renderer.compileAsync(scene, camera);
+  renderer.setRenderTarget(null); await renderer.compileAsync(scene, camera);
+} catch { renderer.setRenderTarget(null); }
+// upload the textures one at a time, ahead of the first frame
+const texs = new Set();
+scene.traverse(o => { for (const m of [].concat(o.material || [])) for (const k in m) if (m[k] && m[k].isTexture) texs.add(m[k]); });
+for (const t of texs) { renderer.initTexture(t); await pause(); }
+// The graphics driver still finishes each shader on its first real draw (ANGLE's
+// D3D back end builds the final shaders per vertex layout), which on its own is a
+// ~120ms hitch. Draw each object alone into a 1px scissor (screen variant) and the
+// offscreen target (transmission variant), a few per frame, so that cost is spread
+// out. The reflection's copies share geometry and materials, so they're skipped.
+{
+  const nextFrame = () => new Promise(r => requestAnimationFrame(() => r()));
+  const meshes = [], shown = new Map();
+  const seen = new Set();
+  const wasVisible = new Map();                                   // every object, groups included
+  scene.traverse(o => {
+    wasVisible.set(o, o.visible);
+    if (!o.isMesh) return;
+    shown.set(o, o.visible);
+    const key = o.geometry.uuid + [].concat(o.material).map(m => m.uuid).join();
+    if (!seen.has(key)) { seen.add(key); meshes.push(o); }
+  });
+  const all = [...shown.keys()];
+  let budget = performance.now();
+  const bg = scene.background;
+  renderer.setScissor(0, 0, 1, 1); renderer.setScissorTest(true);
+  for (const m of meshes) {
+    if (!shown.get(m)) continue;
+    let hiddenUp = false; for (let p = m.parent; p; p = p.parent) if (!wasVisible.get(p)) hiddenUp = true;
+    if (hiddenUp) continue;                                          // not drawn now anyway
+    if (scrolling()) await settle();
+    // already on screen: warm in bigger slices, so it shows up sooner
+    const r = stage.getBoundingClientRect(), slice = r.top < innerHeight && r.bottom > 0 ? 24 : 6;
+    for (const o of all) o.visible = o === m;
+    let p = m.parent; while (p) { p.visible = true; p = p.parent; }
+    renderer.setRenderTarget(null); renderer.render(scene, camera);
+    renderer.setRenderTarget(warmRT); renderer.render(scene, camera);
+    renderer.setRenderTarget(null);
+    if (performance.now() - budget > slice) { await nextFrame(); budget = performance.now(); }
+  }
+  for (const [o, v] of wasVisible) o.visible = v;
+  renderer.setScissorTest(false);
+  scene.background = bg;
+}
+warmRT.dispose();
+
 const io = new IntersectionObserver(es => {
   visible = es.some(e => e.isIntersecting);
   if (visible) wake(); else stop();
@@ -1280,6 +1287,6 @@ return {
   setPlaying(on) { playing = !!on; wake(); },
   setProgress(p) { setProgress(p); wake(); },
   setBackground,
-  destroy() { stop(); io.disconnect(); ro.disconnect(); renderer.dispose(); renderer.domElement.remove(); },
+  destroy() { stop(); removeEventListener('scroll', onScroll); io.disconnect(); ro.disconnect(); renderer.dispose(); renderer.domElement.remove(); },
 };
 }
