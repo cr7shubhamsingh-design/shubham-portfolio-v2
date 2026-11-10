@@ -878,7 +878,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 60px;                       /* Figma 359:490 */
+  gap: 44px;
   padding: calc(var(--section-gap) / 2) 80px;
   background: var(--bg);
   /* Clips the pointer trail at the page edges only. Vertically the cards are
@@ -921,7 +921,7 @@ body {
   flex-direction: column;
   gap: 32px;
   width: 100%;
-  max-width: 400px;               /* Figma 359:491 */
+  max-width: 600px;
 }
 
 .about .player {
@@ -933,8 +933,7 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-family: 'Inter Tight', 'Inter', sans-serif;   /* Figma: Inter Display Medium 20 / 130%, -2% */
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.02em;
@@ -958,8 +957,7 @@ body {
 .about__lead,
 .about__body {
   margin: 0;
-  font-family: 'Inter Tight', 'Inter', sans-serif;   /* Figma: Inter Display Medium 24 / 150%, -1% */
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: -0.01em;
@@ -1006,12 +1004,19 @@ body {
    with the track info and transport underneath. */
 .player.player--disc {
   gap: 40px;                       /* Figma 374:430 */
-  max-width: 400px;                /* Figma 359:490: the About column is 400px */
+  max-width: 600px;                /* the copy column's width… */
   padding: 0;
   border: 0;
   border-radius: 0;
   background: none;
   box-shadow: none;
+}
+
+/* …with the player itself at most 400px, flush with the copy's left edge */
+.player--disc > .disc-stage,
+.player--disc > .player__body {
+  width: 100%;
+  max-width: 400px;
 }
 
 .disc-stage {
@@ -1072,18 +1077,8 @@ body {
 
 .player--disc .player__title,
 .player--disc .player__artist {
-  font-family: 'Inter Tight', 'Inter', sans-serif;   /* Figma: Inter Display Medium */
-  letter-spacing: 0;
-}
-
-.player--disc .player__title {
-  font-size: 20px;                 /* Figma 374:435 */
+  font-size: 16px;                 /* same as the site's body copy */
   line-height: 20px;
-}
-
-.player--disc .player__artist {
-  font-size: 18px;                 /* Figma 374:436 */
-  line-height: 22px;
 }
 
 .player--disc .player__controls {
