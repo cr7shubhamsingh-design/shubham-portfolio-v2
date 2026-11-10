@@ -47,7 +47,8 @@ const params = { ...SETTINGS };
 let lastTone = { h: 220, s: 0, dark: 0, pale: 0, ph: 0, ps: 0 };
 const BG = background;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let running = false, raf = 0, visible = false, dirty = 2, dtSmooth = 1 / 60;   // render on demand (see frame / wake)
+let toneSnapped = false;
+let running = false, raf = 0, visible = false, dirty = 2, dtSmooth = 1 / 60, lastTick = 0, vsync = 16.7, skipTick = false;   // render on demand (see frame / wake)
 
 // ------------------------------------------------------------------
 // Renderer, camera, environment
@@ -1124,7 +1125,12 @@ function applyTone(url) {
 }
 
 
-function frame() {
+function frame(now) {
+  // ~60fps is plenty for a slow spin: on fast screens (120/144Hz) draw every
+  // other vsync, which halves the GPU work and keeps an even cadence
+  if (lastTick) vsync += (Math.min(50, now - lastTick) - vsync) * 0.1;
+  lastTick = now;
+  if (vsync < 10 && (skipTick = !skipTick)) { raf = requestAnimationFrame(frame); return; }
   // frame time, lightly smoothed so one slow frame can't make the disc lurch
   const rawDt = Math.min(0.05, clock.getDelta());
   dtSmooth += (rawDt - dtSmooth) * 0.2;
@@ -1134,7 +1140,7 @@ function frame() {
   spinSpeed += ((playing ? SPIN : 0) - spinSpeed) * (1 - Math.exp(-dt * 1.6));
   discBase.rotation.z -= spinSpeed * dt;          // the whole disc turns; the light streaks stay put
 
-  const k = Math.min(1, dt * 3);
+  const k = 1 - Math.exp(-dt * 4.5);                              // colour ease: settles in ~1s
   tone.cur.lerp(tone.target, k);
   tone.tint.lerp(tone.tintTarget, k);
   tone.s += (tone.sTarget - tone.s) * k;
@@ -1201,10 +1207,17 @@ function frame() {
   // the disc spinning, colours or the art still fading, or a pending redraw
   // (resize, theme, new progress). Once it all settles the loop stops, and the
   // GPU does nothing until wake() is called again.
-  const near = (a, b) => Math.abs(a.r - b.r) + Math.abs(a.g - b.g) + Math.abs(a.b - b.b) < 0.002;
-  const busy = playing || spinSpeed > 0.002 || coverFade.v !== coverFade.target ||
-    Math.abs(tone.s - tone.sTarget) > 0.001 || Math.abs(tone.dark - tone.darkTarget) > 0.001 || Math.abs(tone.pale - tone.paleTarget) > 0.001 ||
+  // The colour ease is exponential, so its tail is invisible long before it ends:
+  // call it settled at a small difference and snap the rest (next frame draws it).
+  const near = (a, b) => Math.abs(a.r - b.r) + Math.abs(a.g - b.g) + Math.abs(a.b - b.b) < 0.006;
+  const toneBusy = Math.abs(tone.s - tone.sTarget) > 0.003 || Math.abs(tone.dark - tone.darkTarget) > 0.003 || Math.abs(tone.pale - tone.paleTarget) > 0.003 ||
     !near(tone.cur, tone.target) || !near(tone.tint, tone.tintTarget) || !near(tone.paleCase, tone.paleCaseT) || !near(tone.paleDeep, tone.paleDeepT);
+  if (!toneBusy && !toneSnapped) {
+    tone.s = tone.sTarget; tone.dark = tone.darkTarget; tone.pale = tone.paleTarget;
+    tone.cur.copy(tone.target); tone.tint.copy(tone.tintTarget); tone.paleCase.copy(tone.paleCaseT); tone.paleDeep.copy(tone.paleDeepT);
+    toneSnapped = true; dirty = Math.max(dirty, 1);
+  } else if (toneBusy) toneSnapped = false;
+  const busy = playing || spinSpeed > 0.002 || coverFade.v !== coverFade.target || toneBusy;
   if (dirty > 0) dirty--;
   if (running && (busy || dirty > 0)) raf = requestAnimationFrame(frame);
   else running = false;
@@ -1252,7 +1265,7 @@ function setBackground(css) {
   wake();
 }
 // render only while the player is on screen
-function start() { if (!running) { running = true; clock.getDelta(); dtSmooth = 1 / 60; raf = requestAnimationFrame(frame); } }
+function start() { if (!running) { running = true; lastTick = 0; clock.getDelta(); dtSmooth = 1 / 60; raf = requestAnimationFrame(frame); } }
 function stop() { running = false; cancelAnimationFrame(raf); }
 // ask for a redraw; runs only while the player is (nearly) on screen
 function wake() { dirty = Math.max(dirty, 2); if (visible) start(); }
